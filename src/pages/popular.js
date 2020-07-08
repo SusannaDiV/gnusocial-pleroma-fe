@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import Scream from '../components/scream/Scream';
-import ProfileTile from '../components/layout/ProfileTile';
 import ScreamSkeleton from '../util/ScreamSkeleton';
 
 import { connect } from 'react-redux';
 import { getScreams } from '../redux/actions/dataActions';
 
-class home extends Component {
+class Popular extends Component {
   componentDidMount() {
     this.props.getScreams();
   }
@@ -27,7 +26,7 @@ class home extends Component {
   }
 }
 
-home.propTypes = {
+Popular.propTypes = {
   getScreams: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired
 };
@@ -39,4 +38,4 @@ const mapStateToProps = (state) => ({
 export default connect(
   mapStateToProps,
   { getScreams }
-)(home);
+)(Popular);
