@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import Scream from '../components/scream/Scream';
-import StaticProfile from '../components/profile/StaticProfile';
 import Grid from '@material-ui/core/Grid';
 
 import ScreamSkeleton from '../util/ScreamSkeleton';
@@ -10,6 +9,7 @@ import ProfileSkeleton from '../util/ProfileSkeleton';
 
 import { connect } from 'react-redux';
 import { getUserData } from '../redux/actions/dataActions';
+import ProfileTile from '../components/layout/ProfileTile';
 
 class user extends Component {
   state = {
@@ -59,7 +59,7 @@ class user extends Component {
           {this.state.profile === null ? (
             <ProfileSkeleton />
           ) : (
-            <StaticProfile profile={this.state.profile} />
+            <ProfileTile profile={this.state.profile} />
           )}
         </Grid>
       </Grid>
