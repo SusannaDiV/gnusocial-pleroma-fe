@@ -15,18 +15,6 @@ import ChatIcon from '@material-ui/icons/Chat';
 import { connect } from 'react-redux';
 import { markNotificationsRead } from '../../redux/actions/userActions';
 
-/* <div className="w3-dropdown-hover w3-hide-small">
-          <button className="w3-button w3-padding-large" title="Notifications"><i className="fa fa-bell" /><span className="w3-badge w3-right w3-small w3-green">3</span></button>     
-          <div className="w3-dropdown-content  w3-bar-block" style={{width: '300px'}}>
-            <a href="#" className="w3-bar-item w3-button">johndoe21 sent you an invitation 
-              <span className="w3-right w3-small w3-opacity">12 seconds ago</span></a>
-            <a href="#" className="w3-bar-item w3-button">janedoe44 replied to your post
-              <span className="w3-right w3-small w3-opacity">22 minutes ago</span></a>
-            <a href="#" className="w3-bar-item w3-button">fediuser98 replied to your post
-              <span className="w3-right w3-small w3-opacity">45 minutes ago</span></a>
-          </div>
-        </div> */
-
 class Notifications extends Component {
   state = {
     anchorEl: null

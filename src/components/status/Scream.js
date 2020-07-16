@@ -74,10 +74,10 @@ class Scream extends Component {
             {userHandle}
           </Typography>
           {deleteButton}
-          <Typography variant="body2" color="textSecondary">
+          <Typography variant="body1" color="textSecondary">
             {dayjs(createdAt).fromNow()}
           </Typography>
-          <Typography variant="body1">{body}</Typography>
+          <Typography variant="body2">{body}</Typography>
           <LikeButton screamId={screamId} />
           <span>{likeCount} Likes</span>
           <MyButton tip="comments">
