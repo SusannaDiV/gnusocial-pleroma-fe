@@ -55,71 +55,67 @@ class ProfileTile extends Component {
       <style dangerouslySetInnerHTML={{__html: "\nhtml, body, h1, h2, h3, h4, h5 {font-family: \"Open Sans\", sans-serif}\n" }} />
 
       <div className="w3-col m3">
-              <div className="w3-card w3-round w3-white">
-                <div className="w3-container">
-                <p className="w3-center"> 
-                        <img src={imageUrl} className="w3-circle" style={{height: '106px', width: '106px'}} alt="Avatar" />
-                        <input
-                          type="file"
-                          id="imageInput"
-                          hidden="hidden"
-                          onChange={this.handleImageChange}
-                        />
-                      </p>
-                      <div className="w3-center"><strong>
-                        <MuiLink
-                          component={Link}
-                          to={`/users/${handle}`}
-                          variant="h5"
-                        >
-                          @{handle}
-                        </MuiLink></strong>
-                        {bio && <Typography variant="body2">{bio}</Typography>}
-                        <hr />
-                        {location && (
-                          <Fragment>
-                            <LocationOn color="primary" /> <span>{location}</span>
-                            <hr />
-                          </Fragment>
-                        )}
-                        {website && (
-                          <Fragment>
-                            <LinkIcon color="primary" />
-                            <a href={website} target="_blank" rel="noopener noreferrer">
-                              {' '}
-                              {website}
-                            </a>
-                          </Fragment>
-                        )}
-                      </div>
-                  <p><i className="fa fa-arrow-right fa-fw w3-margin-right w3-text-theme" /> Following <span className="w3-right "><strong>1</strong></span></p>
-                  <p><i className="fa fa-thumbs-up fa-fw w3-margin-right w3-text-theme" /> Followers <span className="w3-right "><strong>1</strong></span></p>
-                </div>
-                <div className="w3-container">
-                  <div className="w3-half ">
-                    <button className="w3-button w3-block w3-theme w3-section" title="Message"><i className="fa fa-comment" />  Message</button>
-                  </div>
-                  <div className="w3-half">
-                    <button className="w3-button w3-block w3-theme-d2 w3-section" title="Decline"><i className="fa fa-pencil" />  Edit</button>
-                  </div>                       <EditDetails />
-                </div>
-              </div>
-              <br />
-              <div className="w3-card w3-round w3-white">
-                <div className="w3-container">
-                  <p><strong>Statistics</strong></p>
-                  <p><i className="fa fa-user fa-fw w3-margin-right w3-text-theme" /> User ID <strong>69413</strong></p>
-                  <p><i className="fa fa-clock-o fa-fw w3-margin-right w3-text-theme" /> Member since <strong><span>{dayjs(createdAt).format('DD MMM YYYY')}</span></strong></p>
-                  <p><i className="fa fa-calendar fa-fw w3-margin-right w3-text-theme" /> Daily average <strong>0</strong></p>
-                </div>
-              </div>
-              <br />
+        <div className="w3-card w3-round w3-white">
+          <div className="w3-container">
+            <p className="w3-center"> 
+              <img src={imageUrl} className="w3-circle" style={{height: '106px', width: '106px'}} alt="Avatar" />
+              <input
+                type="file"
+                id="imageInput"
+                hidden="hidden"
+                onChange={this.handleImageChange}
+              />
+            </p>
+            <div className="w3-center"><strong>
+              <MuiLink
+                component={Link}
+                to={`/users/${handle}`}
+                variant="h5"
+              >
+              @{handle}
+              </MuiLink></strong>
+              {bio && <Typography variant="body2">{bio}</Typography>}
+              <hr />
+              {location && (
+                <Fragment>
+                <LocationOn color="primary" /> <span>{location}</span>
+                <hr />
+                </Fragment>
+              )}
+              {website && (
+                <Fragment>
+                <LinkIcon color="primary" />
+                <a href={website} target="_blank" rel="noopener noreferrer">
+                  {' '}
+                  {website}
+                  </a>
+                  </Fragment>
+                )}
             </div>
+            <p><i className="fa fa-arrow-right fa-fw w3-margin-right w3-text-theme" /> Following <span className="w3-right "><strong>1</strong></span></p>
+            <p><i className="fa fa-thumbs-up fa-fw w3-margin-right w3-text-theme" /> Followers <span className="w3-right "><strong>1</strong></span></p>
+          </div>
+          <div className="w3-container">
+            <div className="w3-half ">
+              <button className="w3-button w3-block w3-theme w3-section" title="Message"><i className="fa fa-comment" />  Message</button>
+            </div>
+            <div className="w3-half">
+              <button className="w3-button w3-block w3-theme-d2 w3-section" title="Decline"><i className="fa fa-pencil" />  Edit</button>
+            </div>                       <EditDetails />
+          </div>
+        </div>
+        <br />
+        <div className="w3-card w3-round w3-white">
+          <div className="w3-container">
+            <p><strong>Statistics</strong></p>
+            <p><i className="fa fa-user fa-fw w3-margin-right w3-text-theme" /> User ID <strong>69413</strong></p>
+            <p><i className="fa fa-clock-o fa-fw w3-margin-right w3-text-theme" /> Member since <strong><span>{dayjs(createdAt).format('DD MMM YYYY')}</span></strong></p>
+            <p><i className="fa fa-calendar fa-fw w3-margin-right w3-text-theme" /> Daily average <strong>0</strong></p>
+          </div>
+        </div>
+        <br />
+      </div>
     </div>
-        
-  
-         
-            
       ) : (
         <Paper className={classes.paper}>
           <Typography variant="body2" align="center">
