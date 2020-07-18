@@ -85,7 +85,7 @@ class App extends Component {
                     </div>
                   </div>
                   <div className="w3-container w3-padding w3-card w3-white w3-round w3-margin">
-                    <h5 className="w3-opacity">Replies to susannadivita</h5> </div>
+                    <h5 className="w3-opacity">Replies to {handle}</h5> </div>
                     <div className="w3-container w3-card w3-white w3-round w3-margin"><br />
                     <Switch>
                       <Route exact path="/" component={home} />
