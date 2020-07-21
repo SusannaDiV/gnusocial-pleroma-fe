@@ -89,13 +89,14 @@ class Notifications extends Component {
     return (
       <Fragment>
         <Tooltip placement="top" title="Notifications">
-          <IconButton
+          <button
+            className="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
             aria-owns={anchorEl ? 'simple-menu' : undefined}
             aria-haspopup="true"
             onClick={this.handleOpen}
           >
             {notificationsIcon}
-          </IconButton>
+          </button>
         </Tooltip>
         <Menu
           anchorEl={anchorEl}

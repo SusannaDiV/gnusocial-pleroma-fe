@@ -330,3 +330,92 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 .w3-hover-theme:hover {color:#fff !important; background-color:#616161 !important}
 .w3-hover-text-theme:hover {color:#616161 !important}
 .w3-hover-border-theme:hover {border-color:#616161 !important}
+.mr-5{
+    margin-right: 5px;
+}
+.ml-5{
+    margin-left: 5px;
+}
+.file-button{
+    position: relative;
+}
+.file-button .file-input{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
+.post-status-form{
+    position: relative;
+}
+.post-status-form textarea{
+    width: 100%;
+    outline: none;
+    border: none;
+    border: 1px solid #616161;
+    padding: 10px;
+    font-size: 14px;
+    padding-right: 30px;
+}
+.post-status-form textarea:focus{
+    border-color: #000;
+}
+.word-counter{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: #515151;
+    font-size: 12px;
+}
+.btn{
+    outline: none;
+}
+.btn a{
+    text-decoration: none;
+}
+.header-search{
+    position: relative;
+}
+.header-search .search-form{
+    position: absolute;
+    right: 100%;
+    top: 6px;
+    width: 0;
+    overflow: hidden;
+    transition: .35s;
+}
+.search-form input{
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 10px 15px;
+    font-size: 14px;
+}
+.header-search.active .search-form{
+    width: 230px;
+}
+.header-search button{
+    padding: 7px 14px !important;
+    margin-top: 6px;
+}
+.header-search.active button{
+    background-color: #fff;
+    color: #000;
+}
+.scream-button-right{
+    position: absolute;
+    right: 10px;
+    bottom: 24px;
+}
+.scream-item{
+    padding: 20px;
+    border-bottom: 1px solid #616161;
+    padding-bottom: 30px;
+    margin-bottom: 10px;
+}
+.scream-item:last-child{
+    border: none;
+    margin-bottom: 0px;
+}
