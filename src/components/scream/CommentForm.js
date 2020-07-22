@@ -42,8 +42,16 @@ class CommentForm extends Component {
 
     const commentFormMarkup = authenticated ? (
       <Grid item sm={12} style={{ textAlign: 'center' }}>
-        <form onSubmit={this.handleSubmit}>
-          <TextField
+        <form onSubmit={this.handleSubmit} className="overflow-hidden">
+          <textarea
+            name="body"
+            placeholder="Comment on scream"
+            rows="2"
+            className="form-control"
+            onChange={this.handleChange}
+          ></textarea>
+          <button type="submit" className="w3-button w3-theme w3-right">Submit</button>
+          {/* <TextField
             name="body"
             type="text"
             label="Comment on scream"
@@ -61,7 +69,7 @@ class CommentForm extends Component {
             className={classes.button}
           >
             Submit
-          </Button>
+          </Button> */}
         </form>
         <hr className={classes.visibleSeparator} />
       </Grid>

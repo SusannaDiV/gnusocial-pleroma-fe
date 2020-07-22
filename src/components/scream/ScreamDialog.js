@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import MyButton from '../../util/MyButton';
 import LikeButton from './LikeButton';
+import NewButtonGold from '../../util/NewButtonGold'
 import Comments from './Comments';
 import CommentForm from './CommentForm';
 import dayjs from 'dayjs';
@@ -118,13 +119,13 @@ class ScreamDialog extends Component {
             {dayjs(createdAt).format('h:mm a, MMMM DD YYYY')}
           </Typography>
           <hr className={classes.invisibleSeparator} />
-          <Typography variant="body1">{body}</Typography>
+          <Typography variant="body1" className="mb-30">{body}</Typography>
           <LikeButton screamId={screamId} />
-          <span>{likeCount} likes</span>
-          <MyButton tip="comments">
-            <ChatIcon color="primary" />
-          </MyButton>
-          <span>{commentCount} comments</span>
+          {/* <span>{likeCount} likes</span> */}
+          <NewButtonGold tip="comments">
+            <ChatIcon color="white" className="w3-left" />
+            <span className="ml-5">{commentCount} comments</span>
+          </NewButtonGold>
         </Grid>
         <hr className={classes.visibleSeparator} />
         <CommentForm screamId={screamId} />

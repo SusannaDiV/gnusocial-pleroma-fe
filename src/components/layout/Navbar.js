@@ -44,7 +44,7 @@ class Navbar extends Component {
           <div className="w3-dropdown-content head_menu  w3-bar-block" style={{width: '100px'}}><h4> </h4>
             <button className="w3-button w3-block w3-theme-l2 w3-section" title="Decline"><i className="fa fa-wrench" /> Settings</button>
             <hr />
-            <button className="w3-button w3-block w3-theme-d2 w3-section" title="Decline"><i className="fa fa-sign-out" /> Logout</button>
+            <button onClick={this.handleLogout} className="w3-button w3-block w3-theme-d2 w3-section" title="Decline"><i className="fa fa-sign-out" /> Logout</button>
           </div>
         </div>
         <div className={this.state.showSearch ? 'w3-right header-search active' : 'w3-right header-search'}>

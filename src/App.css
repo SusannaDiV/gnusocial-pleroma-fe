@@ -336,6 +336,9 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 .ml-5{
     margin-left: 5px;
 }
+.ml-8{
+    margin-left: 8px;
+}
 .file-button{
     position: relative;
 }
@@ -350,7 +353,7 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 .post-status-form{
     position: relative;
 }
-.post-status-form textarea{
+textarea.form-control{
     width: 100%;
     outline: none;
     border: none;
@@ -358,6 +361,7 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
     padding: 10px;
     font-size: 14px;
     padding-right: 30px;
+    resize: none;
 }
 .post-status-form textarea:focus{
     border-color: #000;
@@ -411,11 +415,21 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 }
 .scream-item{
     padding: 20px;
-    border-bottom: 1px solid #616161;
-    padding-bottom: 30px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
+    position: relative;
 }
-.scream-item:last-child{
-    border: none;
-    margin-bottom: 0px;
+.scream-item img{
+    max-width: 60px;
+}
+.scream-item a{
+    text-decoration: none;
+}
+.overflow-hidden{
+    overflow: hidden;
+}
+.w3-button{
+    outline: none;
+}
+.mb-30{
+    margin-bottom: 30px!important;
 }
