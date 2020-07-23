@@ -66,13 +66,14 @@ class EditDetails extends Component {
     const { classes } = this.props;
     return (
       <Fragment>
-        <MyButton 
+        {/* <MyButton 
           tip="Edit Details"
           onClick={this.handleOpen}
           btnClassName={classes.button}
         >
           <EditIcon color="primary" />
-        </MyButton>
+        </MyButton> */}
+        <button onClick={this.handleOpen} className="w3-button w3-block w3-theme-d2 w3-section" title="Decline"><i className="fa fa-pencil" />  Edit</button>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
@@ -117,12 +118,14 @@ class EditDetails extends Component {
             </form>
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
+            <button onClick={this.handleClose} className="w3-button w3-theme w3-section" title="Message">Cancel</button>
+            <button onClick={this.handleSubmit} className="w3-button w3-theme-d2 w3-section" title="Save">Save</button>
+            {/* <Button onClick={this.handleClose} color="primary">
               Cancel
             </Button>
             <Button onClick={this.handleSubmit} color="primary">
               Save
-            </Button>
+            </Button> */}
           </DialogActions>
         </Dialog>
       </Fragment>

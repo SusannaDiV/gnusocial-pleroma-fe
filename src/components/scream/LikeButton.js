@@ -32,18 +32,18 @@ export class LikeButton extends Component {
     const likeButton = !authenticated ? (
       <Link to="/login">
         <NewButtonRed tip="Like">
-          <FavoriteIcon color="white" className="pull-left" />
-          <span className="ml-5">{this.props.likeCount} Likes</span>
+          <FavoriteIcon color="inherit" className="pull-left" />
+          <span className="ml-5">{this.props.likeCount}</span>
         </NewButtonRed>
       </Link>
     ) : this.likedScream() ? (
       <NewButtonRed tip="Undo like" onClick={this.unlikeScream}>
-        <FavoriteIcon color="white" className="pull-left" />
+        <FavoriteIcon color="inherit" className="pull-left" />
         <span className="ml-5">{this.props.likeCount} Likes</span>
       </NewButtonRed>
     ) : (
       <NewButtonRed tip="Like" onClick={this.likeScream}>
-        <FavoriteIcon color="white" className="pull-left" />
+        <FavoriteIcon color="inherit" className="pull-left" />
         <span className="ml-5">{this.props.likeCount} Likes</span>
       </NewButtonRed>
     );

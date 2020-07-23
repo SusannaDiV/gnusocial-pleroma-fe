@@ -102,7 +102,7 @@ class Notifications extends Component {
       <Fragment>
         <Tooltip placement="top" title="Notifications">
           <button
-            className="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
+            className="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white notification-button"
             aria-owns={anchorEl ? 'simple-menu' : undefined}
             aria-haspopup="true"
             onClick={this.handleOpen}

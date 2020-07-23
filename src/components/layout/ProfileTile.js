@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import EditDetails from './EditDetails';
 import ProfileSkeleton from '../../util/ProfileSkeleton';
+import MyButton from '../../util/MyButton';
 // MUI stuff
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -13,6 +14,7 @@ import Paper from '@material-ui/core/Paper';
 // Icons
 import LocationOn from '@material-ui/icons/LocationOn';
 import LinkIcon from '@material-ui/icons/Link';
+import EditIcon from '@material-ui/icons/Edit';
 
 //Redux
 import { connect } from 'react-redux';
@@ -58,13 +60,23 @@ class ProfileTile extends Component {
             <div className="w3-card w3-round w3-white">
               <div className="w3-container">
                 <p className="w3-center">
-                  <img src={imageUrl} className="w3-circle" style={{ height: '106px', width: '106px' }} alt="Avatar" />
+                  <div className="profile-image">
+                  <MyButton
+                    tip="Edit profile picture"
+                    onClick={this.handleEditPicture}
+                    btnClassName="button"
+                  >
+                    <EditIcon style={{fill: "white"}} />
+                  </MyButton>
+                  <div className="overlay"></div>
+                  <img src={imageUrl} className="w3-circle" alt="Avatar" />
                   <input
                     type="file"
                     id="imageInput"
                     hidden="hidden"
                     onChange={this.handleImageChange}
                   />
+                  </div>
                 </p>
                 <div className="w3-center"><strong>
                   <MuiLink
@@ -100,8 +112,8 @@ class ProfileTile extends Component {
                   <button className="w3-button w3-block w3-theme w3-section" title="Message"><i className="fa fa-comment" />  Message</button>
                 </div>
                 <div className="w3-half">
-                  <button className="w3-button w3-block w3-theme-d2 w3-section" title="Decline"><i className="fa fa-pencil" />  Edit</button>
-                </div>                       <EditDetails />
+                  <EditDetails />
+                </div>
               </div>
             </div>
             <br />
@@ -160,7 +172,7 @@ const mapStateToProps = (state) => ({
 const mapActionsToProps = { uploadImage };
 
 ProfileTile.propTypes = {
-  logoutUser: PropTypes.func.isRequired,
+  // logoutUser: PropTypes.func.isRequired,
   uploadImage: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired

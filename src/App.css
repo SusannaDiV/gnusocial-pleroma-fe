@@ -424,6 +424,10 @@ textarea.form-control{
 .scream-item a{
     text-decoration: none;
 }
+.scream-item .copy-button{
+    margin-left: 8px;
+    padding: 9px 20px;
+}
 .overflow-hidden{
     overflow: hidden;
 }
@@ -432,4 +436,75 @@ textarea.form-control{
 }
 .mb-30{
     margin-bottom: 30px!important;
+}
+.emoji-picker{
+    float: right;
+    position: relative;
+}
+.emoji-picker-react{
+    position: absolute!important;
+    right: 42px;
+    top: 0;
+    z-index: 9;
+}
+.emoji-picker span{
+    float: right;
+    padding: 6px 10px;
+    cursor: pointer;
+    border: 1px solid #d3d3d3;
+}
+.emoji-list{
+    padding: 0;
+    margin-bottom: 10;
+}
+.emoji-button{
+    font-size: 20px;
+    padding: 5px 18px;
+    margin-left: 8px;
+}
+.emoji-list li{
+    list-style: none;
+    display: inline-block;
+    padding: 8px 10px;
+    border: 1px solid #818181;
+    margin-right: 5px;
+}
+.notification-button{
+    padding: 13.5px 20px !important;
+}
+.notification-button svg{
+    float: left;
+}
+.profile-image{
+    position: relative;
+    height: 110px;
+    width: 110px;
+    border-radius: 110%;
+    margin: auto;
+    overflow: hidden;
+}
+.profile-image img{
+    width: 100%;
+    height: 100%;
+}
+.profile-image .overlay{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.4);
+    transition: .35s;
+    display: none;
+}
+.profile-image .button{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    z-index: 9;
+    display: none;
+}
+.profile-image:hover .button, .profile-image:hover .overlay{
+    display: block;
 }

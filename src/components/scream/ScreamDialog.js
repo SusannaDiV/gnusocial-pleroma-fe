@@ -98,7 +98,7 @@ class ScreamDialog extends Component {
 
     const dialogMarkup = loading ? (
       <div className={classes.spinnerDiv}>
-        <CircularProgress size={200} thickness={2} />
+        <CircularProgress color="secondary" size={200} thickness={2} />
       </div>
     ) : (
       <Grid container spacing={16}>
@@ -123,7 +123,7 @@ class ScreamDialog extends Component {
           <LikeButton screamId={screamId} />
           {/* <span>{likeCount} likes</span> */}
           <NewButtonGold tip="comments">
-            <ChatIcon color="white" className="w3-left" />
+            <ChatIcon color="inherit" className="w3-left" />
             <span className="ml-5">{commentCount} comments</span>
           </NewButtonGold>
         </Grid>
@@ -138,7 +138,7 @@ class ScreamDialog extends Component {
           onClick={this.handleOpen}
           tip="Expand scream"
         >
-          <Code color="white" className="w3-left" />
+          <Code color="inherit" className="w3-left" />
           <span className="ml-5">In conversation</span>
         </NewButtonRed>
         <Dialog

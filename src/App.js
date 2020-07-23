@@ -13,7 +13,6 @@ import { logoutUser, getUserData } from './redux/actions/userActions';
 import Navbar from './components/layout/Navbar';
 import themeObject from './util/theme';
 import AuthRoute from './util/AuthRoute';
-import PostStatus from './components/scream/PostStatus';
 // Pages
 import home from './pages/home';
 import login from './pages/login';
@@ -24,6 +23,7 @@ import network from './pages/network';
 
 import axios from 'axios';
 import ProfileTile from './components/layout/ProfileTile';
+import { Link } from 'react-router-dom';
 
 const theme = createMuiTheme(themeObject);
 
@@ -42,64 +42,56 @@ if (token) {
     store.dispatch(getUserData());
   }
 }
-
+// const location = useLocation();
 class App extends Component {
+
+
+  componentDidMount() {
+
+    
+  }
+
   render() {
     return (
       <MuiThemeProvider theme={theme}>
         <Provider store={store}>
           <Router>
-            <Navbar /> 
+            <Navbar />
             <div className="container">
-            <div className="w3-container w3-content" style={{maxWidth: '1200px', marginTop: '80px'}}>    
-              <div className="w3-row">
-                <div className="w3-col m2">
-                  <div className="w3-card w3-round">
-                    <div className="w3-white">
-                      <button onclick="myFunction('Demo1')" className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-circle-o-notch fa-fw w3-margin-right" /> Public</button>
-                      <div id="Demo1" className="w3-hide w3-container">
-                      </div>
-                      <button onclick="myFunction('Demo9')" className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-user fa-fw w3-margin-right" /> Profile</button>
-                      <button onclick="myFunction('Demo8')" className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-thumbs-up fa-fw w3-margin-right" /> Popular</button>
-                      <button onclick="myFunction('Demo3')" className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-users fa-fw w3-margin-right" /> Network</button>
-                    </div>      
-                  </div>
-                  <br />
-                  <div className="w3-card w3-round w3-white w3-center">
-                    <div className="w3-container">
-                      <p><button className="w3-button w3-block w3-theme-l4">Send Invite</button></p>
-                    </div>
-                  </div>
-                  <br />
-                </div>
-                <div className="w3-col m7">
-                  <div className="w3-row-padding">
-                    <div className="w3-col m12">
-                      <div className="w3-card w3-round w3-white">
-                        <div className="w3-container w3-padding">
-                        <PostStatus />
-                          {/* <button type="button" className="w3-button w3-theme"><i className="fa fa-pencil" />  Post</button>  */}
-                          {/* <button type="button" className="w3-button w3-theme w-right"><i className="fa fa-paperclip" /></button>  */}
-                        </div>
+              <div className="w3-container w3-content" style={{ maxWidth: '1200px', marginTop: '80px' }}>
+                <div className="w3-row">
+                  <div className="w3-col m2">
+                    <div className="w3-card w3-round">
+                      <div className="w3-white">
+                        <Link to="/" className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-circle-o-notch fa-fw w3-margin-right" /> Public</Link>
+                        <Link to="/users/:handle/scream/:screamId" className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-user fa-fw w3-margin-right" /> Profile</Link>
+                        <Link to="/popular" className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-thumbs-up fa-fw w3-margin-right" /> Popular</Link>
+                        <Link to="/network" className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-users fa-fw w3-margin-right" /> Network</Link>
                       </div>
                     </div>
+                    <br />
+                    <div className="w3-card w3-round w3-white w3-center">
+                      <div className="w3-container">
+                        <p><button className="w3-button w3-block w3-theme-l4">Send Invite</button></p>
+                      </div>
+                    </div>
+                    <br />
                   </div>
-                  <div className="w3-container w3-padding w3-card w3-white w3-round w3-margin">
-                    <h5 className="w3-opacity">Replies to susannadivita</h5> </div>
+                  <div className="w3-col m7">
                     <div className="w3-container">
-                    <Switch>
-                      <Route exact path="/" component={home} />
-                      <Route exact path="/Popular" component={popular} />
-                      <Route exact path="/Network" component={network} />
-                      <AuthRoute exact path="/login" component={login} />
-                      <AuthRoute exact path="/signup" component={signup} />
-                      <Route exact path="/users/:handle" component={user} />
-                      <Route
-                        exact
-                        path="/users/:handle/scream/:screamId"
-                        component={user}
-                      />
-                    </Switch>
+                      <Switch>
+                        <Route exact path="/" component={home} />
+                        <Route exact path="/popular" component={popular} />
+                        <Route exact path="/network" component={network} />
+                        <AuthRoute exact path="/login" component={login} />
+                        <AuthRoute exact path="/signup" component={signup} />
+                        <Route exact path="/users/:handle" component={user} />
+                        <Route
+                          exact
+                          path="/users/:handle/scream/:screamId"
+                          component={user}
+                        />
+                      </Switch>
                     </div>
                   </div>
                   <div className="w3-col m3">

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Picker, { SKIN_TONE_MEDIUM_DARK } from 'emoji-picker-react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
@@ -17,6 +18,7 @@ import Typography from '@material-ui/core/Typography';
 // Icons
 import ChatIcon from '@material-ui/icons/Chat';
 import InsertLink from '@material-ui/icons/InsertLink';
+import InsertEmoticonOutlined from '@material-ui/icons/InsertEmoticonOutlined';
 // Redux
 import { connect } from 'react-redux';
 
@@ -35,7 +37,42 @@ const styles = {
   }
 };
 
+const customNames = {
+  foods: 'food and drink',
+  nature: 'outdoors',
+  objects: 'stuff'
+};
+
 class Scream extends Component {
+  state = {
+    chosenEmoji: [],
+    openEmojiPicker: false,
+  }
+  onEmojiClick = (event, emojiObject) => {
+    emojiObject.count = 1;
+    var found = false;
+    const newEmoji = this.state.chosenEmoji.map(emoji => {
+      if (emoji.unified === emojiObject.unified) {
+        found = true;
+        emoji.count += 1;
+      }
+      return emoji;
+    })
+
+    if (!found) {
+      this.setState({
+        chosenEmoji: [...this.state.chosenEmoji, emojiObject],
+        openEmojiPicker: false
+      })
+    } else {
+      this.setState({
+        chosenEmoji: newEmoji,
+        openEmojiPicker: false
+      })
+    }
+
+  }
+
   render() {
     dayjs.extend(relativeTime);
     const {
@@ -47,7 +84,8 @@ class Scream extends Component {
         userHandle,
         screamId,
         likeCount,
-        commentCount
+        commentCount,
+        // emoji
       },
       user: {
         authenticated,
@@ -67,21 +105,47 @@ class Scream extends Component {
         {deleteButton}
         <hr className="w3-clear" />
         <p variant="body1 mb-30">{body}</p>
-        
+
+        <ul className="emoji-list">
+          {
+            this.state.chosenEmoji.length > 0 && this.state.chosenEmoji.map(emoji =>
+              <li key={emoji.unified}>{emoji.emoji} {emoji.count}</li>
+            )
+          }
+        </ul>
+
+
+
+        {/* <ul className="emoji-list">
+          {
+            emoji.length > 0 && emoji.map(emoji =>
+              <li key={emoji.unified}>{emoji.emoji} {emoji.count}</li>
+            )
+          }
+        </ul> */}
         <LikeButton screamId={screamId} />
         <NewButtonGold tip="comments">
-          <ChatIcon color="white" className="w3-left" />
-          <span className="ml-5">{commentCount} comments</span>
+          <ChatIcon color="inherit" className="w3-left" />
+          <span className="ml-5">{commentCount}</span>
         </NewButtonGold>
+        <button className="w3-button w-right file-button w3-theme-d2 copy-button">
+          <i className="fa fa-recycle" />
+        </button>
         <div className="w3-right">
-        <ScreamDialog
-          screamId={screamId}
-          userHandle={userHandle}
-          openDialog={this.props.openDialog}
-        />
-        <NewButtonGold tip="From Web">
-          <InsertLink className="w3-left" />
-        </NewButtonGold>
+          <ScreamDialog
+            screamId={screamId}
+            userHandle={userHandle}
+            openDialog={this.props.openDialog}
+          />
+          <NewButtonGold tip="From Web">
+            <InsertLink className="w3-left" />
+          </NewButtonGold>
+          <div className="emoji-picker">
+            <button onClick={() => { this.setState({ openEmojiPicker: !this.state.openEmojiPicker }) }} className="w3-button w-right w3-theme-d2 ml-8">
+              <InsertEmoticonOutlined className="w3-left" />
+            </button>
+            {this.state.openEmojiPicker && <Picker onEmojiClick={this.onEmojiClick} disableAutoFocus={true} skinTone={SKIN_TONE_MEDIUM_DARK} />}
+          </div>
         </div>
       </div>
       // <Card className={classes.card}>

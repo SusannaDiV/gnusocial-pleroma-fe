@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 
 import ScreamSkeleton from '../util/ScreamSkeleton';
 import ProfileSkeleton from '../util/ProfileSkeleton';
+import PostStatus from '../components/scream/PostStatus';
 
 import { connect } from 'react-redux';
 import { getUserData } from '../redux/actions/dataActions';
@@ -43,16 +44,24 @@ class user extends Component {
     ) : !screamIdParam ? (
       screams.map((scream) => <Scream key={scream.screamId} scream={scream} />)
     ) : (
-      screams.map((scream) => {
-        if (scream.screamId !== screamIdParam)
-          return <Scream key={scream.screamId} scream={scream} />;
-        else return <Scream key={scream.screamId} scream={scream} openDialog />;
-      })
-    );
+            screams.map((scream) => {
+              if (scream.screamId !== screamIdParam)
+                return <Scream key={scream.screamId} scream={scream} />;
+              else return <Scream key={scream.screamId} scream={scream} openDialog />;
+            })
+          );
 
     return (
       <Grid container spacing={16}>
         <Grid item sm={12} xs={12}>
+          <div className="w3-card w3-round w3-white">
+            <div className="w3-container w3-padding">
+              <PostStatus />
+            </div>
+          </div>
+          <div className="w3-container w3-padding w3-card w3-white w3-round w3-margin-top w3-margin-bottom">
+            <h5 className="w3-opacity">Public Timeline</h5>
+          </div>
           {screamsMarkup}
         </Grid>
         {/* <Grid item sm={4} xs={12}>

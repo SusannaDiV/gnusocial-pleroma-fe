@@ -5,7 +5,7 @@ export default class Search extends Component {
     super(props);
     this.onClick = this.onClick.bind(this);
     this.state = {
-      showSearchBar: false, 
+      showSearchBar: false, // control what ever to render the searchbar or just the icon
     };
   }
   onClick() {
