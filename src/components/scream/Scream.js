@@ -123,7 +123,7 @@ class Scream extends Component {
             )
           }
         </ul> */}
-        <LikeButton screamId={screamId} />
+        <LikeButton screamId={screamId} likeCount={likeCount} />
         <NewButtonGold tip="comments">
           <ChatIcon color="inherit" className="w3-left" />
           <span className="ml-5">{commentCount}</span>

@@ -78,6 +78,11 @@ class PostStatus extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     this.props.postStatus({ body: this.state.body, emoji: this.state.chosenEmoji });
+    this.setState({
+      body: '',
+      file: null,
+      chosenEmoji: ''
+    })
   };
   onEmojiClick = (event, emojiObject) => {
     this.setState({
@@ -99,6 +104,7 @@ class PostStatus extends Component {
             placeholder="Remember to follow Fediverse's guidelines while posting"
             rows="2"
             className="form-control"
+            value={this.state.body}
             onChange={this.handleChange}
           ></textarea>
           {

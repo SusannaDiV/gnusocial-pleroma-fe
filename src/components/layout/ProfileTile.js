@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 import EditDetails from './EditDetails';
 import ProfileSkeleton from '../../util/ProfileSkeleton';
 import MyButton from '../../util/MyButton';
+import Settings from './Settings';
 // MUI stuff
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -59,7 +60,7 @@ class ProfileTile extends Component {
           <div>
             <div className="w3-card w3-round w3-white">
               <div className="w3-container">
-                <p className="w3-center">
+                <div className="w3-center w3-padding">
                   <div className="profile-image">
                   <MyButton
                     tip="Edit profile picture"
@@ -77,12 +78,13 @@ class ProfileTile extends Component {
                     onChange={this.handleImageChange}
                   />
                   </div>
-                </p>
+                </div>
                 <div className="w3-center"><strong>
                   <MuiLink
                     component={Link}
                     to={`/users/${handle}`}
                     variant="h5"
+                    className="w3-text-grey"
                   >
                     @{handle}
                   </MuiLink></strong>
@@ -112,6 +114,7 @@ class ProfileTile extends Component {
                   <button className="w3-button w3-block w3-theme w3-section" title="Message"><i className="fa fa-comment" />  Message</button>
                 </div>
                 <div className="w3-half">
+                  {/* <Settings /> */}
                   <EditDetails />
                 </div>
               </div>

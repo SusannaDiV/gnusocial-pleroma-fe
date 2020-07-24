@@ -50,7 +50,8 @@ class Navbar extends Component {
                       <img src="/static/media/no-img.6732bd42.png" className="w3-circle" style={{ height: '23px', width: '23px' }} alt="Avatar" />
                     </button>
                     <div className="w3-dropdown-content head_menu  w3-bar-block" style={{ width: '100px' }}><h4> </h4>
-                      <button className="w3-button w3-block w3-theme-l2 w3-section" title="Decline"><i className="fa fa-wrench" /> Settings</button>
+                      <Link to={`/users/${this.props.user?.credentials.handle}`} className="w3-button w3-block w3-theme-l2 w3-section"><i className="fa fa-user" /> Profile</Link>
+                      {/* <button className="w3-button w3-block w3-theme-l2 w3-section" title="Decline"></button> */}
                       <hr />
                       <button onClick={this.handleLogout} className="w3-button w3-block w3-theme-d2 w3-section" title="Decline"><i className="fa fa-sign-out" /> Logout</button>
                     </div>
@@ -75,6 +76,7 @@ Navbar.propTypes = {
 
 const mapStateToProps = (state) => ({
   authenticated: state.user.authenticated,
+  user: state.user,
   logoutUser: PropTypes.func.isRequired
 });
 

@@ -39,12 +39,12 @@ export class LikeButton extends Component {
     ) : this.likedScream() ? (
       <NewButtonRed tip="Undo like" onClick={this.unlikeScream}>
         <FavoriteIcon color="inherit" className="pull-left" />
-        <span className="ml-5">{this.props.likeCount} Likes</span>
+        <span className="ml-5">{this.props.likeCount}</span>
       </NewButtonRed>
     ) : (
       <NewButtonRed tip="Like" onClick={this.likeScream}>
         <FavoriteIcon color="inherit" className="pull-left" />
-        <span className="ml-5">{this.props.likeCount} Likes</span>
+        <span className="ml-5">{this.props.likeCount}</span>
       </NewButtonRed>
     );
     return likeButton;

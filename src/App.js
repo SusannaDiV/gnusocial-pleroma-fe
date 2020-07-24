@@ -21,6 +21,8 @@ import user from './pages/user';
 import popular from './pages/popular';
 import network from './pages/network';
 
+import Settings from './components/layout/Settings';
+
 import axios from 'axios';
 import ProfileTile from './components/layout/ProfileTile';
 import { Link } from 'react-router-dom';
@@ -45,10 +47,8 @@ if (token) {
 // const location = useLocation();
 class App extends Component {
 
+  openSettings() {
 
-  componentDidMount() {
-
-    
   }
 
   render() {
