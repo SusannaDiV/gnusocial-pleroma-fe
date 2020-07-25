@@ -1,12 +1,12 @@
-This is the code base for the React app for my [Full Stack React & Firebase series](https://www.youtube.com/watch?v=RkBfu-W7tt0&list=PLMhAeHCz8S38ryyeMiBPPUnFAiWnoPvWP)
+Pleroma FE-like forntend in React
 
-## 1: API Base URL
+## Current placeholder API
 
-Add https://europe-west1-socialape-d081e.cloudfunctions.net/api as the 'proxy' value in package.json
+https://europe-west1-socialape-d081e.cloudfunctions.net/api
 
 ## 2: Install packages
 
-run `npm instll`
+run `npm install`
 
 ## 3: Run project
 
