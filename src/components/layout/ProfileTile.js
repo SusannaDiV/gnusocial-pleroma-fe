@@ -44,7 +44,8 @@ class ProfileTile extends Component {
         credentials: { handle, createdAt, imageUrl, bio, website, location },
         loading,
         authenticated
-      }
+      },
+      profile
     } = this.props;
 
     let profileMarkup = !loading ? (
@@ -62,46 +63,51 @@ class ProfileTile extends Component {
               <div className="w3-container">
                 <div className="w3-center w3-padding">
                   <div className="profile-image">
-                  <MyButton
-                    tip="Edit profile picture"
-                    onClick={this.handleEditPicture}
-                    btnClassName="button"
-                  >
-                    <EditIcon style={{fill: "white"}} />
-                  </MyButton>
-                  <div className="overlay"></div>
-                  <img src={imageUrl} className="w3-circle" alt="Avatar" />
-                  <input
-                    type="file"
-                    id="imageInput"
-                    hidden="hidden"
-                    onChange={this.handleImageChange}
-                  />
+                    {
+                      !profile &&
+                      <>
+                      <MyButton
+                        tip="Edit profile picture"
+                        onClick={this.handleEditPicture}
+                        btnClassName="button"
+                      >
+                        <EditIcon style={{ fill: "white" }} />
+                      </MyButton>
+                      <div className="overlay"></div>
+                      </>
+                    }
+                    <img src={profile ? profile.imageUrl : imageUrl} className="w3-circle" alt="Avatar" />
+                    <input
+                      type="file"
+                      id="imageInput"
+                      hidden="hidden"
+                      onChange={this.handleImageChange}
+                    />
                   </div>
                 </div>
                 <div className="w3-center"><strong>
                   <MuiLink
                     component={Link}
-                    to={`/users/${handle}`}
+                    to={`/users/${profile ? profile.handle : handle}`}
                     variant="h5"
                     className="w3-text-grey"
                   >
-                    @{handle}
+                    @{profile ? profile.handle : handle}
                   </MuiLink></strong>
-                  {bio && <Typography variant="body2">{bio}</Typography>}
+                  {bio && <Typography variant="body2">{profile ? profile.bio : bio}</Typography>}
                   <hr />
-                  {location && (
+                  {(profile && profile.location || location) && (
                     <Fragment>
-                      <LocationOn color="primary" /> <span>{location}</span>
+                      <LocationOn color="primary" /> <span>{profile ? profile.location : location}</span>
                       <hr />
                     </Fragment>
                   )}
-                  {website && (
+                  {(profile && profile.website || website) && (
                     <Fragment>
                       <LinkIcon color="primary" />
                       <a href={website} target="_blank" rel="noopener noreferrer">
                         {' '}
-                        {website}
+                        {profile ? profile.website : website}
                       </a>
                     </Fragment>
                   )}
@@ -110,12 +116,14 @@ class ProfileTile extends Component {
                 <p><i className="fa fa-thumbs-up fa-fw w3-margin-right w3-text-theme" /> Followers <span className="w3-right "><strong>1</strong></span></p>
               </div>
               <div className="w3-container">
-                <div className="w3-half ">
+                <div className={!profile ? 'w3-half' : ''}>
                   <button className="w3-button w3-block w3-theme w3-section" title="Message"><i className="fa fa-comment" />  Message</button>
                 </div>
                 <div className="w3-half">
-                  {/* <Settings /> */}
-                  <EditDetails />
+                  {
+                    !profile && <EditDetails /> 
+                  }
+                  {/* <EditDetails /> */}
                 </div>
               </div>
             </div>
@@ -124,7 +132,7 @@ class ProfileTile extends Component {
               <div className="w3-container">
                 <p><strong>Statistics</strong></p>
                 <p><i className="fa fa-user fa-fw w3-margin-right w3-text-theme" /> User ID <strong>69413</strong></p>
-                <p><i className="fa fa-clock-o fa-fw w3-margin-right w3-text-theme" /> Member since <strong><span>{dayjs(createdAt).format('DD MMM YYYY')}</span></strong></p>
+                <p><i className="fa fa-clock-o fa-fw w3-margin-right w3-text-theme" /> Member since <strong><span>{dayjs(profile ? profile.createdAt : createdAt).format('DD MMM YYYY')}</span></strong></p>
                 <p><i className="fa fa-calendar fa-fw w3-margin-right w3-text-theme" /> Daily average <strong>0</strong></p>
               </div>
             </div>
@@ -169,6 +177,7 @@ class ProfileTile extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  profile: state.data.currentUser,
   user: state.user
 });
 

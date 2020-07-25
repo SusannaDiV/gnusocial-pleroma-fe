@@ -108,7 +108,7 @@ class ScreamDialog extends Component {
         <Grid item sm={7}>
           <Typography
             component={Link}
-            color="secondary"
+            color="textSecondary"
             variant="h5"
             to={`/users/${userHandle}`}
           >

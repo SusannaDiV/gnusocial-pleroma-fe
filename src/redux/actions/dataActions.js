@@ -1,4 +1,5 @@
 import {
+  SET_CURRENT_USER,
   SET_SCREAMS,
   LOADING_DATA,
   LIKE_SCREAM,
@@ -124,6 +125,10 @@ export const getUserData = (userHandle) => (dispatch) => {
         type: SET_SCREAMS,
         payload: res.data.screams
       });
+      dispatch({
+        type: SET_CURRENT_USER,
+        payload: res.data.user
+      })
     })
     .catch(() => {
       dispatch({

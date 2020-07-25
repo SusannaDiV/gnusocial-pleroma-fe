@@ -57,8 +57,8 @@ class login extends Component {
         <Grid container className={classes.form}>
           <Grid item sm />
           <Grid item sm>
-            <br />
-            <Typography variant="h4" className={classes.pageTitle}>
+            {/* <img src={AppIcon} alt="monkey" className={classes.image} /> */}
+            <Typography variant="h2" className={classes.pageTitle}>
               Login
           </Typography>
             <form noValidate onSubmit={this.handleSubmit}>
@@ -105,13 +105,12 @@ class login extends Component {
               </Button>
               <br />
               <small>
-                Dont have an account? <Link to="/signup">Sign up</Link>
+                dont have an account ? sign up <Link to="/signup">here</Link>
               </small>
             </form>
           </Grid>
           <Grid item sm />
         </Grid>
-        <br />
       </div>
     );
   }

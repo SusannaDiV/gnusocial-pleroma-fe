@@ -47,9 +47,7 @@ if (token) {
 // const location = useLocation();
 class App extends Component {
 
-  openSettings() {
-
-  }
+  
 
   render() {
     return (

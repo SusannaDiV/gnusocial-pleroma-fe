@@ -6,12 +6,14 @@ import {
   DELETE_SCREAM,
   POST_SCREAM,
   SET_SCREAM,
-  SUBMIT_COMMENT
+  SUBMIT_COMMENT,
+  SET_CURRENT_USER
 } from '../types';
 
 const initialState = {
   screams: [],
   scream: {},
+  currentUser: null,
   loading: false
 };
 
@@ -22,11 +24,17 @@ export default function(state = initialState, action) {
         ...state,
         loading: true
       };
+    case SET_CURRENT_USER:
+      return {
+        ...state,
+        currentUser: action.payload
+      }
     case SET_SCREAMS:
       return {
         ...state,
         screams: action.payload,
-        loading: false
+        loading: false,
+        currentUser: null
       };
     case SET_SCREAM:
       return {

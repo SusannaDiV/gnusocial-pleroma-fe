@@ -44,7 +44,7 @@ class Comments extends Component {
                         variant="h5"
                         component={Link}
                         to={`/users/${userHandle}`}
-                        color="primary"
+                        color="textSecondary"
                       >
                         {userHandle}
                       </Typography>

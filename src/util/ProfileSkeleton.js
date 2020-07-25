@@ -46,11 +46,11 @@ const ProfileSkeleton = (props) => {
           <div className={classes.fullLine} />
           <div className={classes.fullLine} />
           <hr />
-          <LocationOn /> <span>Location</span>
+          <LocationOn color="primary" /> <span>Location</span>
           <hr />
-          <LinkIcon /> https://website.com
+          <LinkIcon color="primary" /> https://website.com
           <hr />
-          <CalendarToday /> Joined date
+          <CalendarToday color="primary" /> Joined date
         </div>
       </div>
     </Paper>

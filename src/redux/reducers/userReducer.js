@@ -1,5 +1,6 @@
 import {
   SET_USER,
+  SET_CURRENT_USER,
   SET_AUTHENTICATED,
   SET_UNAUTHENTICATED,
   LOADING_USER,
@@ -27,6 +28,7 @@ export default function(state = initialState, action) {
       return initialState;
     case SET_USER:
       return {
+        ...state,
         authenticated: true,
         loading: false,
         ...action.payload

@@ -10,6 +10,7 @@ import PostStatus from '../components/scream/PostStatus';
 
 import { connect } from 'react-redux';
 import { getUserData } from '../redux/actions/dataActions';
+import { getCurrentUserData } from '../redux/actions/userActions';
 import ProfileTile from '../components/layout/ProfileTile';
 
 class user extends Component {
@@ -24,14 +25,15 @@ class user extends Component {
     if (screamId) this.setState({ screamIdParam: screamId });
 
     this.props.getUserData(handle);
-    axios
-      .get(`/user/${handle}`)
-      .then((res) => {
-        this.setState({
-          profile: res.data.user
-        });
-      })
-      .catch((err) => console.log(err));
+    // this.props.getUserData(handle);
+    // axios
+    //   .get(`/user/${handle}`)
+    //   .then((res) => {
+    //     this.setState({
+    //       profile: res.data.user
+    //     });
+    //   })
+    //   .catch((err) => console.log(err));
   }
   render() {
     const { screams, loading } = this.props.data;
