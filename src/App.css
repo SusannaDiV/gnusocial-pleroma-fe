@@ -1,5 +1,5 @@
 html{box-sizing:border-box}*,*:before,*:after{box-sizing:inherit}
-html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}body{margin:0}
+html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;background-color:#f6f6f6 !important}body{margin:0}
 article,aside,details,figcaption,figure,footer,header,main,menu,nav,section{display:block}summary{display:list-item}
 .head_menu { position: relative; right:0;}
 audio,canvas,progress,video{display:inline-block}progress{vertical-align:baseline}
