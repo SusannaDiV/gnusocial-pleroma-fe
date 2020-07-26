@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 // MUI Stuff
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
 // Redux stuff
 import { connect } from 'react-redux';
 import { submitComment } from '../../redux/actions/dataActions';
@@ -51,25 +49,6 @@ class CommentForm extends Component {
             onChange={this.handleChange}
           ></textarea>
           <button type="submit" className="w3-button w3-theme w3-right">Submit</button>
-          {/* <TextField
-            name="body"
-            type="text"
-            label="Comment on scream"
-            error={errors.comment ? true : false}
-            helperText={errors.comment}
-            value={this.state.body}
-            onChange={this.handleChange}
-            fullWidth
-            className={classes.textField}
-          />
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            className={classes.button}
-          >
-            Submit
-          </Button> */}
         </form>
         <hr className={classes.visibleSeparator} />
       </Grid>

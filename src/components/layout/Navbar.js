@@ -2,9 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import logo from './gnu-social-logo.png';
+import logo from '../../images/gnu-social-logo.png';
 import Notifications from './Notifications';
-import SearchOutlined from '@material-ui/icons/SearchOutlined';
 // import { SearchBar } from './Searchbar';// Redux
 import SearchInput from './SearchInput';
 import { logoutUser } from '../../redux/actions/userActions';
@@ -51,7 +50,6 @@ class Navbar extends Component {
                     </button>
                     <div className="w3-dropdown-content head_menu  w3-bar-block" style={{ width: '100px' }}><h4> </h4>
                       <Link to={`/users/${this.props.user?.credentials.handle}`} className="w3-button w3-block w3-theme-l2 w3-section"><i className="fa fa-user" /> Profile</Link>
-                      {/* <button className="w3-button w3-block w3-theme-l2 w3-section" title="Decline"></button> */}
                       <hr />
                       <button onClick={this.handleLogout} className="w3-button w3-block w3-theme-d2 w3-section" title="Decline"><i className="fa fa-sign-out" /> Logout</button>
                     </div>

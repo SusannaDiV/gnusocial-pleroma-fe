@@ -1,19 +1,15 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
-import MyButton from '../../util/MyButton';
 // Redux stuff
 import { connect } from 'react-redux';
 import { editUserDetails } from '../../redux/actions/userActions';
 // MUI Stuff
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-// Icons
-import EditIcon from '@material-ui/icons/Edit';
 
 const styles = (theme) => ({
   ...theme,
@@ -66,13 +62,6 @@ class EditDetails extends Component {
     const { classes } = this.props;
     return (
       <Fragment>
-        {/* <MyButton 
-          tip="Edit Details"
-          onClick={this.handleOpen}
-          btnClassName={classes.button}
-        >
-          <EditIcon color="primary" />
-        </MyButton> */}
         <button onClick={this.handleOpen} className="w3-button w3-block w3-theme-d2 w3-section" title="Decline"><i className="fa fa-pencil" />  Edit</button>
         <Dialog
           open={this.state.open}
@@ -120,12 +109,6 @@ class EditDetails extends Component {
           <DialogActions>
             <button onClick={this.handleClose} className="w3-button w3-theme w3-section" title="Message">Cancel</button>
             <button onClick={this.handleSubmit} className="w3-button w3-theme-d2 w3-section" title="Save">Save</button>
-            {/* <Button onClick={this.handleClose} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={this.handleSubmit} color="primary">
-              Save
-            </Button> */}
           </DialogActions>
         </Dialog>
       </Fragment>

@@ -7,7 +7,6 @@ import Paper from '@material-ui/core/Paper';
 // Icons
 import LocationOn from '@material-ui/icons/LocationOn';
 import LinkIcon from '@material-ui/icons/Link';
-import CalendarToday from '@material-ui/icons/CalendarToday';
 
 const styles = (theme) => ({
   ...theme,
@@ -50,7 +49,6 @@ const ProfileSkeleton = (props) => {
           <hr />
           <LinkIcon color="primary" /> https://website.com
           <hr />
-          <CalendarToday color="primary" /> Joined date
         </div>
       </div>
     </Paper>

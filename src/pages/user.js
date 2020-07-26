@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 import Scream from '../components/scream/Scream';
 import Grid from '@material-ui/core/Grid';
 
 import ScreamSkeleton from '../util/ScreamSkeleton';
-import ProfileSkeleton from '../util/ProfileSkeleton';
 import PostStatus from '../components/scream/PostStatus';
 
 import { connect } from 'react-redux';
 import { getUserData } from '../redux/actions/dataActions';
-import { getCurrentUserData } from '../redux/actions/userActions';
-import ProfileTile from '../components/layout/ProfileTile';
 
 class user extends Component {
   state = {
@@ -25,15 +21,6 @@ class user extends Component {
     if (screamId) this.setState({ screamIdParam: screamId });
 
     this.props.getUserData(handle, this.props.user);
-    // this.props.getUserData(handle);
-    // axios
-    //   .get(`/user/${handle}`)
-    //   .then((res) => {
-    //     this.setState({
-    //       profile: res.data.user
-    //     });
-    //   })
-    //   .catch((err) => console.log(err));
   }
   render() {
     const { screams, loading, currentUser } = this.props.data;
@@ -66,13 +53,6 @@ class user extends Component {
           </div>
           {screamsMarkup}
         </Grid>
-        {/* <Grid item sm={4} xs={12}>
-          {this.state.profile === null ? (
-            <ProfileSkeleton />
-          ) : (
-            <ProfileTile profile={this.state.profile} />
-          )}
-        </Grid> */}
       </Grid>
     );
   }

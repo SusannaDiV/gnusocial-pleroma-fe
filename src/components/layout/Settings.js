@@ -1,10 +1,6 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import { connect } from 'react-redux';
 import { editUserDetails } from '../../redux/actions/userActions';
-
-import MyButton from '../../util/MyButton';
-import EditIcon from '@material-ui/icons/Edit';
 
 import {
     SettingsPane,
@@ -17,8 +13,6 @@ class Settings extends React.Component {
     constructor(props) {
         super(props);
 
-        // You will maybe receive your settings from this.props or do a fetch request in your componentWillMount
-        // but here is an example of how it should look like:
         this.state = {
             "mysettings.general.name": "Dennis Stücken",
             "mysettings.general.username": "dstuecken",
@@ -27,35 +21,24 @@ class Settings extends React.Component {
             "mysettings.general.picture": "earth",
             "mysettings.profile.firstname": "Dennis",
             "mysettings.profile.lastname": "Stücken",
-            // bio: '',
-            // website: '',
-            // location: '',
         };
 
-        // Save settings after close
         this._leavePaneHandler = (wasSaved, newSettings, oldSettings) => {
-            // "wasSaved" indicates wheather the pane was just closed or the save button was clicked.
-            // this.handleSubmit();
-
             if (wasSaved && newSettings !== oldSettings) {
-                // do something with the settings, e.g. save via ajax.
                 this.setState(newSettings);
             }
 
             this.hidePrefs();
         };
-
-        // React if a single setting changed
         this._settingsChanged = ev => { };
 
-        // Define your menu
         this._menu = [
             {
-                title: "General", // Title that is displayed as text in the menu
-                url: "/settings/general" // Identifier (url-slug)
+                title: "General", 
+                url: "/settings/general" 
             },
             {
-                title: "Avater",
+                title: "Avatar",
                 url: "/settings/profile"
             },
             {
@@ -63,7 +46,7 @@ class Settings extends React.Component {
                 url: "/settings/notifications"
             },
             {
-                title: "Language",
+                title: "Silenced Users",
                 url: "/settings/language"
             },
             {
@@ -71,7 +54,7 @@ class Settings extends React.Component {
                 url: "/settings/appearance"
             },
             {
-                title: "Plugins",
+                title: "Notifications",
                 url: "/settings/plugins"
             },
             {

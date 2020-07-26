@@ -2,16 +2,10 @@ import React, { Component, Fragment } from 'react';
 import Picker, { SKIN_TONE_MEDIUM_DARK } from 'emoji-picker-react';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
-import MyButton from '../../util/MyButton';
 // MUI Stuff
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
+
 import CircularProgress from '@material-ui/core/CircularProgress';
-import AddIcon from '@material-ui/icons/Add';
-import CloseIcon from '@material-ui/icons/Close';
+
 import InsertEmoticonOutlined from '@material-ui/icons/InsertEmoticonOutlined';
 // Redux stuff
 import { connect } from 'react-redux';
@@ -91,7 +85,6 @@ class PostStatus extends Component {
     })
   }
   render() {
-    const { errors } = this.state;
     const {
       classes,
       UI: { loading }
@@ -120,19 +113,6 @@ class PostStatus extends Component {
             {this.state.openEmojiPicker && <Picker onEmojiClick={this.onEmojiClick} disableAutoFocus={true} skinTone={SKIN_TONE_MEDIUM_DARK} />}
           </div>
           
-          {/* <TextField
-            name="body"
-            type="text"
-            label="Create a new post"
-            multiline
-            rows="2"
-            placeholder="Remember to follow Fediverse's guidelines while posting"
-            error={errors.body ? true : false}
-            helperText={errors.body}
-            className={classes.textField}
-            onChange={this.handleChange}
-            fullWidth
-          /> */}
           <span className="word-counter">{1000 - this.state.body.length}</span>
           {this.state.file && <p>{this.state.file.name}</p>}
           <button type="submit" className="w3-button w3-theme mr-5"><i className="fa fa-pencil" />
@@ -147,73 +127,7 @@ class PostStatus extends Component {
             <i className="fa fa-paperclip" />
             <input type="file" name="file" onChange={this.handleChange} className="file-input" />
           </button>
-
-          {/* <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            className="w3-button w3-theme"
-            disabled={loading}
-          >
-            Submit
-                {loading && (
-              <CircularProgress
-                size={30}
-                className={classes.progressSpinner}
-              />
-            )}
-          </Button> */}
         </form>
-        {/* <MyButton onClick={this.handleOpen}>
-          <AddIcon />
-        </MyButton>
-        <Dialog
-          open={this.state.open}
-          onClose={this.handleClose}
-          fullWidth
-          maxWidth="sm"
-        >
-          <MyButton
-            tip="Close"
-            onClick={this.handleClose}
-            tipClassName={classes.closeButton}
-          >
-            <CloseIcon />
-          </MyButton>
-          <DialogTitle>Post a new scream</DialogTitle>
-          <DialogContent>
-            <form onSubmit={this.handleSubmit}>
-              <TextField
-                name="body"
-                type="text"
-                label="Create a new post"
-                multiline
-                rows="3"
-                placeholder="Remember to follow Fediverse's guidelines while posting"
-                error={errors.body ? true : false}
-                helperText={errors.body}
-                className={classes.textField}
-                onChange={this.handleChange}
-                fullWidth
-              />
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                className={classes.submitButton}
-                disabled={loading}
-              >
-                Submit
-                {loading && (
-                  <CircularProgress
-                    size={30}
-                    className={classes.progressSpinner}
-                  />
-                )}
-              </Button>
-            </form>
-          </DialogContent>
-        </Dialog> */}
       </Fragment>
     );
   }
