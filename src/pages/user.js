@@ -24,7 +24,7 @@ class user extends Component {
 
     if (screamId) this.setState({ screamIdParam: screamId });
 
-    this.props.getUserData(handle);
+    this.props.getUserData(handle, this.props.user);
     // this.props.getUserData(handle);
     // axios
     //   .get(`/user/${handle}`)
@@ -36,7 +36,7 @@ class user extends Component {
     //   .catch((err) => console.log(err));
   }
   render() {
-    const { screams, loading } = this.props.data;
+    const { screams, loading, currentUser } = this.props.data;
     const { screamIdParam } = this.state;
 
     const screamsMarkup = loading ? (
@@ -62,7 +62,7 @@ class user extends Component {
             </div>
           </div>
           <div className="w3-container w3-padding w3-card w3-white w3-round w3-margin-top w3-margin-bottom">
-            <h5 className="w3-opacity">Public Timeline</h5>
+            <h5 className="w3-opacity">Personal TImeline of {currentUser?.handle}</h5>
           </div>
           {screamsMarkup}
         </Grid>
@@ -84,6 +84,7 @@ user.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
+  user: state.user,
   data: state.data
 });
 

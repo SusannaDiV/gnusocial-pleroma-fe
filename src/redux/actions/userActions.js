@@ -1,6 +1,5 @@
 import {
   SET_USER,
-  SET_CURRENT_USER,
   SET_ERRORS,
   CLEAR_ERRORS,
   LOADING_UI,
@@ -64,19 +63,6 @@ export const getUserData = () => (dispatch) => {
     })
     .catch((err) => console.log(err));
 };
-
-// export const getCurrentUserData = (user) => (dispatch) => {
-//   dispatch({ type: LOADING_USER });
-//   axios
-//     .get(`/user/${user}`)
-//     .then((res) => {
-//       dispatch({
-//         type: SET_CURRENT_USER,
-//         payload: res.data.user
-//       });
-//     })
-//     .catch((err) => console.log(err));
-// };
 
 export const uploadImage = (formData) => (dispatch) => {
   dispatch({ type: LOADING_USER });

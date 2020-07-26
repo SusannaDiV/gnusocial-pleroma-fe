@@ -116,7 +116,7 @@ export const deleteScream = (screamId) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-export const getUserData = (userHandle) => (dispatch) => {
+export const getUserData = (userHandle, user) => (dispatch) => {
   dispatch({ type: LOADING_DATA });
   axios
     .get(`/user/${userHandle}`)
@@ -125,10 +125,12 @@ export const getUserData = (userHandle) => (dispatch) => {
         type: SET_SCREAMS,
         payload: res.data.screams
       });
-      dispatch({
-        type: SET_CURRENT_USER,
-        payload: res.data.user
-      })
+      if(user.credentials.handle !== userHandle){
+        dispatch({
+          type: SET_CURRENT_USER,
+          payload: res.data.user
+        })
+      }
     })
     .catch(() => {
       dispatch({

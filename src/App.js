@@ -5,8 +5,9 @@ import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import jwtDecode from 'jwt-decode';
 // Redux
-import { Provider } from 'react-redux';
+import { Provider, connect } from 'react-redux';
 import store from './redux/store';
+
 import { SET_AUTHENTICATED } from './redux/types';
 import { logoutUser, getUserData } from './redux/actions/userActions';
 // Components
@@ -21,11 +22,11 @@ import user from './pages/user';
 import popular from './pages/popular';
 import network from './pages/network';
 
-import Settings from './components/layout/Settings';
-
 import axios from 'axios';
 import ProfileTile from './components/layout/ProfileTile';
 import { Link } from 'react-router-dom';
+
+import Store from "../src/redux/store";
 
 const theme = createMuiTheme(themeObject);
 
@@ -47,9 +48,13 @@ if (token) {
 // const location = useLocation();
 class App extends Component {
 
-  
+  componentDidMount() {
+    console.log(store)
+  }
 
   render() {
+    let state = Store.getState();
+    console.log(state.user)
     return (
       <MuiThemeProvider theme={theme}>
         <Provider store={store}>
@@ -62,7 +67,8 @@ class App extends Component {
                     <div className="w3-card w3-round">
                       <div className="w3-white">
                         <Link to="/" className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-circle-o-notch fa-fw w3-margin-right" /> Public</Link>
-                        <Link to="/users/:handle/scream/:screamId" className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-user fa-fw w3-margin-right" /> Profile</Link>
+                        <ProfileLink />
+                        {/* <Link to="/users/:handle/scream/:screamId" className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-user fa-fw w3-margin-right" /> Profile</Link> */}
                         <Link to="/popular" className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-thumbs-up fa-fw w3-margin-right" /> Popular</Link>
                         <Link to="/network" className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-users fa-fw w3-margin-right" /> Network</Link>
                       </div>
@@ -111,3 +117,11 @@ class App extends Component {
 }
 
 export default App;
+
+
+const mapStateToProps = (state) => ({
+  user: state.user
+});
+const ProfileLink = connect(mapStateToProps)((props) => {
+  return <Link to={props.user.authenticated ? '/users/' + props.user.credentials.handle : '/login'} className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-user fa-fw w3-margin-right" /> Profile</Link>
+})

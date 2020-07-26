@@ -43,7 +43,7 @@ class home extends Component {
           </div>
         </div>
         <div className="w3-container w3-padding w3-card w3-white w3-round w3-margin-top w3-margin-bottom">
-          <h5 className="w3-opacity">Personal TImeline of {this.props.user && this.props.user.credentials.handle}</h5>
+          <h5 className="w3-opacity">{this.props.user.authenticated ? 'Personal TImeline ' + this.props.user.credentials.handle : 'Public Timeline'}</h5>
         </div>
         {recentScreamsMarkup}
       </div>

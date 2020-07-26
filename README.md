@@ -1,8 +1,12 @@
-Pleroma FE-like forntend in React
+Pleroma FE-like frontend in React for GNU social.
+
+GSoC 2020 Susanna Di Vita's second evaluation project. 
 
 ## Current placeholder API
 
 https://europe-west1-socialape-d081e.cloudfunctions.net/api
+
+(At the moment, the follower and followers counter, as well as the daily average of posts one, had to be hardcoded due to complete lack of upport in the placeholder's API)
 
 ## 2: Install packages
 
