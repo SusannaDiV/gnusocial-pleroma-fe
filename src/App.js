@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './App.css';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
@@ -68,7 +68,6 @@ class App extends Component {
                       <div className="w3-white">
                         <Link to="/" className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-circle-o-notch fa-fw w3-margin-right" /> Public</Link>
                         <ProfileLink />
-                        {/* <Link to="/users/:handle/scream/:screamId" className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-user fa-fw w3-margin-right" /> Profile</Link> */}
                         <Link to="/popular" className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-thumbs-up fa-fw w3-margin-right" /> Popular</Link>
                         <Link to="/network" className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-users fa-fw w3-margin-right" /> Network</Link>
                       </div>

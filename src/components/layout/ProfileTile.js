@@ -94,13 +94,13 @@ class ProfileTile extends Component {
                   </MuiLink></strong>
                   {bio && <Typography variant="body2">{profile ? profile.bio : bio}</Typography>}
                   <hr />
-                  {(profile && profile.location || location) && (
+                  {(profile && (profile.location || location)) && (
                     <Fragment>
                       <LocationOn color="primary" /> <span>{profile ? profile.location : location}</span>
                       <hr />
                     </Fragment>
                   )}
-                  {(profile && profile.website || website) && (
+                  {(profile && (profile.website || website)) && (
                     <Fragment>
                       <LinkIcon color="primary" />
                       <a href={website} target="_blank" rel="noopener noreferrer">
@@ -121,7 +121,6 @@ class ProfileTile extends Component {
                   {
                     !profile && <EditDetails /> 
                   }
-                  {/* <EditDetails /> */}
                 </div>
               </div>
             </div>
@@ -146,7 +145,6 @@ class ProfileTile extends Component {
               <div className="w3-col m6"><button className="btn w3-button w3-block w3-theme w3-section"><Link to="/login">Login</Link></button></div>
               <div className="w3-col m6"><button className="btn w3-button w3-block w3-theme-d2 w3-section"><Link to="/signup">Signup</Link></button></div>
             </div>
-            
           </Paper>
         )
     ) : (

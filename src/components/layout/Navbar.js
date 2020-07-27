@@ -1,10 +1,9 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import logo from '../../images/gnu-social-logo.png';
 import Notifications from './Notifications';
-// import { SearchBar } from './Searchbar';// Redux
 import SearchInput from './SearchInput';
 import { logoutUser } from '../../redux/actions/userActions';
 class Navbar extends Component {

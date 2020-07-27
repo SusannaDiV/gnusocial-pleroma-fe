@@ -31,12 +31,6 @@ const styles = {
   }
 };
 
-const customNames = {
-  foods: 'food and drink',
-  nature: 'outdoors',
-  objects: 'stuff'
-};
-
 class Scream extends Component {
   state = {
     chosenEmoji: [],

@@ -2,12 +2,8 @@ import React, { Component, Fragment } from 'react';
 import Picker, { SKIN_TONE_MEDIUM_DARK } from 'emoji-picker-react';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
-// MUI Stuff
-
 import CircularProgress from '@material-ui/core/CircularProgress';
-
 import InsertEmoticonOutlined from '@material-ui/icons/InsertEmoticonOutlined';
-// Redux stuff
 import { connect } from 'react-redux';
 import { postStatus, clearErrors } from '../../redux/actions/dataActions';
 
@@ -27,12 +23,6 @@ const styles = (theme) => ({
     top: '6%'
   }
 });
-
-const customNames = {
-  foods: 'food and drink',
-  nature: 'outdoors',
-  objects: 'stuff'
-};
 
 class PostStatus extends Component {
   state = {
@@ -112,7 +102,6 @@ class PostStatus extends Component {
             </button>
             {this.state.openEmojiPicker && <Picker onEmojiClick={this.onEmojiClick} disableAutoFocus={true} skinTone={SKIN_TONE_MEDIUM_DARK} />}
           </div>
-          
           <span className="word-counter">{1000 - this.state.body.length}</span>
           {this.state.file && <p>{this.state.file.name}</p>}
           <button type="submit" className="w3-button w3-theme mr-5"><i className="fa fa-pencil" />
