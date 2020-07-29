@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom';
 import ProfileSkeleton from '../../util/ProfileSkeleton';
-// MUI stuff
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-//Redux
 import { connect } from 'react-redux';
 import { uploadImage } from '../../redux/actions/userActions';
 

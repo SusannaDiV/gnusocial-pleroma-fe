@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import Scream from '../components/scream/Scream';
 import ScreamSkeleton from '../util/ScreamSkeleton';
 import PostStatus from '../components/scream/PostStatus';
-
 import { connect } from 'react-redux';
 import { getScreams } from '../redux/actions/dataActions';
 

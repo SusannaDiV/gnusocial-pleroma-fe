@@ -74,22 +74,6 @@ class Settings extends React.Component {
         this.overlay.style.visibility = "visible";
     }
 
-    // mapUserDetailsToState = (credentials) => {
-    //     this.setState({
-    //         bio: credentials.bio ? credentials.bio : '',
-    //         website: credentials.website ? credentials.website : '',
-    //         location: credentials.location ? credentials.location : ''
-    //     });
-    // };
-    // handleOpen = () => {
-    //     this.setState({ open: true });
-    //     this.mapUserDetailsToState(this.props.credentials);
-    // };
-    // componentDidMount() {
-    //     const { credentials } = this.props;
-    //     this.mapUserDetailsToState(credentials);
-    // }
-
     handleChange = (event) => {
         this.setState({
             [event.target.name]: event.target.value
@@ -107,49 +91,8 @@ class Settings extends React.Component {
     };
 
     render() {
-        // Get settings
         let settings = this.state;
 
-        // Define one of your Settings pages
-        /*
-         const dynamicOptionsForGeneralPage = [
-           {
-             key: null
-             label: 'Account',
-             type: 'headline',
-           },
-           {
-             key: 'mysettings.general.email',
-             label: 'E-Mail address',
-             type: 'text',
-           },
-           {
-             key: 'mysettings.general.password',
-             label: 'Password',
-             type: 'password',
-           },
-           {
-             key: 'mysettings.general.password-repeat',
-             label: 'Password repeat',
-             type: 'password',
-           },
-           {
-             key: null,
-             label: 'Appearance',
-             type: 'headline',
-           },
-           {
-             key: 'mysettings.general.color-theme',
-             label: 'Color Theme',
-             type: 'custom',
-             component: <select><option value="blue">Blue</option><option value="red">Red</option></select>,
-           }
-         ];
-         // Then use with:
-         // <SettingsPage handler="/settings/general" options={dynamicOptionsForGeneralPage} />
-         */
-
-        // Return your Settings Pane
         return (
             <div>
                 <div>
@@ -205,14 +148,6 @@ class Settings extends React.Component {
                             <SettingsPage handler="/settings/profile">
                                 <div className="w3-center w3-padding">
                                     <div className="profile-image">
-                                        {/* <MyButton
-                                            tip="Edit profile picture"
-                                            onClick={this.handleEditPicture}
-                                            btnClassName="button"
-                                        >
-                                            <EditIcon style={{ fill: "white" }} />
-                                        </MyButton>
-                                        <div className="overlay"></div> */}
                                         <img src="/static/media/no-img.6732bd42.png" className="w3-circle" alt="Avatar" />
                                         <input
                                             type="file"
@@ -223,41 +158,6 @@ class Settings extends React.Component {
                                     </div>
                                     <p>Update your profile picture</p>
                                 </div>
-                                {/* <fieldset className="form-group">
-                                    <label htmlFor="profileFirstname">Firstname: </label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        name="mysettings.profile.firstname"
-                                        placeholder="Firstname"
-                                        id="profileFirstname"
-                                        onChange={this._settingsChanged}
-                                        defaultValue={settings["mysettings.profile.firstname"]}
-                                    />
-                                </fieldset>
-                                <fieldset className="form-group">
-                                    <label htmlFor="profileLastname">Lastname: </label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        name="mysettings.profile.lastname"
-                                        placeholder="Lastname"
-                                        id="profileLastname"
-                                        onChange={this._settingsChanged}
-                                        defaultValue={settings["mysettings.profile.lastname"]}
-                                    />
-                                </fieldset>
-                                <fieldset className="form-group">
-                                    <label htmlFor="profileBiography">Biography: </label>
-                                    <textarea
-                                        className="form-control"
-                                        name="mysettings.profile.biography"
-                                        placeholder="Biography"
-                                        id="profileBiography"
-                                        onChange={this._settingsChanged}
-                                        defaultValue={settings["mysettings.profile.biography"]}
-                                    />
-                                </fieldset> */}
                             </SettingsPage>
                         </SettingsContent>
                     </SettingsPane>
@@ -275,5 +175,3 @@ export default connect(
     mapStateToProps,
     { editUserDetails }
 )(Settings);
-
-// export default Settings;

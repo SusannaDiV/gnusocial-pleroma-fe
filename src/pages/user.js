@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Scream from '../components/scream/Scream';
 import Grid from '@material-ui/core/Grid';
-
 import ScreamSkeleton from '../util/ScreamSkeleton';
 import PostStatus from '../components/scream/PostStatus';
-
 import { connect } from 'react-redux';
 import { getUserData } from '../redux/actions/dataActions';
 
@@ -33,12 +31,12 @@ class user extends Component {
     ) : !screamIdParam ? (
       screams.map((scream) => <Scream key={scream.screamId} scream={scream} />)
     ) : (
-            screams.map((scream) => {
-              if (scream.screamId !== screamIdParam)
-                return <Scream key={scream.screamId} scream={scream} />;
-              else return <Scream key={scream.screamId} scream={scream} openDialog />;
-            })
-          );
+      screams.map((scream) => {
+        if (scream.screamId !== screamIdParam)
+          return <Scream key={scream.screamId} scream={scream} />;
+        else return <Scream key={scream.screamId} scream={scream} openDialog />;
+      })
+    );
 
     return (
       <Grid container spacing={16}>

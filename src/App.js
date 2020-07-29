@@ -7,7 +7,6 @@ import jwtDecode from 'jwt-decode';
 // Redux
 import { Provider, connect } from 'react-redux';
 import store from './redux/store';
-
 import { SET_AUTHENTICATED } from './redux/types';
 import { logoutUser, getUserData } from './redux/actions/userActions';
 // Components

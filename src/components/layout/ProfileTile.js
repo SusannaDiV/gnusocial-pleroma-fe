@@ -150,7 +150,6 @@ class ProfileTile extends Component {
     ) : (
         <ProfileSkeleton />
       );
-
     return profileMarkup;
   }
 }

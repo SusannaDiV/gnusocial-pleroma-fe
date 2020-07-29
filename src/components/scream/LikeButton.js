@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import NewButtonRed from '../../util/NewButtonRed';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-// Icons
 import FavoriteIcon from '@material-ui/icons/Favorite';
-// REdux
 import { connect } from 'react-redux';
 import { likeScream, unlikeScream } from '../../redux/actions/dataActions';
 

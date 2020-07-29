@@ -39,7 +39,6 @@ class Navbar extends Component {
               </>
             }
 
-
             <div className="w3-dropdown-hover w3-hide-small w3-right">
               {
                 authenticated ?
@@ -53,7 +52,7 @@ class Navbar extends Component {
                       <button onClick={this.handleLogout} className="w3-button w3-block w3-theme-d2 w3-section" title="Decline"><i className="fa fa-sign-out" /> Logout</button>
                     </div>
                   </> :
-                  <Link to="/login" className="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Login</Link>
+                <Link to="/login" className="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Login</Link>
               }
             </div>
             <div className={this.state.showSearch ? 'w3-right header-search active' : 'w3-right header-search'}>
