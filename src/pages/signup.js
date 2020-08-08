@@ -9,6 +9,8 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { connect } from 'react-redux';
 import { signupUser } from '../redux/actions/userActions';
+import { getCaptcha } from '../redux/actions/userActions';
+import axios from 'axios';
 
 const styles = (theme) => ({
   ...theme
@@ -21,10 +23,23 @@ class signup extends Component {
       email: '',
       password: '',
       confirmPassword: '',
-      handle: '',
+      userName: '',
+      fullName: '',
       errors: {}
     };
   }
+
+  componentDidMount(){
+    console.log('Called Did Mount!!')
+    axios
+    .get('https://pleroma.site/api/pleroma/captcha')
+    .then((res) => {
+      // setAuthorizationHeader(res.data.token);
+      console.log('Request Sent')
+      console.log('Data Returned: ', res);
+    })
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.UI.errors) {
       this.setState({ errors: nextProps.UI.errors });
@@ -39,7 +54,7 @@ class signup extends Component {
       email: this.state.email,
       password: this.state.password,
       confirmPassword: this.state.confirmPassword,
-      handle: this.state.handle
+      userName: this.state.userName
     };
     this.props.signupUser(newUserData, this.props.history);
   };
@@ -64,6 +79,30 @@ class signup extends Component {
               SignUp
           </Typography>
             <form noValidate onSubmit={this.handleSubmit}>
+            <TextField
+                id="userName"
+                name="userName"
+                type="text"
+                label="User Name"
+                className={classes.textField}
+                helperText={errors.userName}
+                error={errors.userName ? true : false}
+                value={this.state.userName}
+                onChange={this.handleChange}
+                fullWidth
+              />
+              <TextField
+                id="fullName"
+                name="fullName"
+                type="text"
+                label="Full Name"
+                className={classes.textField}
+                helperText={errors.fullName}
+                error={errors.fullName ? true : false}
+                value={this.state.fullName}
+                onChange={this.handleChange}
+                fullWidth
+              />
               <TextField
                 id="email"
                 name="email"
@@ -97,18 +136,6 @@ class signup extends Component {
                 helperText={errors.confirmPassword}
                 error={errors.confirmPassword ? true : false}
                 value={this.state.confirmPassword}
-                onChange={this.handleChange}
-                fullWidth
-              />
-              <TextField
-                id="handle"
-                name="handle"
-                type="text"
-                label="Handle"
-                className={classes.textField}
-                helperText={errors.handle}
-                error={errors.handle ? true : false}
-                value={this.state.handle}
                 onChange={this.handleChange}
                 fullWidth
               />
