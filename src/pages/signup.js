@@ -8,9 +8,6 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { connect } from 'react-redux';
-import { signupUser } from '../redux/actions/userActions';
-import { createApp } from '../redux/actions/userActions';
-import { oauthToken } from '../redux/actions/userActions';
 import axios from 'axios';
 
 const styles = (theme) => ({
@@ -53,12 +50,66 @@ class signup extends Component {
     })
  };
 
+ register = async (newUserData) => {
+  console.log('Bearer to set in header', localStorage.getItem('tokenStr'))
+  await axios
+  .post('https://pleroma.site/api/v1/accounts', newUserData, { headers: {"Authorization" : `Bearer ${localStorage.getItem('tokenStr')}`} })
+  .then((res) => {
+    // setAuthorizationHeader(res.data.token);
+    console.log('Register Data: ',  res.data.access_token);
+    localStorage.setItem('login_token', res.data.access_token);
+  })
+};
+
+ createApp = async (appData) => {
+  await axios
+    .post('https://pleroma.site/api/v1/apps', appData)
+    .then((res) => {
+      localStorage.setItem('client_id', res.data.client_id);
+      localStorage.setItem('client_secret', res.data.client_secret);
+    })
+    .catch((err) => {
+      console.log('Errors: ', err);
+    });
+};
+
+oauthToken = async (oauthData) => {
+   await axios
+    .post('https://pleroma.site/oauth/token', oauthData)
+    .then((res) => {
+      if (res.identifier === 'password_reset_required') {
+        // TODO: Redirect to a password reset page!
+        // logoutUser();
+        return false
+       }
+    localStorage.setItem('tokenStr', res.data.access_token);
+    })
+    .catch((err) => {
+      console.log('Errors: ', err);
+        if (err === 'mfa_required') {
+       // TODO: the sutff about multi factor authentication!
+     }
+    });
+};
+
+verifyCreds = async () => {
+  console.log('Bearer to set in login header', localStorage.getItem('login_token'))
+  await axios
+    .get('https://pleroma.site/api/v1/accounts/verify_credentials', { headers: {"Authorization" : `Bearer ${localStorage.getItem('login_token')}`} })
+    .then((res) => {
+      axios.defaults.headers.common['Authorization'] =`Bearer ${res.data.token}`;
+    })
+    .catch((err) => {
+      console.log('Errors: ', err);
+    });
+};
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.UI.errors) {
       this.setState({ errors: nextProps.UI.errors });
     }
   }
-  handleSubmit = (event) => {
+  handleSubmit = async (event) => {
     event.preventDefault();
     this.setState({
       loading: true
@@ -69,8 +120,7 @@ class signup extends Component {
       scopes: "read write follow push admin"
     };
     console.log('App Data: ', appData);
-    this.props.createApp(appData, this.props.history);
-    
+    await this.createApp(appData);
     console.log('Oauth Returned Data: ', localStorage.getItem('client_id'));
     const oauthData = {
       client_id: localStorage.getItem('client_id'),
@@ -79,19 +129,24 @@ class signup extends Component {
       redirect_uri: "https://pleroma.site/oauth-callback"
     }
     console.log('Oauth Data: ', oauthData);
-    this.props.oauthToken(oauthData,this.props.history);
+    await this.oauthToken(oauthData);
     const newUserData = {
       email: this.state.email,
       password: this.state.password,
-      confirmPassword: this.state.confirmPassword,
-      userName: this.state.userName,
-      fullName: this.state.fullName,
+      confirm: this.state.confirmPassword,
+      username: this.state.userName,
+      fullname: this.state.fullName,
       captcha_token: this.state.captcha_token,
       captcha_solution: this.state.captcha_solution,
-      captcha_answer_data: this.state.captcha_answer_data
+      captcha_answer_data: this.state.captcha_answer_data,
+      bio: "Nothing!",
+      agreement: true,
+      locale: "en_US",
+      nickname: this.state.userName
     };
     console.log('User Data: ', newUserData);
-    this.props.signupUser(newUserData, this.props.history);
+    await this.register(newUserData);
+    await this.verifyCreds();
   };
   handleChange = (event) => {
     this.setState({
@@ -177,6 +232,7 @@ class signup extends Component {
                <Typography
                   align="left"
                   component="div"
+                  onClick={this.getCaptcha}
                   style={{
                     backgroundImage:`url(${this.state.captcha})`,
                     backgroundRepeat: "no-repeat",
@@ -185,6 +241,9 @@ class signup extends Component {
                     width: "40vh"
                   }}
                 />
+                <Typography variant="caption" display="block">
+        Click on Image to reload!!
+      </Typography>
               <TextField
                 id="captcha_solution"
                 name="captcha_solution"
@@ -232,7 +291,7 @@ signup.propTypes = {
   classes: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   UI: PropTypes.object.isRequired,
-  signupUser: PropTypes.func.isRequired
+  // signupUser: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -242,5 +301,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  { signupUser, createApp, oauthToken }
+  // { signupUser, createApp, oauthToken }
 )(withStyles(styles)(signup));

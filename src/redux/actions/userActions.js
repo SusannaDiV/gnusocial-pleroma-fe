@@ -9,66 +9,67 @@ import {
 } from '../types';
 import axios from 'axios';
 
-export const loginUser = (userData, history) => (dispatch) => {
-  dispatch({ type: LOADING_UI });
-  axios
-    .post('/login', userData)
+export const loginUser = async (history) => {
+  // dispatch({ type: LOADING_UI });
+  console.log('Bearer to set in header', localStorage.getItem('tokenStr'))
+  await axios
+    .post('https://pleroma.site/api/v1/accounts/verify_credentials', { headers: {"Authorization" : `Bearer ${localStorage.getItem('tokenStr')}`} })
     .then((res) => {
       setAuthorizationHeader(res.data.token);
-      dispatch(getUserData());
-      dispatch({ type: CLEAR_ERRORS });
+      // dispatch(getUserData());
+      // dispatch({ type: CLEAR_ERRORS });
       history.push('/');
     })
     .catch((err) => {
-      dispatch({
-        type: SET_ERRORS,
-        payload: err.response.data
-      });
+      // dispatch({
+      //   type: SET_ERRORS,
+      //   payload: err.response.data
+      // });
     });
 };
 
-export const signupUser = (newUserData, history) => (dispatch) => {
-  dispatch({ type: LOADING_UI });
+export const signupUser = async (newUserData,history) => {
+  // dispatch({ type: LOADING_UI });
   console.log('Bearer to set in header', localStorage.getItem('tokenStr'))
-  axios
+  await axios
     .post('https://pleroma.site/api/v1/accounts', newUserData, { headers: {"Authorization" : `Bearer ${localStorage.getItem('tokenStr')}`} })
     .then((res) => {
       // setAuthorizationHeader(res.data.token);
-      dispatch(getUserData());
-      dispatch({ type: CLEAR_ERRORS });
+      // dispatch(getUserData());
+      // dispatch({ type: CLEAR_ERRORS });
       history.push('/');
     })
     .catch((err) => {
-      dispatch({
-        type: SET_ERRORS,
-        payload: err.response.data
-      });
+      // dispatch({
+      //   type: SET_ERRORS,
+      //   payload: err.response.data
+      // });
     });
 };
 
-export const createApp = (appData,history) => (dispatch) => {
-  dispatch({ type: LOADING_UI });
-  axios
+export const createApp = async (appData,history) => {
+  // dispatch({ type: LOADING_UI });
+  await axios
     .post('https://pleroma.site/api/v1/apps', appData)
     .then((res) => {
       // setAuthorizationHeader(res.data.token);
       // dispatch(getUserData());
         localStorage.setItem('client_id', res.data.client_id);
       localStorage.setItem('client_secret', res.data.client_secret);
-      dispatch({ type: CLEAR_ERRORS });
+      // dispatch({ type: CLEAR_ERRORS });
       history.push('/');
     })
     .catch((err) => {
-      dispatch({
-        type: SET_ERRORS,
-        payload: err.response.data
-      });
+      // dispatch({
+      //   type: SET_ERRORS,
+      //   payload: err.response.data
+      // });
     });
 };
 
-export const oauthToken = (oauthData,history) => (dispatch) => {
-  dispatch({ type: LOADING_UI });
-  axios
+export const oauthToken = (oauthData, history) => {
+  // dispatch({ type: LOADING_UI });
+   axios
     .post('https://pleroma.site/oauth/token', oauthData)
     .then((res) => {
       if (res.identifier === 'password_reset_required') {
@@ -79,17 +80,17 @@ export const oauthToken = (oauthData,history) => (dispatch) => {
       //  console.log('access_token: ', res.data.access_token);
     localStorage.setItem('tokenStr', res.data.access_token);
       // setAuthorizationHeader(res.data.access_token);
-      dispatch({ type: CLEAR_ERRORS });
-      // history.push('/');
+      // dispatch({ type: CLEAR_ERRORS });
+      history.push('/');
     })
     .catch((err) => {
         if (err === 'mfa_required') {
        // TODO: the sutff about multi factor authentication!
      }
-      dispatch({
-        type: SET_ERRORS,
-        payload: err.response.data
-      });
+      // dispatch({
+      //   type: SET_ERRORS,
+      //   payload: err.response.data
+      // });
     });
 };
 

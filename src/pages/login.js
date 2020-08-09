@@ -8,7 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { connect } from 'react-redux';
-import { loginUser } from '../redux/actions/userActions';
+import axios from 'axios';
 
 const styles = (theme) => ({
   ...theme
@@ -28,13 +28,71 @@ class login extends Component {
       this.setState({ errors: nextProps.UI.errors });
     }
   }
-  handleSubmit = (event) => {
+
+  createApp = async (appData) => {
+    await axios
+      .post('https://pleroma.site/api/v1/apps', appData)
+      .then((res) => {
+        localStorage.setItem('client_id', res.data.client_id);
+        localStorage.setItem('client_secret', res.data.client_secret);
+      })
+      .catch((err) => {
+        console.log('Errors: ', err);
+      });
+  };
+  
+  oauthToken = async (oauthData) => {
+     await axios
+      .post('https://pleroma.site/oauth/token', oauthData)
+      .then((res) => {
+        if (res.identifier === 'password_reset_required') {
+          // TODO: Redirect to a password reset page!
+          // logoutUser();
+          return false
+         }
+      localStorage.setItem('tokenStr', res.data.access_token);
+      })
+      .catch((err) => {
+        console.log('Errors: ', err);
+          if (err === 'mfa_required') {
+         // TODO: the sutff about multi factor authentication!
+       }
+      });
+  };
+  
+  verifyCreds = async () => {
+    console.log('Bearer to set in login header', localStorage.getItem('login_token'))
+    await axios
+      .get('https://pleroma.site/api/v1/accounts/verify_credentials', { headers: {"Authorization" : `Bearer ${localStorage.getItem('login_token')}`} })
+      .then((res) => {
+        axios.defaults.headers.common['Authorization'] =`Bearer ${res.data.token}`;
+      })
+      .catch((err) => {
+        console.log('Errors: ', err);
+      });
+  };
+
+  handleSubmit = async (event) => {
     event.preventDefault();
-    const userData = {
-      email: this.state.email,
-      password: this.state.password
+    const appData = {
+      client_name: "gnusocial-fe_"+new Date().getDate()+"_"+new Date().getTime(),
+      redirect_uris: "https://pleroma.site/oauth-callback",
+      scopes: "read write follow"
     };
-    this.props.loginUser(userData, this.props.history);
+    console.log('App Data: ', appData);
+    await this.createApp(appData);
+    
+    console.log('Oauth Returned Data: ', localStorage.getItem('client_id'));
+    const oauthData = {
+      client_id: localStorage.getItem('client_id'),
+      client_secret: localStorage.getItem('client_secret'),
+      grant_type: "password",
+      username: this.state.email,
+      password: this.state.password
+    }
+    console.log('Oauth Data: ', oauthData);
+    await this.oauthToken(oauthData);
+    await this.verifyCreds();
   };
   handleChange = (event) => {
     this.setState({
@@ -123,11 +181,11 @@ const mapStateToProps = (state) => ({
   UI: state.UI
 });
 
-const mapActionsToProps = {
-  loginUser
-};
+// const mapActionsToProps = {
+//   loginUser
+// };
 
 export default connect(
   mapStateToProps,
-  mapActionsToProps
+  // mapActionsToProps
 )(withStyles(styles)(login));
