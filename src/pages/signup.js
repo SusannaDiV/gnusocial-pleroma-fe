@@ -9,7 +9,8 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { connect } from 'react-redux';
 import { signupUser } from '../redux/actions/userActions';
-import { getCaptcha } from '../redux/actions/userActions';
+import { createApp } from '../redux/actions/userActions';
+import { oauthToken } from '../redux/actions/userActions';
 import axios from 'axios';
 
 const styles = (theme) => ({
@@ -25,20 +26,32 @@ class signup extends Component {
       confirmPassword: '',
       userName: '',
       fullName: '',
+      captcha_solution: '',
+      captcha_answer_data: '',
+      captcha_token: '',
       errors: {}
     };
   }
 
   componentDidMount(){
-    console.log('Called Did Mount!!')
+    this.getCaptcha();
+  }
+
+  getCaptcha = () => {
     axios
     .get('https://pleroma.site/api/pleroma/captcha')
     .then((res) => {
       // setAuthorizationHeader(res.data.token);
-      console.log('Request Sent')
-      console.log('Data Returned: ', res);
+      console.log('Captcha Data: ', res)
+      this.state.captcha = res.data.url;
+      this.state.captcha_answer_data = res.data.answer_data;
+      this.state.captcha_token = res.data.token;
+      this.setState({
+        captcha: res.data.url
+      });
+      console.log('Captcha State Data: ', this.state);
     })
-  }
+ };
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.UI.errors) {
@@ -50,12 +63,34 @@ class signup extends Component {
     this.setState({
       loading: true
     });
+    const appData = {
+      client_name: "gnusocial-fe_"+new Date().getDate()+"_"+new Date().getTime(),
+      redirect_uris: "https://pleroma.site/oauth-callback",
+      scopes: "read write follow push admin"
+    };
+    console.log('App Data: ', appData);
+    this.props.createApp(appData, this.props.history);
+    
+    console.log('Oauth Returned Data: ', localStorage.getItem('client_id'));
+    const oauthData = {
+      client_id: localStorage.getItem('client_id'),
+      client_secret: localStorage.getItem('client_secret'),
+      grant_type: "client_credentials",
+      redirect_uri: "https://pleroma.site/oauth-callback"
+    }
+    console.log('Oauth Data: ', oauthData);
+    this.props.oauthToken(oauthData,this.props.history);
     const newUserData = {
       email: this.state.email,
       password: this.state.password,
       confirmPassword: this.state.confirmPassword,
-      userName: this.state.userName
+      userName: this.state.userName,
+      fullName: this.state.fullName,
+      captcha_token: this.state.captcha_token,
+      captcha_solution: this.state.captcha_solution,
+      captcha_answer_data: this.state.captcha_answer_data
     };
+    console.log('User Data: ', newUserData);
     this.props.signupUser(newUserData, this.props.history);
   };
   handleChange = (event) => {
@@ -139,6 +174,30 @@ class signup extends Component {
                 onChange={this.handleChange}
                 fullWidth
               />
+               <Typography
+                  align="left"
+                  component="div"
+                  style={{
+                    backgroundImage:`url(${this.state.captcha})`,
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "left",
+                    height: "20vh",
+                    width: "40vh"
+                  }}
+                />
+              <TextField
+                id="captcha_solution"
+                name="captcha_solution"
+                type="text"
+                label="Enter Captcha"
+                className={classes.textField}
+                helperText={errors.captcha_solution}
+                error={errors.captcha_solution ? true : false}
+                value={this.state.captcha_solution}
+                onChange={this.handleChange}
+                variant="outlined"
+                fullWidth
+              />
               {errors.general && (
                 <Typography variant="body2" className={classes.customError}>
                   {errors.general}
@@ -183,5 +242,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  { signupUser }
+  { signupUser, createApp, oauthToken }
 )(withStyles(styles)(signup));
