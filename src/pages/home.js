@@ -5,11 +5,38 @@ import ScreamSkeleton from '../util/ScreamSkeleton';
 import PostStatus from '../components/scream/PostStatus';
 import { connect } from 'react-redux';
 import { getScreams } from '../redux/actions/dataActions';
+import axios from 'axios';
 
 class home extends Component {
   componentDidMount() {
-    this.props.getScreams();
+      // if logged in call this
+      this.getHomeTimelineData();
+      // else call this
+      this.getPublicTimelineData();
   }
+
+    getHomeTimelineData = () => {
+        axios
+            .get('https://pleroma.site/api/v1/timelines/home?count=20&with_muted=true', { headers: {"Authorization" : `Bearer ${localStorage.getItem('login_token')}`} })
+            .then((res) => {
+                console.log('Timeline data: ', res)
+            })
+            .catch((err) => {
+                console.log('Timeline data: ', err);
+            });
+    };
+
+    getPublicTimelineData = () => {
+        axios
+            .get('https://pleroma.site/api/v1/timelines/home?only_media=false&count=20&with_muted=true', { headers: {"Authorization" : `Bearer ${localStorage.getItem('login_token')}`} })
+            .then((res) => {
+                console.log('Public Timeline data: ', res)
+            })
+            .catch((err) => {
+                console.log('Public Timeline data: ', err);
+            });
+    };
+
   render() {
     const { screams, loading } = this.props.data;
 
