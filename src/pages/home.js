@@ -9,15 +9,17 @@ import axios from 'axios';
 
 class home extends Component {
   componentDidMount() {
-      // if logged in call this
-      this.getHomeTimelineData();
-      // else call this
-      this.getPublicTimelineData();
+      let isUserLoggedIn = localStorage.getItem('tokenStr');
+      if(isUserLoggedIn == null){
+          this.getPublicTimelineData(); // user not logged in
+      } else {
+          this.getHomeTimelineData(); // user logged in
+      }
   }
 
     getHomeTimelineData = () => {
         axios
-            .get('https://pleroma.site/api/v1/timelines/home?count=20&with_muted=true', { headers: {"Authorization" : `Bearer ${localStorage.getItem('login_token')}`} })
+            .get('https://pleroma.site/api/v1/timelines/home?count=20&with_muted=true', { headers: {"Authorization" : `Bearer ${localStorage.getItem('tokenStr')}`} })
             .then((res) => {
                 console.log('Timeline data: ', res)
             })
@@ -28,8 +30,9 @@ class home extends Component {
 
     getPublicTimelineData = () => {
         axios
-            .get('https://pleroma.site/api/v1/timelines/home?only_media=false&count=20&with_muted=true', { headers: {"Authorization" : `Bearer ${localStorage.getItem('login_token')}`} })
+            .get('https://pleroma.site/api/v1/timelines/public?local=true&only_media=false&count=20&with_muted=true', )
             .then((res) => {
+
                 console.log('Public Timeline data: ', res)
             })
             .catch((err) => {
@@ -63,7 +66,8 @@ class home extends Component {
 
 home.propTypes = {
   getScreams: PropTypes.func.isRequired,
-  data: PropTypes.object.isRequired
+  data: PropTypes.object.isRequired,
+  posts: PropTypes.object
 };
 
 const mapStateToProps = (state) => ({
