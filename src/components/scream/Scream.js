@@ -72,6 +72,7 @@ class Scream extends Component {
         account,
         id,
         favourites_count,
+        favourited,
         pleroma,
         // emoji
       },
@@ -102,7 +103,7 @@ class Scream extends Component {
             )
           }
         </ul>
-        <LikeButton screamId={id} likeCount={favourites_count} />
+        <LikeButton screamId={id} likeCount={favourites_count} favourited={favourited} />
         <NewButtonGold tip="Replies">
           <ChatIcon color="inherit" className="w3-left" />
           <span className="ml-5">{pleroma.favourites_count}</span>

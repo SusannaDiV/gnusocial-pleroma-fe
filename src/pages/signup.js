@@ -93,9 +93,9 @@ oauthToken = async (oauthData) => {
 };
 
 verifyCreds = async () => {
-  console.log('Bearer to set in login header', localStorage.getItem('login_token'))
+  console.log('Bearer to set in login header', localStorage.getItem('tokenStr'))
   await axios
-    .get('https://pleroma.site/api/v1/accounts/verify_credentials', { headers: {"Authorization" : `Bearer ${localStorage.getItem('login_token')}`} })
+    .get('https://pleroma.site/api/v1/accounts/verify_credentials', { headers: {"Authorization" : `Bearer ${localStorage.getItem('tokenStr')}`} })
     .then((res) => {
       axios.defaults.headers.common['Authorization'] =`Bearer ${res.data.token}`;
     })

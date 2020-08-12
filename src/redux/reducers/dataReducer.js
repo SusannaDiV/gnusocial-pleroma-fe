@@ -50,6 +50,12 @@ export default function(state = initialState, action) {
         scream: action.payload
       };
     case LIKE_SCREAM:
+      return {
+        ...state,
+        likedData: action.payload,
+        loading: false,
+        currentUser: null
+      };
     case UNLIKE_SCREAM:
       let index = state.screams.findIndex(
         (scream) => scream.screamId === action.payload.screamId
