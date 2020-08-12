@@ -65,13 +65,14 @@ class Scream extends Component {
     dayjs.extend(relativeTime);
     const {
       scream: {
-        body,
-        createdAt,
+        spoiler_text,
+        content,
+        created_at,
         userImage,
-        userHandle,
-        screamId,
-        likeCount,
-        commentCount,
+        account,
+        id,
+        favourites_count,
+        pleroma,
         // emoji
       },
       user: {
@@ -81,17 +82,18 @@ class Scream extends Component {
     } = this.props;
 
     const deleteButton =
-      authenticated && userHandle === handle ? (
-        <DeleteScream screamId={screamId} />
+      authenticated && account.username === handle ? (
+        <DeleteScream screamId={id} />
       ) : null;
     return (
       <div className="scream-item w3-container w3-card w3-white w3-round">
         <div src={userImage} alt="Profile image" className="w3-left w3-margin-right" />
-        <span className="w3-right w3-opacity">{dayjs(createdAt).fromNow()}</span>
-        <h5 className="w3-opacity"><Link to={`/users/${userHandle}`}><strong>{userHandle}</strong></Link></h5>
+        <span className="w3-right w3-opacity">{dayjs(created_at).fromNow()}</span>
+        <h5 className="w3-opacity"><Link to={`/users/${account.username}`}><strong>{account.username}</strong></Link></h5>
         {deleteButton}
         <hr className="w3-clear" />
-        <p variant="body1 mb-30">{body}</p>
+        <p variant="body1 mb-30">{spoiler_text}</p>
+        <p variant="body1 mb-30">{content}</p>
 
         <ul className="emoji-list">
           {
@@ -100,18 +102,18 @@ class Scream extends Component {
             )
           }
         </ul>
-        <LikeButton screamId={screamId} likeCount={likeCount} />
+        <LikeButton screamId={id} likeCount={favourites_count} />
         <NewButtonGold tip="Replies">
           <ChatIcon color="inherit" className="w3-left" />
-          <span className="ml-5">{commentCount}</span>
+          <span className="ml-5">{pleroma.favourites_count}</span>
         </NewButtonGold>
         <button className="w3-button w-right file-button w3-theme-d2 copy-button">
           <i className="fa fa-recycle" />
         </button>
         <div className="w3-right">
           <ScreamDialog
-            screamId={screamId}
-            userHandle={userHandle}
+            screamId={id}
+            userHandle={account.username}
             openDialog={this.props.openDialog}
           />
           <NewButtonGold tip="From Web">
