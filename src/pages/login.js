@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import Redirect from "react-router-dom/es/Redirect";
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
@@ -66,6 +67,7 @@ class login extends Component {
       .get('https://pleroma.site/api/v1/accounts/verify_credentials', { headers: {"Authorization" : `Bearer ${localStorage.getItem('tokenStr')}`} })
       .then((res) => {
         axios.defaults.headers.common['Authorization'] =`Bearer ${res.data.token}`;
+        this.setState({ isLoggedIn: true });
       })
       .catch((err) => {
         console.log('Errors: ', err);
@@ -100,6 +102,9 @@ class login extends Component {
     });
   };
   render() {
+    if (this.state.isLoggedIn) {
+      return <Redirect to = {{ pathname: "/" }} />;
+    }
     const {
       classes,
       UI: { loading }

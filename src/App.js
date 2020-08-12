@@ -29,8 +29,7 @@ import Store from "../src/redux/store";
 
 const theme = createMuiTheme(themeObject);
 
-axios.defaults.baseURL =
-  'https://europe-west1-socialape-d081e.cloudfunctions.net/api';
+axios.defaults.baseURL = '/';
 
 const token = localStorage.FBIdToken;
 if (token) {

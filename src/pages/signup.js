@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { connect } from 'react-redux';
 import axios from 'axios';
+import Redirect from "react-router-dom/es/Redirect";
 
 const styles = (theme) => ({
   ...theme
@@ -98,6 +99,7 @@ verifyCreds = async () => {
     .get('https://pleroma.site/api/v1/accounts/verify_credentials', { headers: {"Authorization" : `Bearer ${localStorage.getItem('tokenStr')}`} })
     .then((res) => {
       axios.defaults.headers.common['Authorization'] =`Bearer ${res.data.token}`;
+        this.setState({ isLoggedIn: true });
     })
     .catch((err) => {
       console.log('Errors: ', err);
@@ -154,6 +156,9 @@ verifyCreds = async () => {
     });
   };
   render() {
+      if (this.state.isLoggedIn) {
+          return <Redirect to = {{ pathname: "/" }} />;
+      }
     const {
       classes,
       UI: { loading }
