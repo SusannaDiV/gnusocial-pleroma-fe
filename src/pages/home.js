@@ -4,78 +4,47 @@ import Scream from '../components/scream/Scream';
 import ScreamSkeleton from '../util/ScreamSkeleton';
 import PostStatus from '../components/scream/PostStatus';
 import { connect } from 'react-redux';
-import { getScreams } from '../redux/actions/dataActions';
-import axios from 'axios';
+import { getPosts } from '../redux/actions/dataActions';
 
 class home extends Component {
-  componentDidMount() {
-      let isUserLoggedIn = localStorage.getItem('tokenStr');
-      if(isUserLoggedIn == null){
-          this.getPublicTimelineData(); // user not logged in
-      } else {
-          this.getHomeTimelineData(); // user logged in
-      }
-  }
+    componentDidMount() {
+        this.props.getPosts();
+    }
+    render() {
+        const { posts, loading } = this.props.data;
 
-    getHomeTimelineData = () => {
-        axios
-            .get('https://pleroma.site/api/v1/timelines/home?count=20&with_muted=true', { headers: {"Authorization" : `Bearer ${localStorage.getItem('tokenStr')}`} })
-            .then((res) => {
-                console.log('Timeline data: ', res)
-            })
-            .catch((err) => {
-                console.log('Timeline data: ', err);
-            });
-    };
-
-    getPublicTimelineData = () => {
-        axios
-            .get('https://pleroma.site/api/v1/timelines/public?local=true&only_media=false&count=20&with_muted=true', )
-            .then((res) => {
-
-                console.log('Public Timeline data: ', res)
-            })
-            .catch((err) => {
-                console.log('Public Timeline data: ', err);
-            });
-    };
-
-  render() {
-    const { screams, loading } = this.props.data;
-
-    let recentScreamsMarkup = !loading ? (
-      screams?.map((scream) => <Scream key={scream.screamId} scream={scream} />)
-    ) : (
-        <ScreamSkeleton />
-      );
-    return (
-      <div>
-        <div className="w3-card w3-round w3-white">
-          <div className="w3-container w3-padding-24">
-            <PostStatus />
-          </div>
-        </div>
-        <div className="w3-container w3-padding w3-card w3-white w3-round w3-margin-top w3-margin-bottom">
-          <h5 className="w3-opacity">{this.props.user.authenticated ? 'Personal Timeline of ' + this.props.user.credentials.handle : 'Public Timeline'}</h5>
-        </div>
-        {recentScreamsMarkup}
-      </div>
-    );
-  }
+        let recentScreamsMarkup = !loading ? (
+            posts?.map((post) => <Scream key={post.id} scream={post} />)
+        ) : (
+            <ScreamSkeleton />
+        );
+        return (
+            <div>
+                <div className="w3-card w3-round w3-white">
+                    <div className="w3-container w3-padding-24">
+                        <PostStatus />
+                    </div>
+                </div>
+                <div className="w3-container w3-padding w3-card w3-white w3-round w3-margin-top w3-margin-bottom">
+                    <h5 className="w3-opacity">{this.props.user.authenticated ? 'Personal Timeline of ' + this.props.user.credentials.handle : 'Public Timeline'}</h5>
+                </div>
+                {recentScreamsMarkup}
+            </div>
+        );
+    }
 }
 
 home.propTypes = {
-  getScreams: PropTypes.func.isRequired,
-  data: PropTypes.object.isRequired,
-  posts: PropTypes.object
+    getPosts: PropTypes.func.isRequired,
+    data: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  data: state.data,
-  user: state.user
+    data: state.data,
+    user: state.user
 });
 
 export default connect(
-  mapStateToProps,
-  { getScreams }
+    mapStateToProps,
+    { getPosts }
 )(home);

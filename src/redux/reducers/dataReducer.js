@@ -1,5 +1,6 @@
 import {
   SET_SCREAMS,
+  SET_POSTS,
   LIKE_SCREAM,
   UNLIKE_SCREAM,
   LOADING_DATA,
@@ -28,7 +29,14 @@ export default function(state = initialState, action) {
       return {
         ...state,
         currentUser: action.payload
-      }
+      };
+    case SET_POSTS:
+      return {
+        ...state,
+        posts: action.payload,
+        loading: false,
+        currentUser: null
+      };
     case SET_SCREAMS:
       return {
         ...state,

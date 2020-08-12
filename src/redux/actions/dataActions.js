@@ -1,6 +1,7 @@
 import {
   SET_CURRENT_USER,
   SET_SCREAMS,
+  SET_POSTS,
   LOADING_DATA,
   LIKE_SCREAM,
   UNLIKE_SCREAM,
@@ -14,6 +15,44 @@ import {
   SUBMIT_COMMENT
 } from '../types';
 import axios from 'axios';
+
+export const getPosts = () => (dispatch) => {
+    let isUserLoggedIn = localStorage.getItem('tokenStr');
+
+    dispatch({ type: LOADING_DATA });
+
+    if(isUserLoggedIn == null){ // public timeline posts
+        axios
+            .get('https://pleroma.site/api/v1/timelines/public?local=true&only_media=false&count=20&with_muted=true', )
+            .then((res) => {
+                dispatch({
+                    type: SET_POSTS,
+                    payload: res.data
+                });
+            })
+            .catch((err) => {
+                dispatch({
+                    type: SET_POSTS,
+                    payload: []
+                });
+            });
+    } else { // logged in user timeline posts
+        axios
+            .get('https://pleroma.site/api/v1/timelines/home?count=20&with_muted=true', { headers: {"Authorization" : `Bearer ${localStorage.getItem('tokenStr')}`} })
+            .then((res) => {
+                dispatch({
+                    type: SET_POSTS,
+                    payload: res.data
+                });
+            })
+            .catch((err) => {
+                dispatch({
+                    type: SET_POSTS,
+                    payload: []
+                });
+            });
+    }
+};
 
 // Get all screams
 export const getScreams = () => (dispatch) => {
