@@ -16,6 +16,7 @@ import InsertLink from '@material-ui/icons/InsertLink';
 import InsertEmoticonOutlined from '@material-ui/icons/InsertEmoticonOutlined';
 // Redux
 import { connect } from 'react-redux';
+import axios from "axios";
 
 const styles = {
   card: {
@@ -60,7 +61,29 @@ class Scream extends Component {
       })
     }
 
-  }
+  };
+
+  onRetweet = (id) => {
+    axios
+        .post(`https://pleroma.site/api/v1/statuses/${id}/reblog`,null, { headers: {"Authorization" : `Bearer ${localStorage.getItem('tokenStr')}`} })
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err.response.data);
+        });
+  };
+
+  undoRetweet = (id) => {
+    axios
+        .post(`https://pleroma.site/api/v1/statuses/${id}/unreblog`,null, { headers: {"Authorization" : `Bearer ${localStorage.getItem('tokenStr')}`} })
+        .then((res) => {
+          console.log(res.data);
+        })
+        .catch((err) => {
+          console.log(err.response.data);
+        });
+  };
 
   render() {
     dayjs.extend(relativeTime);
