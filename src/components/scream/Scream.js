@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactHtmlParser from 'react-html-parser'
 import Picker, { SKIN_TONE_MEDIUM_DARK } from 'emoji-picker-react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Link } from 'react-router-dom';
@@ -94,7 +95,7 @@ class Scream extends Component {
         {deleteButton}
         <hr className="w3-clear" />
         <p variant="body1 mb-30">{spoiler_text}</p>
-        <p variant="body1 mb-30">{content}</p>
+        <p variant="body1 mb-30">{ReactHtmlParser(content)}</p>
 
         <ul className="emoji-list">
           {
