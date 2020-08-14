@@ -12,6 +12,7 @@ class home extends Component {
     }
     render() {
         const { posts, loading } = this.props.data;
+        const isLoggedIn = localStorage.getItem('tokenStr') != null;
 
         let recentPostsMarkup = !loading ? (
             posts?.map((post) => <Scream key={post.id} scream={post} />)
@@ -20,11 +21,14 @@ class home extends Component {
         );
         return (
             <div>
+                {isLoggedIn ?
                 <div className="w3-card w3-round w3-white">
                     <div className="w3-container w3-padding-24">
-                        <PostStatus />
+                    <PostStatus />
                     </div>
-                </div>
+                    </div> :
+                    <div></div>
+                }
                 <div className="w3-container w3-padding w3-card w3-white w3-round w3-margin-top w3-margin-bottom">
                     <h5 className="w3-opacity">{this.props.user.authenticated ? 'Personal Timeline of ' + this.props.user.credentials.handle : 'Public Timeline'}</h5>
                 </div>
