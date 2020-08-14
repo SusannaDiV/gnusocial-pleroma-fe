@@ -85,11 +85,11 @@ export const getScream = (screamId) => (dispatch) => {
     })
     .catch((err) => console.log(err));
 };
-// Post a scream
-export const postStatus = (newScream) => (dispatch) => {
+// Post a Status
+export const postStatus = (status) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   axios
-    .post('/scream', newScream)
+    .post('https://pleroma.site/api/v1/statuses', status,{ headers: {"Authorization" : `Bearer ${localStorage.getItem('tokenStr')}`} })
     .then((res) => {
       dispatch({
         type: POST_SCREAM,

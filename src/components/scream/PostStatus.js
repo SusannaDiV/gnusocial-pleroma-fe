@@ -27,7 +27,7 @@ const styles = (theme) => ({
 class PostStatus extends Component {
   state = {
     open: false,
-    body: '',
+    status: '',
     file: null,
     chosenEmoji: '',
     openEmojiPicker: false,
@@ -40,7 +40,7 @@ class PostStatus extends Component {
       });
     }
     if (!nextProps.UI.errors && !nextProps.UI.loading) {
-      this.setState({ body: '', open: false, errors: {} });
+      this.setState({ status: '', open: false, errors: {} });
     }
   }
   handleOpen = () => {
@@ -61,9 +61,9 @@ class PostStatus extends Component {
   };
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.postStatus({ body: this.state.body, emoji: this.state.chosenEmoji });
+    this.props.postStatus({ status: this.state.status, emoji: this.state.chosenEmoji });
     this.setState({
-      body: '',
+      status: '',
       file: null,
       chosenEmoji: ''
     })
@@ -83,11 +83,11 @@ class PostStatus extends Component {
       <Fragment>
         <form onSubmit={this.handleSubmit} className="post-status-form">
           <textarea
-            name="body"
+            name="status"
             placeholder="Remember to follow Fediverse's guidelines while posting"
             rows="2"
             className="form-control"
-            value={this.state.body}
+            value={this.state.status}
             onChange={this.handleChange}
           ></textarea>
           {
@@ -102,7 +102,7 @@ class PostStatus extends Component {
             </button>
             {this.state.openEmojiPicker && <Picker onEmojiClick={this.onEmojiClick} disableAutoFocus={true} skinTone={SKIN_TONE_MEDIUM_DARK} />}
           </div>
-          <span className="word-counter">{1000 - this.state.body.length}</span>
+          <span className="word-counter">{1000 - this.state.status.length}</span>
           {this.state.file && <p>{this.state.file.name}</p>}
           <button type="submit" className="w3-button w3-theme mr-5"><i className="fa fa-pencil" />
             {loading && (
