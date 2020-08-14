@@ -6,6 +6,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import InsertEmoticonOutlined from '@material-ui/icons/InsertEmoticonOutlined';
 import { connect } from 'react-redux';
 import { postStatus, clearErrors } from '../../redux/actions/dataActions';
+import axios from 'axios';
 
 const styles = (theme) => ({
   ...theme,
@@ -29,6 +30,7 @@ class PostStatus extends Component {
     open: false,
     status: '',
     file: null,
+    media_ids: [],
     chosenEmoji: '',
     openEmojiPicker: false,
     errors: {}
@@ -50,7 +52,8 @@ class PostStatus extends Component {
     this.props.clearErrors();
     this.setState({ open: false, errors: {} });
   };
-  handleChange = (event) => {
+  handleChange = async (event) => {
+    await this.uploadMedia(event.target.files);
     if (event.target.name === 'file') {
       this.setState({
         file: event.target.files[0]
@@ -61,9 +64,10 @@ class PostStatus extends Component {
   };
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.postStatus({ status: this.state.status, emoji: this.state.chosenEmoji });
+    this.props.postStatus({ status: this.state.status, emoji: this.state.chosenEmoji, media_ids: this.state.media_ids });
     this.setState({
       status: '',
+      media_ids: [],
       file: null,
       chosenEmoji: ''
     })
@@ -73,7 +77,19 @@ class PostStatus extends Component {
       chosenEmoji: emojiObject.emoji,
       openEmojiPicker: false
     })
-  }
+  };
+
+  // Upload Media for post
+  uploadMedia = async (file) => {
+    await axios
+        .post('https://pleroma.site/api/v1/media', file, { headers: {"Authorization" : `Bearer ${localStorage.getItem('tokenStr')}`} })
+        .then((res) => {
+          this.state.media_ids.push(res.id);
+        })
+        .catch((err) => {
+          console.log('Error while uploading media ', err);
+        });
+  };
   render() {
     const {
       classes,
