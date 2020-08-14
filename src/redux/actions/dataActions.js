@@ -107,19 +107,21 @@ export const postStatus = (newScream) => (dispatch) => {
 // Like a scream
 export const likeScream = (screamId) => (dispatch) => {
   axios
-    .get(`/scream/${screamId}/like`)
+    .post(`https://pleroma.site/api/v1/statuses/${screamId}/favourite`, null, { headers: {"Authorization" : `Bearer ${localStorage.getItem('tokenStr')}`}})
     .then((res) => {
       dispatch({
         type: LIKE_SCREAM,
         payload: res.data
       });
+      console.log('Success Response: ', res.data)
+      return res.status == 200
     })
     .catch((err) => console.log(err));
 };
 // Unlike a scream
 export const unlikeScream = (screamId) => (dispatch) => {
   axios
-    .get(`/scream/${screamId}/unlike`)
+    .post(`https://pleroma.site/api/v1/statuses/${screamId}/unfavourite`, null, { headers: {"Authorization" : `Bearer ${localStorage.getItem('tokenStr')}`}})
     .then((res) => {
       dispatch({
         type: UNLIKE_SCREAM,
