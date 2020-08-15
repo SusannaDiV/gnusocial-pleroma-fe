@@ -24,7 +24,6 @@ export class LikeButton extends Component {
 
 
   setLikeButtonState = (favourited) => {
-    console.log('Inside button state method: ', favourited)
     if(favourited){
       this.setState({ showLikeButton: false })
     } else{
@@ -33,7 +32,6 @@ export class LikeButton extends Component {
   }
 
   setLikesCountState = (likeCountTotal) => {
-    console.log('Inside like counts state method: ', likeCountTotal)
     this.setState({ likeCounts: likeCountTotal })
   }
 
@@ -96,12 +94,7 @@ const mapStateToProps = (state) => ({
   user: state.user,
 });
 
-// const mapActionsToProps = {
-//   likeScream,
-//   unlikeScream
-// };
 
 export default connect(
   mapStateToProps,
-  // mapActionsToProps
 )(LikeButton);

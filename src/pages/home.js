@@ -23,7 +23,7 @@ class home extends Component {
         const isLoggedIn = localStorage.getItem('tokenStr') != null;
 
         let recentPostsMarkup = !loading ? (
-            posts?.map((post) => <Scream key={post.id}  onLikeAction={ () => this.loadHome() } scream={post} />)
+            posts?.map((post) => <Scream key={post.id}  onUserAction={ () => this.loadHome() } scream={post} />)
         ) : (
             <ScreamSkeleton />
         );
