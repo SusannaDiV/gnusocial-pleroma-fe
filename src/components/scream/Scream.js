@@ -103,7 +103,7 @@ class Scream extends Component {
       user: {
         authenticated,
         credentials: { handle }
-      }
+      },
     } = this.props;
 
     const deleteButton =
@@ -127,7 +127,7 @@ class Scream extends Component {
             )
           }
         </ul>
-        <LikeButton screamId={id} likeCount={favourites_count} favourited={favourited} />
+        <LikeButton screamId={id} likeCount={favourites_count} onAction={() => this.props.onLikeAction()} favourited={favourited} />
         <NewButtonGold tip="Replies">
           <ChatIcon color="inherit" className="w3-left" />
           <span className="ml-5">{pleroma.favourites_count}</span>

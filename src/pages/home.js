@@ -7,15 +7,23 @@ import { connect } from 'react-redux';
 import { getPosts } from '../redux/actions/dataActions';
 
 class home extends Component {
+
     componentDidMount() {
         this.props.getPosts();
     }
+
+    loadHome = async () => {
+        await this.props.getPosts();
+        this.render();
+    }
+
     render() {
+        console.log('Home component being rendered');
         const { posts, loading } = this.props.data;
         const isLoggedIn = localStorage.getItem('tokenStr') != null;
 
         let recentPostsMarkup = !loading ? (
-            posts?.map((post) => <Scream key={post.id} scream={post} />)
+            posts?.map((post) => <Scream key={post.id}  onLikeAction={ () => this.loadHome() } scream={post} />)
         ) : (
             <ScreamSkeleton />
         );
