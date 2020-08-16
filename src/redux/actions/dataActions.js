@@ -121,13 +121,15 @@ export const submitComment = (screamId, commentData) => (dispatch) => {
       });
     });
 };
-export const deleteScream = (screamId) => (dispatch) => {
+export const deleteScream = (id) => (dispatch) => {
   axios
-    .delete(`/scream/${screamId}`)
+      .delete(`https://pleroma.site/api/v1/statuses/${id}`, { headers: {"Authorization" : `Bearer ${localStorage.getItem('tokenStr')}`}})
     .then(() => {
-      dispatch({ type: DELETE_SCREAM, payload: screamId });
+      dispatch({ type: DELETE_SCREAM, payload: id });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 export const getUserData = (id) => (dispatch) => {
