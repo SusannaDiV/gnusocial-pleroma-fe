@@ -66,6 +66,7 @@ class login extends Component {
     await axios
       .get('https://pleroma.site/api/v1/accounts/verify_credentials', { headers: {"Authorization" : `Bearer ${localStorage.getItem('tokenStr')}`} })
       .then((res) => {
+        localStorage.setItem('username', res.data.username);
         axios.defaults.headers.common['Authorization'] =`Bearer ${res.data.token}`;
         this.setState({ isLoggedIn: true });
       })

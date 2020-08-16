@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import Redirect from "react-router-dom/es/Redirect";
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import logo from '../../images/gnu-social-logo.png';
 import Notifications from './Notifications';
 import SearchInput from './SearchInput';
 import { logoutUser } from '../../redux/actions/userActions';
+import store from "../../redux/store";
+import { Link } from 'react-router-dom';
 class Navbar extends Component {
   constructor(props) {
     super(props);
@@ -15,9 +17,15 @@ class Navbar extends Component {
   }
   handleLogout = () => {
     this.props.logoutUser();
+    this.render();
   };
   render() {
     const { authenticated } = this.props;
+    const isLoggedIn = localStorage.getItem('tokenStr') != null;
+    const username = localStorage.getItem('username');
+      if (this.state.isLoggedIn) {
+      return <Redirect to = {{ pathname: "/" }} />;
+    }
     return (
       <div>
         <meta charSet="UTF-8" />
@@ -31,7 +39,7 @@ class Navbar extends Component {
           <div className="w3-bar w3-theme-l2 w3-left-align w3-large">
             <Link to="/" className="w3-bar-item w3-padding-medium w3-theme-l2"><i className="w3-margin-right"></i><img src={logo} className="GNU-social-logo" alt="logo" width="105" height="33" /></Link>
             <Link to="/" className="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"><i className="fa fa-home" /></Link>
-            {authenticated &&
+            {isLoggedIn &&
               <>
                 <Link to="/account-settings" className="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"><i className="fa fa-user" /></Link>
                 <Link to="/message" className="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"><i className="fa fa-envelope" /></Link>
@@ -41,13 +49,13 @@ class Navbar extends Component {
 
             <div className="w3-dropdown-hover w3-hide-small w3-right">
               {
-                authenticated ?
+                isLoggedIn ?
                   <>
                     <button className="w3-button w3-padding-large" title="My Account"><i />
                       <img src={this.props.user?.credentials.imageUrl} className="w3-circle" style={{ height: '23px', width: '23px' }} alt="Avatar" />
                     </button>
                     <div className="w3-dropdown-content head_menu  w3-bar-block" style={{ width: '100px' }}><h4> </h4>
-                      <Link to={`/users/${this.props.user?.credentials.handle}`} className="w3-button w3-block w3-theme-l2 w3-section"><i className="fa fa-user" /> Profile</Link>
+                      <Link to={`/users/${username}`} className="w3-button w3-block w3-theme-l2 w3-section"><i className="fa fa-user" /> Profile</Link>
                       <hr />
                       <button onClick={this.handleLogout} className="w3-button w3-block w3-theme-d2 w3-section" title="Decline"><i className="fa fa-sign-out" /> Logout</button>
                     </div>

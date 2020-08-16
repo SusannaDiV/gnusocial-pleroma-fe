@@ -96,7 +96,10 @@ export const oauthToken = (oauthData, history) => {
 
 
 export const logoutUser = () => (dispatch) => {
-  localStorage.removeItem('FBIdToken');
+  localStorage.removeItem('tokenStr');
+  localStorage.removeItem('login_token');
+  localStorage.removeItem('client_id');
+  localStorage.removeItem('client_secret');
   delete axios.defaults.headers.common['Authorization'];
   dispatch({ type: SET_UNAUTHENTICATED });
 };
