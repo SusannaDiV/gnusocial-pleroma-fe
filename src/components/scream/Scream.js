@@ -40,14 +40,17 @@ class Scream extends Component {
     openEmojiPicker: false,
     showRetweetButton: true,
     retweetCounts: 0,
+    userRepeatedTweet: '',
+    isStatusRepeated: false,
   };
 
   componentDidMount() {
-    console.log('Screams Id: ', this.props.scream.id)
-    console.log('Scream reblogged: ', this.props.scream.reblogged)
-    console.log('Scream reblog count: ', this.props.scream.reblogs_count)
     this.setRetweetButtonState(this.props.scream.reblogged);
     this.setRetweetCountsState(this.props.scream.reblogs_count);
+    if(this.props.userNameRepeated != null){
+      this.setState ({userRepeatedTweet: this.props.userNameRepeated})
+      this.setState ({isStatusRepeated: true})
+    }
   }
 
   onEmojiClick = (event, emojiObject) => {
@@ -168,6 +171,13 @@ class Scream extends Component {
       ) : null;
     return (
       <div className="scream-item w3-container w3-card w3-white w3-round">
+            {this.state.isStatusRepeated && (
+         <div
+          className="w3-left w3-margin-right"
+        >
+          <span className="w3-right w3-opacity w3-theme-d2">{this.state.userRepeatedTweet} Repeated</span>
+        </div>
+         )}
         <div
           src={userImage}
           alt="Profile image"

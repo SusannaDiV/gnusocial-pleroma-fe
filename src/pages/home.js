@@ -18,12 +18,12 @@ class home extends Component {
     }
 
     render() {
-        console.log('Home component being rendered');
+        console.log('Home component being rendered', this.props.data);
         const { posts, loading } = this.props.data;
         const isLoggedIn = localStorage.getItem('tokenStr') != null;
 
         let recentPostsMarkup = !loading ? (
-            posts?.map((post) => <Scream key={post.id}  onUserAction={ () => this.loadHome() } scream={post} />)
+            posts?.map((post) => post.reblogged && post.reblog != null ? <Scream key={post.reblog.id} userNameRepeated={post.account.display_name}  onUserAction={ () => this.loadHome() } scream={post.reblog} /> : <Scream key={post.id}  onUserAction={ () => this.loadHome() } scream={post} />)
         ) : (
             <ScreamSkeleton />
         );
