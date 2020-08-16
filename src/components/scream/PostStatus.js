@@ -53,7 +53,8 @@ class PostStatus extends Component {
     this.setState({ open: false, errors: {} });
   };
   handleChange = async (event) => {
-    await this.uploadMedia(event.target.files);
+    // we need this for media handling. test when Pleroma S3 is working
+    //await this.uploadMedia(event.target.files);
     if (event.target.name === 'file') {
       this.setState({
         file: event.target.files[0]

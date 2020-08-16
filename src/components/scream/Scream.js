@@ -140,6 +140,9 @@ class Scream extends Component {
   };
 
   render() {
+    const isLoggedIn = localStorage.getItem('tokenStr') != null;
+    const loggedUserName = localStorage.getItem('username');
+
     dayjs.extend(relativeTime);
     const {
       scream: {
@@ -155,13 +158,12 @@ class Scream extends Component {
         // emoji
       },
       user: {
-        authenticated,
         credentials: { handle },
       },
     } = this.props;
 
     const deleteButton =
-      authenticated && account.username === handle ? (
+        isLoggedIn && account.username === loggedUserName ? (
         <DeleteScream screamId={id} />
       ) : null;
     return (
