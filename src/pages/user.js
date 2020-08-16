@@ -13,12 +13,14 @@ class user extends Component {
     screamIdParam: null
   };
   componentDidMount() {
+    const userId = this.props.match.params.handle;
     const screamId = this.props.match.params.screamId;
 
     if (screamId) this.setState({ screamIdParam: screamId });
 
+
     //this.props.getUserData(handle, this.props.user);
-    const userId = localStorage.getItem('userId');
+    // const userId = localStorage.getItem('userId');
     this.props.getUserData(userId);
   }
   render() {

@@ -187,7 +187,7 @@ class Scream extends Component {
           {dayjs(created_at).fromNow()}
         </span>
         <h5 className="w3-opacity">
-          <Link to={`/users/${account.username}`}>
+          <Link to={`/users/${account.id}`}>
             <strong>{account.username}</strong>
           </Link>
         </h5>
