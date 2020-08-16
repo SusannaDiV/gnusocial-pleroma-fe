@@ -13,28 +13,30 @@ class user extends Component {
     screamIdParam: null
   };
   componentDidMount() {
-    const handle = this.props.match.params.handle;
     const screamId = this.props.match.params.screamId;
 
     if (screamId) this.setState({ screamIdParam: screamId });
 
-    this.props.getUserData(handle, this.props.user);
+    //this.props.getUserData(handle, this.props.user);
+    const userId = localStorage.getItem('userId');
+    this.props.getUserData(userId);
   }
   render() {
-    const { screams, loading, currentUser } = this.props.data;
+    const { posts, loading } = this.props.data;
     const { screamIdParam } = this.state;
+    const handle = localStorage.getItem('username');
 
     const screamsMarkup = loading ? (
       <ScreamSkeleton />
-    ) : screams === null ? (
-      <p>No screams from this user</p>
+    ) : posts === null ? (
+      <p>No data from this user</p>
     ) : !screamIdParam ? (
-      screams.map((scream) => <Scream key={scream.screamId} scream={scream} />)
+        posts.map((post) => <Scream key={post.id} scream={post} />)
     ) : (
-      screams.map((scream) => {
-        if (scream.screamId !== screamIdParam)
-          return <Scream key={scream.screamId} scream={scream} />;
-        else return <Scream key={scream.screamId} scream={scream} openDialog />;
+        posts.map((post) => {
+        if (post.screamId !== screamIdParam)
+          return <Scream key={post.screamId} scream={post} />;
+        else return <Scream key={post.screamId} scream={post} openDialog />;
       })
     );
 
@@ -47,7 +49,7 @@ class user extends Component {
             </div>
           </div>
           <div className="w3-container w3-padding w3-card w3-white w3-round w3-margin-top w3-margin-bottom">
-            <h5 className="w3-opacity">Personal TImeline of {currentUser?.handle}</h5>
+            <h5 className="w3-opacity">Personal Timeline of {handle}</h5>
           </div>
           {screamsMarkup}
         </Grid>

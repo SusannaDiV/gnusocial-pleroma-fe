@@ -130,26 +130,26 @@ export const deleteScream = (screamId) => (dispatch) => {
     .catch((err) => console.log(err));
 };
 
-export const getUserData = (userHandle, user) => (dispatch) => {
+export const getUserData = (id) => (dispatch) => {
   dispatch({ type: LOADING_DATA });
   axios
-    .get(`/user/${userHandle}`)
+      .get(`https://pleroma.site/api/v1/accounts/${id}/statuses`, { headers: {"Authorization" : `Bearer ${localStorage.getItem('tokenStr')}`} })
     .then((res) => {
       dispatch({
-        type: SET_SCREAMS,
-        payload: res.data.screams
+        type: SET_POSTS,
+        payload: res.data
       });
-      if(user.credentials.handle !== userHandle){
+      /*if(user.credentials.handle !== userHandle){
         dispatch({
-          type: SET_CURRENT_USER,
+          type: SET_POSTS,
           payload: res.data.user
         })
-      }
+      }*/
     })
     .catch(() => {
       dispatch({
-        type: SET_SCREAMS,
-        payload: null
+        type: SET_POSTS,
+        payload: []
       });
     });
 };

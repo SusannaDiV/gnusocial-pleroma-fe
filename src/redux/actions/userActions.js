@@ -97,6 +97,8 @@ export const oauthToken = (oauthData, history) => {
 
 export const logoutUser = () => (dispatch) => {
   localStorage.removeItem('tokenStr');
+  localStorage.removeItem('userId');
+  localStorage.removeItem('username');
   localStorage.removeItem('login_token');
   localStorage.removeItem('client_id');
   localStorage.removeItem('client_secret');
