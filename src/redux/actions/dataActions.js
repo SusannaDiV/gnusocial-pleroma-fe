@@ -72,11 +72,12 @@ export const getScreams = () => (dispatch) => {
       });
     });
 };
-export const getScream = (screamId) => (dispatch) => {
+export const getScream = (userId) => (dispatch) => {
   dispatch({ type: LOADING_UI });
   axios
-    .get(`/scream/${screamId}`)
+    .get(`https://pleroma.site/api/v1/statuses/${userId}/context`,  { headers: {"Authorization" : `Bearer ${localStorage.getItem('tokenStr')}`} })
     .then((res) => {
+      console.log('Response from get Scream: ', res.data)
       dispatch({
         type: SET_SCREAM,
         payload: res.data
@@ -104,9 +105,9 @@ export const postStatus = (status) => (dispatch) => {
       });
     });
 };
-export const submitComment = (screamId, commentData) => (dispatch) => {
+export const submitComment = (commentData) => (dispatch) => {
   axios
-    .post(`/scream/${screamId}/comment`, commentData)
+    .post(`https://pleroma.site/api/v1/statuses`, commentData, { headers: {"Authorization" : `Bearer ${localStorage.getItem('tokenStr')}`} })
     .then((res) => {
       dispatch({
         type: SUBMIT_COMMENT,

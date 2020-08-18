@@ -28,13 +28,20 @@ class CommentForm extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
   handleSubmit = (event) => {
+    const commentData = {
+      status: this.state.body,
+      source: 'Pleroma FE',
+      visibility: 'public',
+      content_type: 'text/plain',
+      in_reply_to_id: this.props.screamId
+    };
     event.preventDefault();
-    this.props.submitComment(this.props.screamId, { body: this.state.body });
+    this.props.submitComment(commentData);
   };
 
   render() {
-    const { classes, authenticated } = this.props;
-    const commentFormMarkup = authenticated ? (
+    const { classes } = this.props;
+    const commentFormMarkup =  (
       <Grid item sm={12} style={{ textAlign: 'center' }}>
         <form onSubmit={this.handleSubmit} className="overflow-hidden">
           <textarea
@@ -48,7 +55,7 @@ class CommentForm extends Component {
         </form>
         <hr className={classes.visibleSeparator} />
       </Grid>
-    ) : null;
+    );
     return commentFormMarkup;
   }
 }

@@ -47,7 +47,8 @@ export default function(state = initialState, action) {
     case SET_SCREAM:
       return {
         ...state,
-        scream: action.payload
+        commentsPosts: action.payload,
+        loadingPosts: false,
       };
     case LIKE_SCREAM:
       return {

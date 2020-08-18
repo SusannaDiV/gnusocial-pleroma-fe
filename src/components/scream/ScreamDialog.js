@@ -1,56 +1,58 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import withStyles from '@material-ui/core/styles/withStyles';
-import MyButton from '../../util/MyButton';
-import LikeButton from './LikeButton';
-import NewButtonGold from '../../util/NewButtonGold'
-import Comments from './Comments';
-import CommentForm from './CommentForm';
-import dayjs from 'dayjs';
-import { Link } from 'react-router-dom';
-import Dialog from '@material-ui/core/Dialog';
-import DialogContent from '@material-ui/core/DialogContent';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import CloseIcon from '@material-ui/icons/Close';
-import Code from '@material-ui/icons/Code';
-import ChatIcon from '@material-ui/icons/Chat';
-import { connect } from 'react-redux';
-import { getScream, clearErrors } from '../../redux/actions/dataActions';
-import NewButtonRed from '../../util/NewButtonRed';
+import React, { Component, Fragment } from "react";
+import PropTypes from "prop-types";
+import withStyles from "@material-ui/core/styles/withStyles";
+import MyButton from "../../util/MyButton";
+import LikeButton from "./LikeButton";
+import NewButtonGold from "../../util/NewButtonGold";
+import Comments from "./Comments";
+import CommentForm from "./CommentForm";
+import dayjs from "dayjs";
+import { Link } from "react-router-dom";
+import Dialog from "@material-ui/core/Dialog";
+import DialogContent from "@material-ui/core/DialogContent";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import CloseIcon from "@material-ui/icons/Close";
+import Code from "@material-ui/icons/Code";
+import ChatIcon from "@material-ui/icons/Chat";
+import { connect } from "react-redux";
+import { getScream, clearErrors } from "../../redux/actions/dataActions";
+import NewButtonRed from "../../util/NewButtonRed";
+import Scream from './Scream';
+import ScreamSkeleton from '../../util/ScreamSkeleton';
 
 const styles = (theme) => ({
   ...theme,
   profileImage: {
     maxWidth: 200,
     height: 200,
-    borderRadius: '50%',
-    objectFit: 'cover'
+    borderRadius: "50%",
+    objectFit: "cover",
   },
   dialogContent: {
-    padding: 20
+    padding: 20,
   },
   closeButton: {
-    position: 'absolute',
-    left: '90%'
+    position: "absolute",
+    left: "90%",
   },
   expandButton: {
-    position: 'absolute',
-    left: '90%'
+    position: "absolute",
+    left: "90%",
   },
   spinnerDiv: {
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: 50,
-    marginBottom: 50
-  }
+    marginBottom: 50,
+  },
 });
 
 class ScreamDialog extends Component {
   state = {
     open: false,
-    oldPath: '',
-    newPath: ''
+    oldPath: "",
+    newPath: "",
   };
   componentDidMount() {
     if (this.props.openDialog) {
@@ -80,17 +82,43 @@ class ScreamDialog extends Component {
     const {
       classes,
       scream: {
-        screamId,
+        id,
         body,
         createdAt,
         likeCount,
         commentCount,
         userImage,
         userHandle,
-        comments
+        comments,
       },
-      UI: { loading }
+      UI: { loading },
+      commentsPosts,
+      loadingPosts
     } = this.props;
+
+    console.log('Scream Dialog component being rendered', this.props);
+    // const { commentsPosts, loadingPosts } = this.props;
+
+    let postsComments = !loadingPosts ? (
+      commentsPosts?.map((post) =>
+        post.reblogged && post.reblog != null ? (
+          <Scream
+            key={post.reblog.id}
+            userNameRepeated={post.account.display_name}
+            onUserAction={() => this.loadHome()}
+            scream={post.reblog}
+          />
+        ) : (
+          <Scream
+            key={post.id}
+            onUserAction={() => this.loadHome()}
+            scream={post}
+          />
+        )
+      )
+    ) : (
+      <ScreamSkeleton />
+    );
 
     const dialogMarkup = loading ? (
       <div className={classes.spinnerDiv}>
@@ -112,27 +140,26 @@ class ScreamDialog extends Component {
           </Typography>
           <hr className={classes.invisibleSeparator} />
           <Typography variant="body2" color="textSecondary">
-            {dayjs(createdAt).format('h:mm a, MMMM DD YYYY')}
+            {dayjs(createdAt).format("h:mm a, MMMM DD YYYY")}
           </Typography>
           <hr className={classes.invisibleSeparator} />
-          <Typography variant="body1" className="mb-30">{body}</Typography>
-          <LikeButton screamId={screamId} likeCount={likeCount} />
+          <Typography variant="body1" className="mb-30">
+            {body}
+          </Typography>
+          <LikeButton screamId={id} likeCount={likeCount} />
           <NewButtonGold tip="comments">
             <ChatIcon color="inherit" className="w3-left" />
             <span className="ml-5">{commentCount} comments</span>
           </NewButtonGold>
         </Grid>
         <hr className={classes.visibleSeparator} />
-        <CommentForm screamId={screamId} />
+        <CommentForm screamId={id} />
         <Comments comments={comments} />
       </Grid>
     );
     return (
       <Fragment>
-        <NewButtonRed
-          onClick={this.handleOpen}
-          tip="Expand scream"
-        >
+        <NewButtonRed onClick={this.handleOpen} tip="Expand scream">
           <Code color="inherit" className="w3-left" />
           <span className="ml-5">In conversation</span>
         </NewButtonRed>
@@ -150,6 +177,9 @@ class ScreamDialog extends Component {
             <CloseIcon />
           </MyButton>
           <DialogContent className={classes.dialogContent}>
+            {postsComments}
+          </DialogContent>
+          <DialogContent className={classes.dialogContent}>
             {dialogMarkup}
           </DialogContent>
         </Dialog>
@@ -164,17 +194,17 @@ ScreamDialog.propTypes = {
   screamId: PropTypes.string.isRequired,
   userHandle: PropTypes.string.isRequired,
   scream: PropTypes.object.isRequired,
-  UI: PropTypes.object.isRequired
+  UI: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   scream: state.data.scream,
-  UI: state.UI
+  UI: state.UI,
 });
 
 const mapActionsToProps = {
   getScream,
-  clearErrors
+  clearErrors,
 };
 
 export default connect(

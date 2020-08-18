@@ -42,6 +42,8 @@ class Scream extends Component {
     retweetCounts: 0,
     userRepeatedTweet: '',
     isStatusRepeated: false,
+    isStatusReplied: false,
+    inReplyToUserName: ''
   };
 
   componentDidMount() {
@@ -50,6 +52,12 @@ class Scream extends Component {
     if(this.props.userNameRepeated != null){
       this.setState ({userRepeatedTweet: this.props.userNameRepeated})
       this.setState ({isStatusRepeated: true})
+    }
+    if(this.props.scream.in_reply_to_id != null){
+      this.setState ({isStatusReplied: true})
+      if(this.props.scream.in_reply_to_id == this.props.scream.mentions[0].id){
+        this.setState ({inReplyToUserName: this.props.scream.mentions[0].acct})
+      }
     }
   }
 
@@ -176,6 +184,13 @@ class Scream extends Component {
           className="w3-left w3-margin-right"
         >
           <span className="w3-right w3-opacity w3-theme-d2">{this.state.userRepeatedTweet} Repeated</span>
+        </div>
+         )}
+            {this.state.isStatusReplied && (
+         <div
+          className="w3-left w3-margin-right"
+        >
+          <span className="w3-right w3-opacity w3-theme-d2">Reply to {this.state.inReplyToUserName}</span>
         </div>
          )}
         <div
