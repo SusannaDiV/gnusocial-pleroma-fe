@@ -36,6 +36,7 @@ class ProfileTile extends Component {
   };
 
   render() {
+    const isLoggedIn = localStorage.getItem('tokenStr') != null;
     const {
       classes,
       user: {
@@ -47,7 +48,7 @@ class ProfileTile extends Component {
     } = this.props;
 
     let profileMarkup = !loading ? (
-      authenticated ? (
+      isLoggedIn ? (
         <div>
           <meta charSet="UTF-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
