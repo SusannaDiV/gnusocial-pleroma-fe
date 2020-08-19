@@ -15,6 +15,7 @@ import { connect } from 'react-redux';
 import { getNotifications } from '../../redux/actions/userActions';
 import axios from "axios";
 import {SET_NOTIFICATIONS} from "../../redux/types";
+import Checkbox from '@material-ui/core/Checkbox';
 
 class Notifications extends Component {
     componentDidMount() {
@@ -40,7 +41,7 @@ class Notifications extends Component {
       axios
           .get('https://pleroma.site/api/v1/notifications/clear', {headers: {"Authorization": `Bearer ${localStorage.getItem('tokenStr')}`}})
           .then((res) => {
-              console.log('all statuses marked seen');
+              console.log('all statuses marked seen ',res);
           })
           .catch((err) => {
               console.log('error while marking all statuses seen');
@@ -129,6 +130,12 @@ class Notifications extends Component {
           onClose={this.handleClose}
           onEntered={this.onMenuOpened}
         >
+          <Checkbox
+        name="checkboxes"
+        color="primary"
+        onChange={() => this.markAllStatusRead()}
+        inputProps={{ 'aria-label': 'secondary checkbox' }}
+      /> <span>Mark all notifications as read</span>
           {notificationsMarkup}
         </Menu>
       </Fragment>
