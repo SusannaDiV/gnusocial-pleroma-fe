@@ -53,6 +53,7 @@ class Scream extends Component {
       this.setState ({userRepeatedTweet: this.props.userNameRepeated})
       this.setState ({isStatusRepeated: true})
     }
+    console.log('reply to id: ', this.props.scream.in_reply_to_id)
     if(this.props.scream.in_reply_to_id != null){
       this.setState ({isStatusReplied: true})
       if(this.props.scream.in_reply_to_id == this.props.scream.mentions[0].id){
@@ -127,8 +128,6 @@ class Scream extends Component {
       })
       .then((res) => {
         console.log(res.data);
-        // this.state.reblogged = res.data.reblogged;
-        // this.state.reblogs_count = res.data.reblogs_count;
       })
       .catch((err) => {
         console.log(err.response.data);
@@ -136,7 +135,6 @@ class Scream extends Component {
   };
 
   setRetweetButtonState = (retweeted) => {
-    // console.log('Inside retweet button state method: ', retweeted)
     if (retweeted) {
       this.setState({ showRetweetButton: false });
     } else {
@@ -145,23 +143,18 @@ class Scream extends Component {
   };
 
   setRetweetCountsState = (retweetedCountsTotal) => {
-    // console.log('Inside retweeted counts method: ', retweetedCountsTotal)
     this.setState({ retweetCounts: retweetedCountsTotal });
   };
 
   onRetweet = async () => {
-    console.log("Id: ", this.props.scream.id);
     await this.retweet(this.props.scream.id);
     await this.props.onUserAction();
-    console.log("Id after retweet: ", this.props.scream.id);
     this.setRetweetButtonState(this.props.scream.reblogged);
     this.setRetweetCountsState(this.props.scream.reblogs_count);
   };
   onUndoRetweet = async () => {
-    console.log("Id: ", this.props.scream.id);
     await this.undoRetweet(this.props.scream.id);
     await this.props.onUserAction();
-    console.log("Id after untweet: ", this.props.scream.id);
     this.setRetweetButtonState(this.props.scream.reblogged);
     this.setRetweetCountsState(this.props.scream.reblogs_count);
   };
@@ -273,6 +266,7 @@ class Scream extends Component {
             screamId={id}
             userHandle={account.username}
             openDialog={this.props.openDialog}
+            onDialogueAction={() => this.props.onUserAction()}
           />
           <NewButtonGold tip="From Web">
             <InsertLink className="w3-left" />

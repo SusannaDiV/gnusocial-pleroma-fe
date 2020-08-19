@@ -96,17 +96,18 @@ export const submitComment = (commentData) => (dispatch) => {
   axios
     .post(`https://pleroma.site/api/v1/statuses`, commentData, { headers: {"Authorization" : `Bearer ${localStorage.getItem('tokenStr')}`} })
     .then((res) => {
-      dispatch({
-        type: SUBMIT_COMMENT,
-        payload: res.data
-      });
-      dispatch(clearErrors());
+      console.log('Response after submitting comment: ', res.data)
+      // dispatch({
+      //   type: SUBMIT_COMMENT,
+      //   payload: res.data
+      // });
+      // dispatch(clearErrors());
     })
     .catch((err) => {
-      dispatch({
-        type: SET_ERRORS,
-        payload: err.response.data
-      });
+      // dispatch({
+      //   type: SET_ERRORS,
+      //   payload: err.response.data
+      // });
     });
 };
 export const deleteScream = (id) => (dispatch) => {

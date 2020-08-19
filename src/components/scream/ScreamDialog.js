@@ -67,6 +67,8 @@ class ScreamDialog extends Component {
     await axios
       .get(`https://pleroma.site/api/v1/statuses/${userId}/context`,  { headers: {"Authorization" : `Bearer ${localStorage.getItem('tokenStr')}`} })
       .then((res) => {
+        // const obj = {'item':newItemInput, 'columnType':newRadioValue};
+        // res.data.ancestors.push
         this.state.ancestors = res.data.ancestors;
       })
       .catch((err) => console.log(err));
@@ -89,12 +91,14 @@ class ScreamDialog extends Component {
   handleClose = () => {
     window.history.pushState(null, null, this.state.oldPath);
     this.setState({ open: false });
-    this.props.clearErrors();
+    this.props.onDialogueAction();
+    // this.props.clearErrors();
   };
 
   render() {
     const {
       classes,
+      screamId,
       scream: {
         id,
         body,
@@ -156,14 +160,14 @@ class ScreamDialog extends Component {
           <Typography variant="body1" className="mb-30">
             {body}
           </Typography>
-          <LikeButton screamId={id} likeCount={likeCount} />
+          <LikeButton screamId={screamId} likeCount={likeCount} />
           <NewButtonGold tip="comments">
             <ChatIcon color="inherit" className="w3-left" />
             <span className="ml-5">{commentCount} comments</span>
           </NewButtonGold>
         </Grid>
         <hr className={classes.visibleSeparator} />
-        <CommentForm screamId={id} />
+        <CommentForm screamId={screamId}  onSubmitAction={() => this.handleClose()} />
         <Comments comments={comments} />
       </Grid>
     );

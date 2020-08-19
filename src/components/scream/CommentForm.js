@@ -37,6 +37,7 @@ class CommentForm extends Component {
     };
     event.preventDefault();
     this.props.submitComment(commentData);
+    this.props.onSubmitAction();
   };
 
   render() {
