@@ -55,6 +55,7 @@ class Scream extends Component {
 
   onEmojiClick = (event, emojiObject) => {
     emojiObject.count = 1;
+    this.reactWithEmoji(emojiObject);
     var found = false;
     const newEmoji = this.state.chosenEmoji.map((emoji) => {
       if (emoji.unified === emojiObject.unified) {
@@ -75,6 +76,21 @@ class Scream extends Component {
         openEmojiPicker: false,
       });
     }
+  };
+
+  reactWithEmoji = (emojiObject) => {
+      axios
+          .put(`https://pleroma.site/api/v1/pleroma/statuses/${this.props.scream.id}/reactions/${emojiObject.unified}`, null, {
+              headers: {
+                  Authorization: `Bearer ${localStorage.getItem("tokenStr")}`,
+              },
+          })
+          .then((res) => {
+              console.log("Response", res.data);
+          })
+          .catch((err) => {
+              console.log(err.response.data);
+          });
   };
 
   retweet = async (id) => {
