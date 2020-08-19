@@ -72,20 +72,7 @@ export const getScreams = () => (dispatch) => {
       });
     });
 };
-export const getScream = (userId) => (dispatch) => {
-  dispatch({ type: LOADING_UI });
-  axios
-    .get(`https://pleroma.site/api/v1/statuses/${userId}/context`,  { headers: {"Authorization" : `Bearer ${localStorage.getItem('tokenStr')}`} })
-    .then((res) => {
-      console.log('Response from get Scream: ', res.data)
-      dispatch({
-        type: SET_SCREAM,
-        payload: res.data
-      });
-      dispatch({ type: STOP_LOADING_UI });
-    })
-    .catch((err) => console.log(err));
-};
+
 // Post a Status
 export const postStatus = (status) => (dispatch) => {
   dispatch({ type: LOADING_UI });

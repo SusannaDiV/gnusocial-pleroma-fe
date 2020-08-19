@@ -17,10 +17,11 @@ import CloseIcon from "@material-ui/icons/Close";
 import Code from "@material-ui/icons/Code";
 import ChatIcon from "@material-ui/icons/Chat";
 import { connect } from "react-redux";
-import { getScream, clearErrors } from "../../redux/actions/dataActions";
+import { clearErrors } from "../../redux/actions/dataActions";
 import NewButtonRed from "../../util/NewButtonRed";
 import Scream from './Scream';
 import ScreamSkeleton from '../../util/ScreamSkeleton';
+import axios from 'axios';
 
 const styles = (theme) => ({
   ...theme,
@@ -53,13 +54,24 @@ class ScreamDialog extends Component {
     open: false,
     oldPath: "",
     newPath: "",
+    ancestors: {},
+    inConversation: false
   };
   componentDidMount() {
     if (this.props.openDialog) {
       this.handleOpen();
     }
   }
-  handleOpen = () => {
+ getScream = async (userId) => {
+    // dispatch({ type: LOADING_UI });
+    await axios
+      .get(`https://pleroma.site/api/v1/statuses/${userId}/context`,  { headers: {"Authorization" : `Bearer ${localStorage.getItem('tokenStr')}`} })
+      .then((res) => {
+        this.state.ancestors = res.data.ancestors;
+      })
+      .catch((err) => console.log(err));
+  };
+  handleOpen = async () => {
     let oldPath = window.location.pathname;
 
     const { userHandle, screamId } = this.props;
@@ -70,7 +82,9 @@ class ScreamDialog extends Component {
     window.history.pushState(null, null, newPath);
 
     this.setState({ open: true, oldPath, newPath });
-    this.props.getScream(this.props.screamId);
+    await this.getScream(this.props.screamId);
+    this.setState({ inConversation: true });
+    this.render();
   };
   handleClose = () => {
     window.history.pushState(null, null, this.state.oldPath);
@@ -92,27 +106,23 @@ class ScreamDialog extends Component {
         comments,
       },
       UI: { loading },
-      commentsPosts,
-      loadingPosts
     } = this.props;
 
-    console.log('Scream Dialog component being rendered', this.props);
-    // const { commentsPosts, loadingPosts } = this.props;
 
-    let postsComments = !loadingPosts ? (
-      commentsPosts?.map((post) =>
-        post.reblogged && post.reblog != null ? (
+    let postsComments = this.state.inConversation ? (
+      this.state.ancestors.map((commentsPost) =>
+      commentsPost.reblogged && commentsPost.reblog != null ? (
           <Scream
-            key={post.reblog.id}
-            userNameRepeated={post.account.display_name}
-            onUserAction={() => this.loadHome()}
-            scream={post.reblog}
+            key={commentsPost.reblog.id}
+            userNameRepeated={commentsPost.account.display_name}
+            // onUserAction={() => this.loadHome()}
+            scream={commentsPost.reblog}
           />
         ) : (
           <Scream
-            key={post.id}
-            onUserAction={() => this.loadHome()}
-            scream={post}
+            key={commentsPost.id}
+            // onUserAction={() => this.loadHome()}
+            scream={commentsPost}
           />
         )
       )
@@ -202,12 +212,12 @@ const mapStateToProps = (state) => ({
   UI: state.UI,
 });
 
-const mapActionsToProps = {
-  getScream,
-  clearErrors,
-};
+// const mapActionsToProps = {
+//   getScream,
+//   clearErrors,
+// };
 
 export default connect(
   mapStateToProps,
-  mapActionsToProps
+  // mapActionsToProps
 )(withStyles(styles)(ScreamDialog));
