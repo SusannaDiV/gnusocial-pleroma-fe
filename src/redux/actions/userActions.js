@@ -1,11 +1,11 @@
 import {
-  SET_USER,
-  SET_ERRORS,
-  CLEAR_ERRORS,
-  LOADING_UI,
-  SET_UNAUTHENTICATED,
-  LOADING_USER,
-  MARK_NOTIFICATIONS_READ
+    SET_USER,
+    SET_ERRORS,
+    CLEAR_ERRORS,
+    LOADING_UI,
+    SET_UNAUTHENTICATED,
+    LOADING_USER,
+    SET_NOTIFICATIONS, MARK_NOTIFICATIONS_READ, LOADING_DATA, SET_POSTS
 } from '../types';
 import axios from 'axios';
 
@@ -137,6 +137,32 @@ export const editUserDetails = (userDetails) => (dispatch) => {
       dispatch(getUserData());
     })
     .catch((err) => console.log(err));
+};
+
+export const getNotifications = () => (dispatch) => {
+    let isUserLoggedIn = localStorage.getItem('tokenStr');
+    dispatch({ type: LOADING_DATA });
+    if(isUserLoggedIn != null) {
+        axios
+            .get('https://pleroma.site/api/v1/notifications', {headers: {"Authorization": `Bearer ${localStorage.getItem('tokenStr')}`}})
+            .then((res) => {
+                dispatch({
+                    type: SET_NOTIFICATIONS,
+                    payload: res.data
+                });
+            })
+            .catch((err) => {
+                dispatch({
+                    type: SET_NOTIFICATIONS,
+                    payload: []
+                });
+            });
+    } else {
+        dispatch({
+            type: SET_NOTIFICATIONS,
+            payload: []
+        });
+    }
 };
 
 export const markNotificationsRead = (notificationIds) => (dispatch) => {

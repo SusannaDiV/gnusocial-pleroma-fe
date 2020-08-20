@@ -12,9 +12,12 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ChatIcon from '@material-ui/icons/Chat';
 import { connect } from 'react-redux';
-import { markNotificationsRead } from '../../redux/actions/userActions';
+import { getNotifications } from '../../redux/actions/userActions';
 
 class Notifications extends Component {
+    componentDidMount() {
+        this.props.getNotifications();
+    }
   state = {
     anchorEl: null
   };
@@ -28,8 +31,18 @@ class Notifications extends Component {
     let unreadNotificationsIds = this.props.notifications
       .filter((not) => !not.read)
       .map((not) => not.notificationId);
-    this.props.markNotificationsRead(unreadNotificationsIds);
+    //this.props.markNotificationsRead(unreadNotificationsIds);
   };
+
+  setVerb = (value) =>  {
+      if(value == 'like') { return 'liked'; }
+      else if(value == 'mention') { return 'mentioned'; }
+      else if(value == 'follow') { return 'followed'; }
+      else if(value == 'favourite') { return 'favourited'; }
+      else if(value == 'reblog') { return 'reblogged'; }
+      else { return ''; }
+  };
+
   render() {
     const notifications = this.props.notifications;
     const anchorEl = this.state.anchorEl;
@@ -56,9 +69,9 @@ class Notifications extends Component {
     let notificationsMarkup =
       notifications && notifications.length > 0 ? (
         notifications.map((not) => {
-          const verb = not.type === 'like' ? 'liked' : 'commented on';
-          const time = dayjs(not.createdAt).fromNow();
-          const iconColor = not.read ? 'primary' : 'secondary';
+          const verb = this.setVerb(not.type);
+          const time = dayjs(not.created_at).fromNow();
+          const iconColor = not.pleroma.is_seen ? 'primary' : 'secondary';
           const icon =
             not.type === 'like' ? (
               <FavoriteIcon color={iconColor} style={{ marginRight: 10 }} />
@@ -67,7 +80,7 @@ class Notifications extends Component {
             );
 
           return (
-            <MenuItem key={not.createdAt} onClick={this.handleClose}>
+            <MenuItem key={not.created_at} onClick={this.handleClose}>
               {icon}
               <Typography
                 component={Link}
@@ -111,8 +124,8 @@ class Notifications extends Component {
 }
 
 Notifications.propTypes = {
-  markNotificationsRead: PropTypes.func.isRequired,
-  notifications: PropTypes.array.isRequired
+    getNotifications: PropTypes.array.isRequired,
+    markNotificationsRead: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -121,5 +134,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(
   mapStateToProps,
-  { markNotificationsRead }
+  { getNotifications }
 )(Notifications);
