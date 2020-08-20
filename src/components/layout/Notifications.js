@@ -13,6 +13,8 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import ChatIcon from '@material-ui/icons/Chat';
 import { connect } from 'react-redux';
 import { getNotifications } from '../../redux/actions/userActions';
+import axios from "axios";
+import {SET_NOTIFICATIONS} from "../../redux/types";
 
 class Notifications extends Component {
     componentDidMount() {
@@ -32,6 +34,17 @@ class Notifications extends Component {
       .filter((not) => !not.read)
       .map((not) => not.notificationId);
     //this.props.markNotificationsRead(unreadNotificationsIds);
+  };
+
+  markAllStatusRead = () => {
+      axios
+          .get('https://pleroma.site/api/v1/notifications/clear', {headers: {"Authorization": `Bearer ${localStorage.getItem('tokenStr')}`}})
+          .then((res) => {
+              console.log('all statuses marked seen');
+          })
+          .catch((err) => {
+              console.log('error while marking all statuses seen');
+          });
   };
 
   setVerb = (value) =>  {
