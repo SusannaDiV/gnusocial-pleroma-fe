@@ -85,6 +85,7 @@ class Notifications extends Component {
       notifications && notifications.length > 0 ? (
         notifications.map((not) => {
           const verb = this.setVerb(not.type);
+          const userName= not.account.acct;
           const time = dayjs(not.created_at).fromNow();
           const iconColor = not.pleroma.is_seen ? 'primary' : 'secondary';
           const icon =
@@ -103,7 +104,7 @@ class Notifications extends Component {
                 variant="body1"
                 to={`/users/${not.recipient}/status/${not.statusId}`}
               >
-                {not.sender} {verb} your status {time}
+                {userName} {verb} your status {time}
               </Typography>
             </MenuItem>
           );
