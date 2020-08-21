@@ -95,9 +95,9 @@ class App extends Component {
                       </Switch>
                     </div>
                   </div>
-                  <div className="w3-col m3">
+                  {/* <div className="w3-col m3">
                     <ProfileTile />
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <br />
