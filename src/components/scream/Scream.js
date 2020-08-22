@@ -53,7 +53,6 @@ class Scream extends Component {
       this.setState ({userRepeatedTweet: this.props.userNameRepeated})
       this.setState ({isStatusRepeated: true})
     }
-    console.log('reply to id: ', this.props.scream.in_reply_to_id)
     if(this.props.scream.in_reply_to_id != null){
       this.setState ({isStatusReplied: true})
       if(this.props.scream.in_reply_to_id == this.props.scream.mentions[0].id){

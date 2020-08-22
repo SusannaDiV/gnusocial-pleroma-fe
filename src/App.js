@@ -78,7 +78,7 @@ class App extends Component {
                     </div>
                     <br />
                   </div>
-                  <div className="w3-col m7">
+                  <div className="w3-col m10">
                     <div className="w3-container">
                       <Switch>
                         <Route exact path="/" component={home} />
@@ -95,9 +95,6 @@ class App extends Component {
                       </Switch>
                     </div>
                   </div>
-                  {/* <div className="w3-col m3">
-                    <ProfileTile />
-                  </div> */}
                 </div>
               </div>
               <br />
