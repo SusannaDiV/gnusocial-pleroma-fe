@@ -40,23 +40,25 @@ class Scream extends Component {
     openEmojiPicker: false,
     showRetweetButton: true,
     retweetCounts: 0,
-    userRepeatedTweet: '',
+    userRepeatedTweet: "",
     isStatusRepeated: false,
     isStatusReplied: false,
-    inReplyToUserName: ''
+    inReplyToUserName: "",
   };
 
   componentDidMount() {
     this.setRetweetButtonState(this.props.scream.reblogged);
     this.setRetweetCountsState(this.props.scream.reblogs_count);
-    if(this.props.userNameRepeated != null){
-      this.setState ({userRepeatedTweet: this.props.userNameRepeated})
-      this.setState ({isStatusRepeated: true})
+    if (this.props.userNameRepeated != null) {
+      this.setState({ userRepeatedTweet: this.props.userNameRepeated });
+      this.setState({ isStatusRepeated: true });
     }
-    if(this.props.scream.in_reply_to_id != null){
-      this.setState ({isStatusReplied: true})
-      if(this.props.scream.in_reply_to_id == this.props.scream.mentions[0].id){
-        this.setState ({inReplyToUserName: this.props.scream.mentions[0].acct})
+    if (this.props.scream.in_reply_to_id != null) {
+      this.setState({ isStatusReplied: true });
+      if (
+        this.props.scream.in_reply_to_id != this.props.scream.mentions[0].id
+      ) {
+        this.state.inReplyToUserName = this.props.scream.mentions[0].acct;
       }
     }
   }
@@ -87,18 +89,22 @@ class Scream extends Component {
   };
 
   reactWithEmoji = (emojiObject) => {
-      axios
-          .put(`https://pleroma.site/api/v1/pleroma/statuses/${this.props.scream.id}/reactions/${emojiObject.unified}`, null, {
-              headers: {
-                  Authorization: `Bearer ${localStorage.getItem("tokenStr")}`,
-              },
-          })
-          .then((res) => {
-              console.log("Response", res.data);
-          })
-          .catch((err) => {
-              console.log(err.response.data);
-          });
+    axios
+      .put(
+        `https://pleroma.site/api/v1/pleroma/statuses/${this.props.scream.id}/reactions/${emojiObject.unified}`,
+        null,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("tokenStr")}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log("Response", res.data);
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+      });
   };
 
   retweet = async (id) => {
@@ -159,8 +165,8 @@ class Scream extends Component {
   };
 
   render() {
-    const isLoggedIn = localStorage.getItem('tokenStr') != null;
-    const loggedUserName = localStorage.getItem('username');
+    const isLoggedIn = localStorage.getItem("tokenStr") != null;
+    const loggedUserName = localStorage.getItem("username");
 
     dayjs.extend(relativeTime);
     const {
@@ -182,25 +188,30 @@ class Scream extends Component {
     } = this.props;
 
     const deleteButton =
-        isLoggedIn && account.username === loggedUserName ? (
+      isLoggedIn && account.username === loggedUserName ? (
         <DeleteScream screamId={id} />
       ) : null;
     return (
       <div className="scream-item w3-container w3-card w3-white w3-round">
-            {this.state.isStatusRepeated && (
-         <div
-          className="w3-left w3-margin-right"
-        >
-          <span className="w3-right w3-opacity w3-theme-d2">{this.state.userRepeatedTweet} Repeated</span>
-        </div>
-         )}
-            {this.state.isStatusReplied && (
-         <div
-          className="w3-left w3-margin-right"
-        >
-          <span className="w3-right w3-opacity w3-theme-d2">Reply to {this.state.inReplyToUserName}</span>
-        </div>
-         )}
+        {this.state.isStatusRepeated && (
+          <div className="w3-left w3-margin-right">
+            <span className="w3-right w3-opacity w3-theme-d2">
+              {this.state.userRepeatedTweet} Repeated
+            </span>
+          </div>
+        )}
+        <h5 className="w3-opacity">
+          <Link to={`/users/${account.username}/scream/${account.id}`}>
+            <strong>{account.username}</strong>
+          </Link>
+        </h5>
+        {this.state.isStatusReplied && (
+          <div className="w3-left w3-margin-right">
+            <span className="w3-right w3-opacity w3-theme-d2">
+              Reply to {this.state.inReplyToUserName}
+            </span>
+          </div>
+        )}
         <div
           src={userImage}
           alt="Profile image"
@@ -209,11 +220,6 @@ class Scream extends Component {
         <span className="w3-right w3-opacity">
           {dayjs(created_at).fromNow()}
         </span>
-        <h5 className="w3-opacity">
-          <Link to={`/users/${account.username}/scream/${account.id}`}>
-            <strong>{account.username}</strong>
-          </Link>
-        </h5>
         {deleteButton}
         <hr className="w3-clear" />
         <p variant="body1 mb-30">{spoiler_text}</p>
@@ -250,14 +256,14 @@ class Scream extends Component {
         )}
         {this.state.showRetweetButton && (
           // <Link to="/">
-            <NewButtonRed
-              tip="Retweet"
-              className="w3-button w-right file-button w3-theme-d2 copy-button"
-              onClick={this.onRetweet}
-            >
-              <i className="fa fa-recycle" />
-              <span className="ml-5">{this.state.retweetCounts}</span>
-            </NewButtonRed>
+          <NewButtonRed
+            tip="Retweet"
+            className="w3-button w-right file-button w3-theme-d2 copy-button"
+            onClick={this.onRetweet}
+          >
+            <i className="fa fa-recycle" />
+            <span className="ml-5">{this.state.retweetCounts}</span>
+          </NewButtonRed>
           // </Link>
         )}
         <div className="w3-right">
