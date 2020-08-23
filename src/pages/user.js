@@ -60,23 +60,23 @@ class user extends Component {
     return (
       <div className="container">
         <div className="w3-row">
-        <div className="w3-col m8">
-        {isLoggedIn ? (
-          <div className="w3-card w3-round w3-white">
-            <div className="w3-container w3-padding">
-              <PostStatus />
-              <div className="w3-container w3-padding w3-card w3-white w3-round w3-margin-top w3-margin-bottom">
-                <h5 className="w3-opacity">
-                  Personal Timeline of {this.state.profileName}
-                </h5>
+          <div className="w3-col m8">
+            {isLoggedIn ? (
+              <div className="w3-card w3-round w3-white">
+                <div className="w3-container w3-padding">
+                  <PostStatus />
+                  <div className="w3-container w3-padding w3-card w3-white w3-round w3-margin-top w3-margin-bottom">
+                    <h5 className="w3-opacity">
+                      Personal Timeline of {this.state.profileName}
+                    </h5>
+                  </div>
+                </div>
               </div>
-            </div>
+            ) : (
+              <div></div>
+            )}
+            {screamsMarkup}
           </div>
-        ): (
-          <div></div>
-        )}
-        {screamsMarkup}
-        </div>
           <div style={{ paddingLeft: "20px" }} className="w3-col m4">
             {createProfileTile}
           </div>
