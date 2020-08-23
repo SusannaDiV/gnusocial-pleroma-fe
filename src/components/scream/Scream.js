@@ -212,11 +212,12 @@ class Scream extends Component {
             </span>
           </div>
         )}
-        <div
-          src={userImage}
+        {/* <div
+          src={account.avatar}
           alt="Profile image"
           className="w3-left w3-margin-right"
-        />
+        /> */}
+         <img src={account ? account.avatar : userImage} className="w3-circle" alt="Avatar" />
         <span className="w3-right w3-opacity">
           {dayjs(created_at).fromNow()}
         </span>

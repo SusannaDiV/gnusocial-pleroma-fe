@@ -279,7 +279,7 @@ class ProfileTile extends Component {
                   >
                     @{profile ? profile.handle : handle}
                   </MuiLink></strong>
-                  {bio && <Typography variant="body2">{profile ? profile.bio : bio}</Typography>}
+                  {data && <Typography variant="body2">{data ? data.note : bio}</Typography>}
                   <hr />
                   {(profile && (profile.location || location)) && (
                       <Fragment>
