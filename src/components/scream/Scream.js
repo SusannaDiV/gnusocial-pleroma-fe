@@ -63,6 +63,13 @@ class Scream extends Component {
     }
   }
 
+    setContentImage = (content) => {
+    if(content.includes('/media/')) {
+      return content.match(/href="([^?]*)/)[1];
+    }
+    return null;
+    };
+
   onEmojiClick = (event, emojiObject) => {
     emojiObject.count = 1;
     this.reactWithEmoji(emojiObject);
@@ -191,6 +198,9 @@ class Scream extends Component {
       isLoggedIn && account.username === loggedUserName ? (
         <DeleteScream screamId={id} />
       ) : null;
+
+    const contentImage =  this.setContentImage(content);
+
     return (
       <div className="scream-item w3-container w3-card w3-white w3-round">
         {this.state.isStatusRepeated && (
@@ -225,6 +235,8 @@ class Scream extends Component {
         <hr className="w3-clear" />
         <p variant="body1 mb-30">{spoiler_text}</p>
         <p variant="body1 mb-30">{ReactHtmlParser(content)}</p>
+
+          <a href={contentImage}><img src={contentImage}/></a>
 
         <ul className="emoji-list">
           {this.state.chosenEmoji.length > 0 &&
