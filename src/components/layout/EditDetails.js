@@ -151,9 +151,9 @@ class EditDetails extends Component {
           <DialogContent>
             <form>
               <TextField
-                name="bio"
-                tpye="text"
-                label="Bio"
+                name="note"
+                type="text"
+                label="note"
                 multiline
                 rows="3"
                 placeholder="A short bio about yourself"
