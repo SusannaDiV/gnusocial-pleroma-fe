@@ -132,7 +132,7 @@ export const uploadImage = (formData) => (dispatch) => {
 export const editUserDetails = (userDetails) => (dispatch) => {
   dispatch({ type: LOADING_USER });
   axios
-    .post('/user', userDetails)
+    .post('https://pleroma.site/api/v1/accounts/update_credentials', userDetails, {headers: {"Authorization": `Bearer ${localStorage.getItem('tokenStr')}`}})
     .then(() => {
       dispatch(getUserData());
     })

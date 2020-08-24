@@ -227,7 +227,7 @@ class ProfileTile extends Component {
             <div className="w3-container">
               <div className="w3-center w3-padding">
                 <div className="profile-image">
-                  {!data && (
+                  { data && (
                     <>
                       <MyButton
                         tip="Edit profile picture"
@@ -251,6 +251,9 @@ class ProfileTile extends Component {
                     onChange={this.handleImageChange}
                   />
                 </div>
+                <div>
+                  <h4>{data.display_name}</h4>
+                </div>
               </div>
               <div className="w3-center">
                 <strong>
@@ -263,9 +266,9 @@ class ProfileTile extends Component {
                     @{profile ? profile.handle : handle}
                   </MuiLink>
                 </strong>
-                {bio && (
+                {data && (
                   <Typography variant="body2">
-                    {profile ? profile.bio : bio}
+                    {data ? data.note : bio}
                   </Typography>
                 )}
                 <hr />
@@ -314,7 +317,7 @@ class ProfileTile extends Component {
                 </button>
               </div>
               <div className="w3-half">
-                {!profile && <EditDetails />}
+                {!profile && <EditDetails  />}
                 {/* <EditDetails /> */}
               </div>
             </div>

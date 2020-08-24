@@ -46,18 +46,36 @@ if (token) {
 // const location = useLocation();
 class App extends Component {
 
+  state = {
+    profile: []
+  };
+
   componentDidMount() {
     console.log(store)
+    this.getCurrentUserProfile(localStorage.getItem('userId'));
   }
+
+  getCurrentUserProfile = async (id) => {
+    await axios
+      .get(`https://pleroma.site/api/v1/accounts/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("tokenStr")}`,
+        },
+      })
+      .then((res) => {
+        this.setState({ profile: res.data });
+      })
+      .catch(() => {});
+  };
 
   render() {
     let state = Store.getState();
-    console.log(state.user)
+    console.log('User from state: ', this.state.profile)
     return (
       <MuiThemeProvider theme={theme}>
         <Provider store={store}>
           <Router>
-            <Navbar />
+            <Navbar profile={this.state.profile}/>
             <div className="container">
               <div className="w3-container w3-content" style={{ maxWidth: '1200px', marginTop: '80px' }}>
                 <div className="w3-row">
