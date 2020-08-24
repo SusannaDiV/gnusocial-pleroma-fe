@@ -34,7 +34,7 @@ class ProfileTile extends Component {
       isLoggedInUser: false,
       profileData: [],
       followers: [],
-      followings: {},
+      followings: [],
       showFollowers: false,
       showFollowings: false,
     };
@@ -144,6 +144,7 @@ class ProfileTile extends Component {
       .then((res) => {
         this.setState({ followings: res.data });
         console.log("Followings: ", this.state.followings);
+        this.lookUpForCurrentUserInFollowers(localStorage.getItem("userId"));
         this.render();
       })
       .catch(() => {});
@@ -191,8 +192,16 @@ class ProfileTile extends Component {
 
     const data = this.state.profileData;
     const followersList = this.state.followers;
+    // console.log('Followers List to show: ', followersList)
     const dataToPopulateInFollowersList = followersList &&
       followersList.map((follower) => <li>{follower.acct}</li>)
+
+  
+    const followingsList = this.state.followings;
+    // console.log('Followings List to show: ', followingsList)
+    const dataToPopulateInFollowingList = followingsList &&
+      followingsList.map((following) => <li>{following.acct}</li>)
+
     let profileMarkup = this.state.isLoggedInUser ? (
       <div>
         <meta charSet="UTF-8" />
@@ -278,20 +287,20 @@ class ProfileTile extends Component {
                 )}
               </div>
               <p
-                // onClick={this.showUserFollowers(true)}
+                onClick={this.showUserFollowings(true)}
                 className="pointer"
               >
                 <i className="fa fa-arrow-right fa-fw w3-margin-right w3-text-theme" />{" "}
                 Following{" "}
                 <span className="w3-right ">
-                  <strong>{data.followers_count}</strong>
+                  <strong>{data.following_count}</strong>
                 </span>
               </p>
               <a onClick={this.showUserFollowers(true)}>
                 <i className="fa fa-thumbs-up fa-fw w3-margin-right w3-text-theme" />{" "}
                 Followers{" "}
                 <span className="w3-right ">
-                  <strong>{data.following_count}</strong>
+                  <strong>{data.followers_count}</strong>
                 </span>
               </a>
             </div>
@@ -331,66 +340,7 @@ class ProfileTile extends Component {
                   <strong>Following</strong>
                 </p>
                 <ul>
-                  <li>
-                    <a href="#">
-                      <img src="/no-img.png" alt="user" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img src="/no-img.png" alt="user" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img src="/no-img.png" alt="user" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img src="/no-img.png" alt="user" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img src="/no-img.png" alt="user" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img src="/no-img.png" alt="user" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img src="/no-img.png" alt="user" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img src="/no-img.png" alt="user" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img src="/no-img.png" alt="user" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img src="/no-img.png" alt="user" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img src="/no-img.png" alt="user" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img src="/no-img.png" alt="user" />
-                    </a>
-                  </li>
+                  {dataToPopulateInFollowingList}
                 </ul>
               </div>
             </>
@@ -512,20 +462,20 @@ class ProfileTile extends Component {
                 )}
               </div>
               <p
-                onClick={this.showFollow.bind(this, "following")}
+                onClick={this.showUserFollowings(true)}
                 className="pointer"
               >
                 <i className="fa fa-arrow-right fa-fw w3-margin-right w3-text-theme" />{" "}
                 Following{" "}
                 <span className="w3-right ">
-                  <strong>{data.followers_count}</strong>
+                  <strong>{data.following_count}</strong>
                 </span>
               </p>
               <a onClick={this.showUserFollowers(true)}>
                 <i className="fa fa-thumbs-up fa-fw w3-margin-right w3-text-theme" />{" "}
                 Followers{" "}
                 <span className="w3-right ">
-                  <strong>{data.following_count}</strong>
+                  <strong>{data.followers_count}</strong>
                 </span>
               </a>
               <p
@@ -575,7 +525,7 @@ class ProfileTile extends Component {
               </div>
             </>
           )}
-          {this.state.follow === "following" && (
+          {this.state.showFollowings && (
             <>
               <br />
               <div className="w3-card w3-round w3-white follower-list">
@@ -583,66 +533,7 @@ class ProfileTile extends Component {
                   <strong>Following</strong>
                 </p>
                 <ul>
-                  <li>
-                    <a href="#">
-                      <img src="/no-img.png" alt="user" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img src="/no-img.png" alt="user" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img src="/no-img.png" alt="user" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img src="/no-img.png" alt="user" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img src="/no-img.png" alt="user" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img src="/no-img.png" alt="user" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img src="/no-img.png" alt="user" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img src="/no-img.png" alt="user" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img src="/no-img.png" alt="user" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img src="/no-img.png" alt="user" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img src="/no-img.png" alt="user" />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img src="/no-img.png" alt="user" />
-                    </a>
-                  </li>
+                  {dataToPopulateInFollowingList}
                 </ul>
               </div>
             </>
