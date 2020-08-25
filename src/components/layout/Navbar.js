@@ -77,7 +77,7 @@ class Navbar extends Component {
                   <i className="fa fa-user" />
                 </Link>
                 <Link
-                  to="/message"
+                  to="/messages"
                   className="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
                 >
                   <i className="fa fa-envelope" />
