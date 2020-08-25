@@ -203,6 +203,15 @@ class Scream extends Component {
 
     return (
       <div className="scream-item w3-container w3-card w3-white w3-round">
+        <img src={account ? account.avatar : userImage} className="w3-circle w3-left w3-margin-right" alt="Avatar" />
+        <span className="w3-right w3-opacity">
+          {dayjs(created_at).fromNow()}
+        </span>
+        <h5 className="w3-opacity">
+          <Link to={`/users/${account.username}/scream/${account.id}`}>
+            <strong>{account.username}</strong>
+          </Link>
+        </h5>
         {this.state.isStatusRepeated && (
           <div className="w3-left w3-margin-right">
             <span className="w3-right w3-opacity w3-theme-d2">
@@ -210,11 +219,6 @@ class Scream extends Component {
             </span>
           </div>
         )}
-        <h5 className="w3-opacity">
-          <Link to={`/users/${account.username}/scream/${account.id}`}>
-            <strong>{account.username}</strong>
-          </Link>
-        </h5>
         {this.state.isStatusReplied && (
           <div className="w3-left w3-margin-right">
             <span className="w3-right w3-opacity w3-theme-d2">
@@ -222,22 +226,11 @@ class Scream extends Component {
             </span>
           </div>
         )}
-        {/* <div
-          src={account.avatar}
-          alt="Profile image"
-          className="w3-left w3-margin-right"
-        /> */}
-         <img src={account ? account.avatar : userImage} className="w3-circle" alt="Avatar" />
-        <span className="w3-right w3-opacity">
-          {dayjs(created_at).fromNow()}
-        </span>
         {deleteButton}
         <hr className="w3-clear" />
         <p variant="body1 mb-30">{spoiler_text}</p>
         <p variant="body1 mb-30">{ReactHtmlParser(content)}</p>
-
           <a href={contentImage}><img src={contentImage}/></a>
-
         <ul className="emoji-list">
           {this.state.chosenEmoji.length > 0 &&
             this.state.chosenEmoji.map((emoji) => (
