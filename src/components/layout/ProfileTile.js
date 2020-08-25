@@ -597,52 +597,6 @@ class ProfileTile extends Component {
                   </button>
                 )}
               </div>
-            </div>
-
-            <div className="w3-container">
-              <div className={!profile ? "w3-half" : ""}>
-                {!this.state.isMute && (
-                    <button
-                        className="w3-button w3-block w3-theme w3-section"
-                        title="Mute"
-                        onClick={this.muteUser}
-                    >
-                      <i className="fa fa-comment" /> Mute
-                    </button>
-                )}
-                {this.state.isMute && (
-                    <button
-                        className="w3-button w3-block w3-theme w3-section"
-                        title="UnMuteUser"
-                        onClick={this.unMuteUser}
-                    >
-                      <i className="fa fa-comment" /> UnMute
-                    </button>
-                )}
-              </div>
-            </div>
-
-            <div className="w3-container">
-              <div className={!profile ? "w3-half" : ""}>
-                {!this.state.isBlocked && (
-                    <button
-                        className="w3-button w3-block w3-theme w3-section"
-                        title="Block"
-                        onClick={this.blockUser}
-                    >
-                      <i className="fa fa-comment" /> Block
-                    </button>
-                )}
-                {this.state.isBlocked && (
-                    <button
-                        className="w3-button w3-block w3-theme w3-section"
-                        title="UnBlock"
-                        onClick={this.unBlockUser}
-                    >
-                      <i className="fa fa-comment" /> UnBlock
-                    </button>
-                )}
-              </div>
               <div className="w3-half">
                 <button
                   className="w3-button w3-block w3-theme-d2 w3-section"
@@ -651,9 +605,50 @@ class ProfileTile extends Component {
                   <i className="fa fa-comment" /> Message
                 </button>
               </div>
+              <div className={!profile ? "w3-half" : ""}>
+                {!this.state.isBlocked && (
+                    <button
+                        className="w3-button w3-block w3-theme-d2 w3-section"
+                        title="Block"
+                        onClick={this.blockUser}
+                    >
+                      <i className="fa fa-lock" /> Block
+                    </button>
+                )}
+                {this.state.isBlocked && (
+                    <button
+                        className="w3-button w3-block w3-theme w3-section"
+                        title="UnBlock"
+                        onClick={this.unBlockUser}
+                    >
+                      <i className="fa fa-unlock" /> UnBlock
+                    </button>
+                )}
+              </div>
+              <div className="w3-half">
+                {!this.state.isMute && (
+                    <button
+                        className="w3-button w3-block w3-theme w3-section"
+                        title="Mute"
+                        onClick={this.muteUser}
+                    >
+                      <i className="fa fa-bell-slash" /> Mute
+                    </button>
+                )}
+                {this.state.isMute && (
+                    <button
+                        className="w3-button w3-block w3-theme w3-section"
+                        title="UnMuteUser"
+                        onClick={this.unMuteUser}
+                    >
+                      <i className="fa fa-bell" /> UnMute
+                    </button>
+                )}
+              </div>
             </div>
-
+            
           </div>
+
           {this.state.showFollowers && (
             <>
               <br />
