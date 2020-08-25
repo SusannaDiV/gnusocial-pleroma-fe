@@ -53,8 +53,6 @@ class PostStatus extends Component {
     this.setState({ open: false, errors: {} });
   };
   handleChange = async (event) => {
-    // we need this for media handling. test when Pleroma S3 is working
-    //await this.uploadMedia(event.target.files);
     if (event.target.name === 'file') {
       this.setState({
         file: event.target.files[0]
@@ -63,6 +61,12 @@ class PostStatus extends Component {
       this.setState({ [event.target.name]: event.target.value });
     }
   };
+
+  upload = (event) => {
+    this.state.file = event.target.files[0];
+    this.uploadMedia(event.target.files[0]);
+  };
+
   handleSubmit = (event) => {
     event.preventDefault();
     this.props.postStatus({ status: this.state.status, emoji: this.state.chosenEmoji, media_ids: this.state.media_ids });
@@ -82,10 +86,20 @@ class PostStatus extends Component {
 
   // Upload Media for post
   uploadMedia = async (file) => {
+    const formData = new FormData();
+    formData.append("file", file, file.name);
     await axios
-        .post('https://pleroma.site/api/v1/media', file, { headers: {"Authorization" : `Bearer ${localStorage.getItem('tokenStr')}`} })
+        .post('https://pleroma.site/api/v1/media', formData,
+            {
+              headers: {
+                "Authorization" : `Bearer ${localStorage.getItem('tokenStr')}`,
+                "Content-Type" : "multipart/form-data",
+                "Accept" : "*/*",
+                "accept-encoding" : "gzip, deflate, br"
+              }
+            })
         .then((res) => {
-          this.state.media_ids.push(res.id);
+          this.state.media_ids.push(res.data.id);
         })
         .catch((err) => {
           console.log('Error while uploading media ', err);
@@ -131,7 +145,7 @@ class PostStatus extends Component {
             )} Submit</button>
           <button type="button" className="w3-button w-right file-button w3-theme-d2">
             <i className="fa fa-paperclip" />
-            <input type="file" name="file" onChange={this.handleChange} className="file-input" />
+            <input type="file" name="file" onChange={this.upload} className="file-input" />
           </button>
         </form>
       </Fragment>
