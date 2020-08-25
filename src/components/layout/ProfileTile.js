@@ -309,12 +309,9 @@ class ProfileTile extends Component {
             </div>
             <div className="w3-container">
               <div className={!profile ? "w3-half" : ""}>
-                <button
-                  className="w3-button w3-block w3-theme w3-section"
-                  title="Message"
-                >
+                <Link to="/favorites" title="Favorites" className="w3-button w3-block w3-theme w3-section">
                   <i className="fa fa-heart" /> Favorites
-                </button>
+                </Link>
               </div>
               <div className="w3-half">
                 {!profile && <EditDetails  />}
