@@ -313,7 +313,7 @@ class ProfileTile extends Component {
                   className="w3-button w3-block w3-theme w3-section"
                   title="Message"
                 >
-                  <i className="fa fa-comment" /> Message
+                  <i className="fa fa-heart" /> Favorites
                 </button>
               </div>
               <div className="w3-half">
