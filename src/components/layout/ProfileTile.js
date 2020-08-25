@@ -500,7 +500,7 @@ class ProfileTile extends Component {
                     title="Follow"
                     onClick={this.followUser}
                   >
-                    <i className="fa fa-comment" /> Follow
+                    <i className="fa fa-thumbs-up" /> Follow
                   </button>
                 )}
                 {this.state.isfollowed && (
@@ -509,9 +509,17 @@ class ProfileTile extends Component {
                     title="Follow"
                     onClick={this.unfollowUser}
                   >
-                    <i className="fa fa-comment" /> UnFollow
+                    <i className="fa fa-thumbs-down" /> Unfollow
                   </button>
                 )}
+              </div>
+              <div className="w3-half">
+                <button
+                  className="w3-button w3-block w3-theme-d2 w3-section"
+                  title="Message"
+                >
+                  <i className="fa fa-comment" /> Message
+                </button>
               </div>
             </div>
           </div>
