@@ -18,8 +18,8 @@ import home from './pages/home';
 import login from './pages/login';
 import signup from './pages/signup';
 import user from './pages/user';
-import popular from './pages/popular';
-import network from './pages/network';
+import favorites from './pages/favorites';
+import messages from './pages/messages';
 
 import axios from 'axios';
 import ProfileTile from './components/layout/ProfileTile';
@@ -84,8 +84,8 @@ class App extends Component {
                       <div className="w3-white">
                         <Link to="/" className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-circle-o-notch fa-fw w3-margin-right" /> Public</Link>
                         <ProfileLink />
-                        <Link to="/popular" className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-thumbs-up fa-fw w3-margin-right" /> Popular</Link>
-                        <Link to="/network" className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-users fa-fw w3-margin-right" /> Network</Link>
+                        <Link to="/favorites" className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-thumbs-up fa-fw w3-margin-right" /> Favorites</Link>
+                        <Link to="/messages" className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-envelope fa-fw w3-margin-right" /> Messages</Link>
                       </div>
                     </div>
                     <br />
@@ -100,8 +100,8 @@ class App extends Component {
                     <div className="w3-container">
                       <Switch>
                         <Route exact path="/" component={home} />
-                        <Route exact path="/popular" component={popular} />
-                        <Route exact path="/network" component={network} />
+                        <Route exact path="/favorites" component={favorites} />
+                        <Route exact path="/messages" component={messages} />
                         <AuthRoute exact path="/login" component={login} />
                         <AuthRoute exact path="/signup" component={signup} />
                         <Route exact path="/users/:handle" component={user} />
