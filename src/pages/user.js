@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import Scream from "../components/scream/Scream";
-import Grid from "@material-ui/core/Grid";
 import ScreamSkeleton from "../util/ScreamSkeleton";
 import PostStatus from "../components/scream/PostStatus";
 import { connect } from "react-redux";
 import ProfileTile from "../components/layout/ProfileTile";
 import { getUserData } from "../redux/actions/dataActions";
-import axios from "axios";
+import { Redirect } from "react-router-dom";
 
 class user extends Component {
   constructor(props) {
@@ -17,6 +16,7 @@ class user extends Component {
       screamIdParam: null,
       profileName: "",
       isLoggedInUser: false,
+      redirect: null
     };
   }
   componentDidMount() {
@@ -25,19 +25,40 @@ class user extends Component {
 
     if (screamId) this.setState({ screamIdParam: screamId });
 
-    if (localStorage.getItem("userId") == this.props.profileId) {
+    if (localStorage.getItem("userId") == screamId) {
       this.state.isLoggedInUser = true;
     }
 
     this.props.getUserData(screamId);
   }
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.screamId !== prevProps.match.params.screamId) {
+      this.state.profileName = this.props.match.params.handle;
+      const screamId = this.props.match.params.screamId;
+
+      if (screamId) this.setState({ screamIdParam: screamId });
+
+      if (localStorage.getItem("userId") == screamId) {
+        this.setState ({isLoggedInUser: true});
+      }else{
+        this.setState ({isLoggedInUser: false})
+      }
+      this.props.getUserData(screamId);
+    }
+  }
   render() {
     const { posts, loading } = this.props.data;
     const { screamIdParam } = this.state;
     const profId = this.props.match.params.screamId;
+    const name = this.props.match.params.handle;
     const isLoggedIn = this.state.isLoggedInUser;
+    let createProfileTile = '';
 
-    let createProfileTile = isLoggedIn ? (
+    if (posts == null) {
+      return <Redirect to={`/users/${name}/scream/${profId}`} />;
+    }
+
+     createProfileTile = isLoggedIn ? (
       <ProfileTile isLoggedIn={true} profileId={profId} />
     ) : (
       <ProfileTile isLoggedIn={false} profileId={profId} />

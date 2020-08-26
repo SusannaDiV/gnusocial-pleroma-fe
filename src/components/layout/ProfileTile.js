@@ -254,7 +254,17 @@ class ProfileTile extends Component {
     this.getUserFollowers();
     this.getUserFollowings();
   }
-
+  componentDidUpdate(prevProps) {
+    if (this.props.profileId !== prevProps.profileId) {
+      if (this.props.isLoggedIn) {
+        this.setState({ isLoggedInUser: true });
+      }
+      console.log("Profile id in updated Profile Title: ", this.props.profileId);
+      this.getUserProfile(this.props.profileId);
+      this.getUserFollowers();
+      this.getUserFollowings();
+    }
+  }
   handleImageChange = (event) => {
     const image = event.target.files[0];
     const formData = new FormData();
@@ -281,13 +291,13 @@ class ProfileTile extends Component {
     const followersList = this.state.followers;
     // console.log('Followers List to show: ', followersList)
     const dataToPopulateInFollowersList = followersList &&
-      followersList.map((follower) => <li>{follower.acct}</li>)
+      followersList.map((follower) => <li> <Link to={`/users/${follower.username}/scream/${follower.id}`}><strong>{follower.display_name}</strong></Link></li>)
 
   
     const followingsList = this.state.followings;
     // console.log('Followings List to show: ', followingsList)
     const dataToPopulateInFollowingList = followingsList &&
-      followingsList.map((following) => <li>{following.acct}</li>)
+      followingsList.map((following) => <li><Link to={`/users/${following.username}/scream/${following.id}`}><strong>{following.acct}</strong></Link></li>)
 
     let profileMarkup = this.state.isLoggedInUser ? (
       <div>
