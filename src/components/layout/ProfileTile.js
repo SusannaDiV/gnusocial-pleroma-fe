@@ -32,6 +32,7 @@ class ProfileTile extends Component {
     this.state = {
       isfollowed: "",
       isBlocked: "",
+      isMute: "",
       isLoggedInUser: false,
       profileData: [],
       followers: [],
@@ -58,6 +59,12 @@ class ProfileTile extends Component {
   showBlock = (option) => {
     this.setState({
       isBlocked: option,
+    });
+  };
+
+  showMute = (option) => {
+    this.setState({
+      isMute: option,
     });
   };
 
@@ -152,6 +159,42 @@ class ProfileTile extends Component {
         )
         .then((res) => {
           this.showBlock(false);
+          this.render();
+        })
+        .catch(() => {});
+  };
+
+  muteUser = async () => {
+    await axios
+        .post(
+            `https://pleroma.site/api/v1/accounts/${this.props.profileId}/mute`,
+            null,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("tokenStr")}`,
+              },
+            }
+        )
+        .then((res) => {
+          this.showMute(true);
+          this.render();
+        })
+        .catch(() => {});
+  };
+
+  unMuteUser = async () => {
+    await axios
+        .post(
+            `https://pleroma.site/api/v1/accounts/${this.props.profileId}/unmute`,
+            null,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("tokenStr")}`,
+              },
+            }
+        )
+        .then((res) => {
+          this.showMute(false);
           this.render();
         })
         .catch(() => {});
@@ -552,6 +595,29 @@ class ProfileTile extends Component {
                   >
                     <i className="fa fa-thumbs-down" /> Unfollow
                   </button>
+                )}
+              </div>
+            </div>
+
+            <div className="w3-container">
+              <div className={!profile ? "w3-half" : ""}>
+                {!this.state.isMute && (
+                    <button
+                        className="w3-button w3-block w3-theme w3-section"
+                        title="Mute"
+                        onClick={this.muteUser}
+                    >
+                      <i className="fa fa-comment" /> Mute
+                    </button>
+                )}
+                {this.state.isMute && (
+                    <button
+                        className="w3-button w3-block w3-theme w3-section"
+                        title="UnMuteUser"
+                        onClick={this.unMuteUser}
+                    >
+                      <i className="fa fa-comment" /> UnMute
+                    </button>
                 )}
               </div>
             </div>
