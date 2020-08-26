@@ -6,7 +6,6 @@ import dayjs from "dayjs";
 import EditDetails from "./EditDetails";
 import ProfileSkeleton from "../../util/ProfileSkeleton";
 import MyButton from "../../util/MyButton";
-import Settings from "./Settings";
 // MUI stuff
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
@@ -456,7 +455,6 @@ class ProfileTile extends Component {
               </p>
             </div>
           </div> */}
-          <br />
           <div className="w3-card w3-round w3-white">
             <div className="w3-container">
               <p>
