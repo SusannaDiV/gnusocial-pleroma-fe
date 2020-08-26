@@ -31,6 +31,7 @@ class ProfileTile extends Component {
     super(props);
     this.state = {
       isfollowed: "",
+      isBlocked: "",
       isLoggedInUser: false,
       profileData: [],
       followers: [],
@@ -51,6 +52,12 @@ class ProfileTile extends Component {
   showFollow = (option) => {
     this.setState({
       isfollowed: option,
+    });
+  };
+
+  showBlock = (option) => {
+    this.setState({
+      isBlocked: option,
     });
   };
 
@@ -113,6 +120,43 @@ class ProfileTile extends Component {
       })
       .catch(() => {});
   };
+
+  blockUser = async () => {
+    await axios
+        .post(
+            `https://pleroma.site/api/v1/accounts/${this.props.profileId}/block`,
+            null,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("tokenStr")}`,
+              },
+            }
+        )
+        .then((res) => {
+          this.showBlock(true);
+          this.render();
+        })
+        .catch(() => {});
+  };
+
+  unBlockUser = async () => {
+    await axios
+        .post(
+            `https://pleroma.site/api/v1/accounts/${this.props.profileId}/unblock`,
+            null,
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("tokenStr")}`,
+              },
+            }
+        )
+        .then((res) => {
+          this.showBlock(false);
+          this.render();
+        })
+        .catch(() => {});
+  };
+
   getUserFollowers = async () => {
     await axios
       .get(
@@ -509,11 +553,35 @@ class ProfileTile extends Component {
                     title="Follow"
                     onClick={this.unfollowUser}
                   >
-                    <i className="fa fa-comment" /> UnFollow
+                    <i className="fa fa-comment" /> Unfollow
                   </button>
                 )}
               </div>
             </div>
+
+            <div className="w3-container">
+              <div className={!profile ? "w3-half" : ""}>
+                {!this.state.isBlocked && (
+                    <button
+                        className="w3-button w3-block w3-theme w3-section"
+                        title="Block"
+                        onClick={this.blockUser}
+                    >
+                      <i className="fa fa-comment" /> Block
+                    </button>
+                )}
+                {this.state.isBlocked && (
+                    <button
+                        className="w3-button w3-block w3-theme w3-section"
+                        title="UnBlock"
+                        onClick={this.unBlockUser}
+                    >
+                      <i className="fa fa-comment" /> UnBlock
+                    </button>
+                )}
+              </div>
+            </div>
+
           </div>
           {this.state.showFollowers && (
             <>
