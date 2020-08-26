@@ -6,7 +6,6 @@ import dayjs from "dayjs";
 import EditDetails from "./EditDetails";
 import ProfileSkeleton from "../../util/ProfileSkeleton";
 import MyButton from "../../util/MyButton";
-import Settings from "./Settings";
 // MUI stuff
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
@@ -42,12 +41,18 @@ class ProfileTile extends Component {
     };
   }
 
-  showUserFollowers = (option) => {
-    this.state.showFollowers = option;
+  showUserFollowers = () => {
+    this.setState({
+      showFollowers: !this.state.showFollowers,
+      showFollowings: false
+    });
   };
 
-  showUserFollowings = (option) => {
-    this.state.showFollowings = option;
+  showUserFollowings = () => {
+    this.setState({
+      showFollowings: !this.state.showFollowings,
+      showFollowers: false
+    })
   };
 
   showFollow = (option) => {
@@ -386,17 +391,14 @@ class ProfileTile extends Component {
                   </Fragment>
                 )}
               </div>
-              <p
-                onClick={this.showUserFollowings(true)}
-                className="pointer"
-              >
+              <p onClick={this.showUserFollowings} className="pointer">
                 <i className="fa fa-arrow-right fa-fw w3-margin-right w3-text-theme" />{" "}
                 Following{" "}
                 <span className="w3-right ">
                   <strong>{data.following_count}</strong>
                 </span>
               </p>
-              <a onClick={this.showUserFollowers(true)}>
+              <a onClick={this.showUserFollowers}>
                 <i className="fa fa-thumbs-up fa-fw w3-margin-right w3-text-theme" />{" "}
                 Followers{" "}
                 <span className="w3-right ">
@@ -417,7 +419,33 @@ class ProfileTile extends Component {
             </div>
           </div>
           <br />
-          <div className="w3-card w3-round w3-white">
+          {this.state.showFollowers && (
+            <div className="w3-card w3-round w3-white">
+              <div className="w3-container">
+                <p>
+                  <strong>Followers</strong>
+                    <ul>
+                      {dataToPopulateInFollowersList}
+                    </ul>
+                </p>
+              </div>
+            </div>
+          )}
+          {this.state.showFollowings && (
+            <div className="w3-card w3-round w3-white">
+              <div className="w3-container">
+                <p>
+                  <strong>Following</strong>
+                  {this.state.showFollowings && (
+                    <ul>
+                      {dataToPopulateInFollowingList}
+                    </ul>
+                  )}
+                </p>
+              </div>
+            </div>
+          )}
+          {/* <div className="w3-card w3-round w3-white">
             <div className="w3-container">
               <p>
                 <strong>Followers</strong>
@@ -436,8 +464,7 @@ class ProfileTile extends Component {
                 )}
               </p>
             </div>
-          </div>
-          <br />
+          </div> */}
           <div className="w3-card w3-round w3-white">
             <div className="w3-container">
               <p>
@@ -553,7 +580,7 @@ class ProfileTile extends Component {
                 )}
               </div>
               <p
-                onClick={this.showUserFollowings(true)}
+                onClick={this.showUserFollowings}
                 className="pointer"
               >
                 <i className="fa fa-arrow-right fa-fw w3-margin-right w3-text-theme" />{" "}
@@ -562,7 +589,7 @@ class ProfileTile extends Component {
                   <strong>{data.following_count}</strong>
                 </span>
               </p>
-              <a onClick={this.showUserFollowers(true)}>
+              <a onClick={this.showUserFollowers}>
                 <i className="fa fa-thumbs-up fa-fw w3-margin-right w3-text-theme" />{" "}
                 Followers{" "}
                 <span className="w3-right ">
@@ -652,7 +679,33 @@ class ProfileTile extends Component {
             </div>
           </div>
           <br />
-          <div className="w3-card w3-round w3-white">
+          {this.state.showFollowers && (
+            <div className="w3-card w3-round w3-white">
+              <div className="w3-container">
+                <p>
+                  <strong>Followers</strong>
+                    <ul>
+                      {dataToPopulateInFollowersList}
+                    </ul>
+                </p>
+              </div>
+            </div>
+          )}
+          {this.state.showFollowings && (
+            <div className="w3-card w3-round w3-white">
+              <div className="w3-container">
+                <p>
+                  <strong>Following</strong>
+                  {this.state.showFollowings && (
+                    <ul>
+                      {dataToPopulateInFollowingList}
+                    </ul>
+                  )}
+                </p>
+              </div>
+            </div>
+          )}
+          {/* <div className="w3-card w3-round w3-white">
             <div className="w3-container">
               <p>
                 <strong>Followers</strong>
@@ -671,7 +724,7 @@ class ProfileTile extends Component {
                 )}
               </p>
             </div>
-          </div>
+          </div> */}
           <br />
           <div className="w3-card w3-round w3-white">
             <div className="w3-container">
