@@ -21,7 +21,8 @@ class login extends Component {
     this.state = {
       email: '',
       password: '',
-      errors: {}
+      errors: {},
+      error: ''
     };
   }
   componentWillReceiveProps(nextProps) {
@@ -55,6 +56,10 @@ class login extends Component {
       })
       .catch((err) => {
         console.log('Errors: ', err);
+        if(err.response.data.error == 'Invalid credentials'){
+          this.state.error = 'Your email/password is incorrect.';
+          this.render();
+        }
           if (err === 'mfa_required') {
          // TODO: the sutff about multi factor authentication!
        }
@@ -146,9 +151,9 @@ class login extends Component {
                 onChange={this.handleChange}
                 fullWidth
               />
-              {errors.general && (
+              {this.state.error.length > 0 && (
                 <Typography variant="body2" className={classes.customError}>
-                  {errors.general}
+                  {this.state.error}
                 </Typography>
               )}
               <Button
