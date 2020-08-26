@@ -406,33 +406,27 @@ class ProfileTile extends Component {
               </div>
             </div>
           </div>
-          {this.state.showFollowers && (
-            <>
-              <br />
-              <div className="w3-card w3-round w3-white follower-list">
-                <p>
-                  <strong>Followers</strong>
-                </p>
-                <ul>
-                  {dataToPopulateInFollowersList}
-                </ul>
-              </div>
-            </>
-          )}
-          {this.state.showFollowings && (
-            <>
-              <br />
-              <div className="w3-card w3-round w3-white follower-list">
-                <p>
-                  <strong>Following</strong>
-                </p>
-                <ul>
-                  {dataToPopulateInFollowingList}
-                </ul>
-              </div>
-            </>
-          )}
-
+          <br />
+          <div className="w3-card w3-round w3-white">
+            <div className="w3-container">
+              <p>
+                <strong>Followers</strong>
+                {this.state.showFollowers && (
+                  <ul>
+                    {dataToPopulateInFollowersList}
+                  </ul>
+                )}
+              </p>
+              <p>
+                <strong>Following</strong>
+                {this.state.showFollowings && (
+                  <ul>
+                    {dataToPopulateInFollowingList}
+                  </ul>
+                )}
+              </p>
+            </div>
+          </div>
           <br />
           <div className="w3-card w3-round w3-white">
             <div className="w3-container">
@@ -646,36 +640,28 @@ class ProfileTile extends Component {
                 )}
               </div>
             </div>
-            
           </div>
-
-          {this.state.showFollowers && (
-            <>
-              <br />
-              <div className="w3-card w3-round w3-white follower-list">
-                <p>
-                  <strong>Followers</strong>
-                </p>
-                <ul>
-                  {dataToPopulateInFollowersList}
-                </ul>
-              </div>
-            </>
-          )}
-          {this.state.showFollowings && (
-            <>
-              <br />
-              <div className="w3-card w3-round w3-white follower-list">
-                <p>
-                  <strong>Following</strong>
-                </p>
-                <ul>
-                  {dataToPopulateInFollowingList}
-                </ul>
-              </div>
-            </>
-          )}
-
+          <br />
+          <div className="w3-card w3-round w3-white">
+            <div className="w3-container">
+              <p>
+                <strong>Followers</strong>
+                {this.state.showFollowers && (
+                  <ul>
+                    {dataToPopulateInFollowersList}
+                  </ul>
+                )}
+              </p>
+              <p>
+                <strong>Following</strong>
+                {this.state.showFollowings && (
+                  <ul>
+                    {dataToPopulateInFollowingList}
+                  </ul>
+                )}
+              </p>
+            </div>
+          </div>
           <br />
           <div className="w3-card w3-round w3-white">
             <div className="w3-container">

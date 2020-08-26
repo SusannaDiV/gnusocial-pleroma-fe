@@ -143,9 +143,13 @@ class PostStatus extends Component {
                 className={classes.progressSpinner}
               />
             )} Submit</button>
-          <button type="button" className="w3-button w-right file-button w3-theme-d2">
+          <button type="button" className="w3-button w-right file-button w3-theme-d1">
             <i className="fa fa-paperclip" />
             <input type="file" name="file" onChange={this.upload} className="file-input" />
+          </button>
+          <button type="button" className="w3-button w-right file-button ml-5 w3-theme-d2"
+            title="Direct Message: This post will be visible to all the mentioned users.">
+            <i className="fa fa-comment" />
           </button>
         </form>
       </Fragment>
