@@ -353,12 +353,9 @@ class ProfileTile extends Component {
             </div>
             <div className="w3-container">
               <div className={!profile ? "w3-half" : ""}>
-                <button
-                  className="w3-button w3-block w3-theme w3-section"
-                  title="Message"
-                >
-                  <i className="fa fa-comment" /> Message
-                </button>
+                <Link to="/favorites" title="Favorites" className="w3-button w3-block w3-theme w3-section">
+                  <i className="fa fa-heart" /> Favorites
+                </Link>
               </div>
               <div className="w3-half">
                 {!profile && <EditDetails  />}
@@ -544,7 +541,7 @@ class ProfileTile extends Component {
                     title="Follow"
                     onClick={this.followUser}
                   >
-                    <i className="fa fa-comment" /> Follow
+                    <i className="fa fa-thumbs-up" /> Follow
                   </button>
                 )}
                 {this.state.isfollowed && (
@@ -553,7 +550,7 @@ class ProfileTile extends Component {
                     title="Follow"
                     onClick={this.unfollowUser}
                   >
-                    <i className="fa fa-comment" /> Unfollow
+                    <i className="fa fa-thumbs-down" /> Unfollow
                   </button>
                 )}
               </div>
@@ -579,6 +576,14 @@ class ProfileTile extends Component {
                       <i className="fa fa-comment" /> UnBlock
                     </button>
                 )}
+              </div>
+              <div className="w3-half">
+                <button
+                  className="w3-button w3-block w3-theme-d2 w3-section"
+                  title="Message"
+                >
+                  <i className="fa fa-comment" /> Message
+                </button>
               </div>
             </div>
 
