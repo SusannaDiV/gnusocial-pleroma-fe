@@ -8,7 +8,8 @@ import {
   POST_SCREAM,
   SET_SCREAM,
   SUBMIT_COMMENT,
-  SET_CURRENT_USER
+  SET_CURRENT_USER,
+  SET_FAVOURITES
 } from '../types';
 
 const initialState = {
@@ -31,6 +32,13 @@ export default function(state = initialState, action) {
         currentUser: action.payload
       };
     case SET_POSTS:
+      return {
+        ...state,
+        posts: action.payload,
+        loading: false,
+        currentUser: null
+      };
+    case SET_FAVOURITES:
       return {
         ...state,
         posts: action.payload,

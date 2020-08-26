@@ -12,7 +12,8 @@ import {
   LOADING_UI,
   SET_SCREAM,
   STOP_LOADING_UI,
-  SUBMIT_COMMENT
+  SUBMIT_COMMENT,
+  SET_FAVOURITES
 } from '../types';
 import axios from 'axios';
 
@@ -52,6 +53,25 @@ export const getPosts = () => (dispatch) => {
                 });
             });
     }
+};
+
+export const getFavouritesPosts = () => (dispatch) => {
+
+  dispatch({ type: LOADING_DATA });
+      axios
+          .get('https://pleroma.site/api/v1/favourites', { headers: {"Authorization" : `Bearer ${localStorage.getItem('tokenStr')}`} } )
+          .then((res) => {
+              dispatch({
+                  type: SET_FAVOURITES,
+                  payload: res.data
+              });
+          })
+          .catch((err) => {
+              dispatch({
+                  type: SET_FAVOURITES,
+                  payload: []
+              });
+          });
 };
 
 // Get all screams
