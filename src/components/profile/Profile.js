@@ -23,7 +23,7 @@ class Profile extends Component {
     } = this.props;
 
     let profileMarkup = 
-      authenticated ? (
+      this.props.isLoggedIn ? (
         <ProfileSkeleton />
       ) : (
         <Paper className={classes.paper}>
