@@ -28,6 +28,7 @@ class signup extends Component {
       captcha_answer_data: "",
       captcha_token: "",
       errors: {},
+      error: ''
     };
   }
 
@@ -46,7 +47,17 @@ class signup extends Component {
         captcha: res.data.url,
       });
       console.log("Captcha State Data: ", this.state);
-    });
+    })
+        .catch((err) => {
+          console.log('Errors: ', err);
+          if(err.response.data.error == 'Invalid credentials'){
+            this.state.error = 'Invalid Captcha. Please reload captcha image';
+            this.render();
+          }
+          if (err === 'mfa_required') {
+            // TODO: the sutff about multi factor authentication!
+          }
+        });
   };
 
   register = async (newUserData) => {
@@ -61,7 +72,26 @@ class signup extends Component {
         // setAuthorizationHeader(res.data.token);
         console.log("Register Data: ", res.data.access_token);
         localStorage.setItem("login_token", res.data.access_token);
-      });
+      })
+        .catch((err) => {
+          console.log('Errors: ', err);
+          if(err.response.data.error.includes('{"email":["has invalid format"]}')){
+            this.state.error = 'Email has invalid format.';
+          }
+          else if(err.response.data.error.includes('{"email":["has already been taken"]}')){
+            this.state.error = 'Email has already been taken.';
+          }
+          else if(err.response.data.error.includes('Invalid CAPTCHA')){
+            this.state.error = 'Invalid Captcha, please click on the image to refresh the captcha.';
+          }
+          else if(err.response.data.error.includes('CAPTCHA already used')){
+            this.state.error = 'Please click on the image to refresh the captcha.';
+          }
+          this.render();
+          if (err === 'mfa_required') {
+            // TODO: the sutff about multi factor authentication!
+          }
+        });
   };
 
   createApp = async (appData) => {
@@ -87,12 +117,16 @@ class signup extends Component {
         }
         localStorage.setItem("tokenStr", res.data.access_token);
       })
-      .catch((err) => {
-        console.log("Errors: ", err);
-        if (err === "mfa_required") {
-          // TODO: the sutff about multi factor authentication!
-        }
-      });
+        .catch((err) => {
+          console.log('Errors: ', err);
+          if(err.response.data.error == 'Invalid credentials'){
+            this.state.error = 'Your email/password is incorrect.';
+            this.render();
+          }
+          if (err === 'mfa_required') {
+            // TODO: the sutff about multi factor authentication!
+          }
+        });
   };
 
   verifyCreds = async () => {
@@ -114,6 +148,10 @@ class signup extends Component {
       })
       .catch((err) => {
         console.log("Errors: ", err);
+        if(err.response.data.error.includes('Invalid credentials')){
+          this.state.error = 'Invalid Credentials, please check again.';
+        }
+        this.render();
       });
   };
 
@@ -270,10 +308,10 @@ class signup extends Component {
                 variant="outlined"
                 fullWidth
               />
-              {errors.general && (
-                <Typography variant="body2" className={classes.customError}>
-                  {errors.general}
-                </Typography>
+              {this.state.error.length > 0 && (
+                  <Typography variant="body2" className={classes.customError}>
+                    {this.state.error}
+                  </Typography>
               )}
               <Button
                 type="submit"
