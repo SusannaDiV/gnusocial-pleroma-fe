@@ -4,13 +4,11 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import EditDetails from "./EditDetails";
-import ProfileSkeleton from "../../util/ProfileSkeleton";
 import MyButton from "../../util/MyButton";
 // MUI stuff
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import MuiLink from "@material-ui/core/Link";
-import Paper from "@material-ui/core/Paper";
 // Icons
 import LocationOn from "@material-ui/icons/LocationOn";
 import LinkIcon from "@material-ui/icons/Link";
@@ -414,57 +412,42 @@ class ProfileTile extends Component {
               </div>
               <div className="w3-half">
                 {!profile && <EditDetails  />}
-                {/* <EditDetails /> */}
               </div>
             </div>
           </div>
           <br />
           {this.state.showFollowers && (
-            <div className="w3-card w3-round w3-white">
-              <div className="w3-container">
-                <p>
-                  <strong>Followers</strong>
-                    <ul>
-                      {dataToPopulateInFollowersList}
-                    </ul>
-                </p>
+            <div>
+              <div className="w3-card w3-round w3-white">
+                <div className="w3-container">
+                  <p>
+                    <strong>Followers</strong>
+                      <ul>
+                        {dataToPopulateInFollowersList}
+                      </ul>
+                  </p>
+                </div>
               </div>
+              <br />
             </div>
           )}
           {this.state.showFollowings && (
-            <div className="w3-card w3-round w3-white">
-              <div className="w3-container">
-                <p>
-                  <strong>Following</strong>
-                  {this.state.showFollowings && (
-                    <ul>
-                      {dataToPopulateInFollowingList}
-                    </ul>
-                  )}
-                </p>
+            <div>
+              <div className="w3-card w3-round w3-white">
+                <div className="w3-container">
+                  <p>
+                    <strong>Following</strong>
+                    {this.state.showFollowings && (
+                      <ul>
+                        {dataToPopulateInFollowingList}
+                      </ul>
+                    )}
+                  </p>
+                </div>
               </div>
+              <br />
             </div>
           )}
-          {/* <div className="w3-card w3-round w3-white">
-            <div className="w3-container">
-              <p>
-                <strong>Followers</strong>
-                {this.state.showFollowers && (
-                  <ul>
-                    {dataToPopulateInFollowersList}
-                  </ul>
-                )}
-              </p>
-              <p>
-                <strong>Following</strong>
-                {this.state.showFollowings && (
-                  <ul>
-                    {dataToPopulateInFollowingList}
-                  </ul>
-                )}
-              </p>
-            </div>
-          </div> */}
           <div className="w3-card w3-round w3-white">
             <div className="w3-container">
               <p>
@@ -482,10 +465,6 @@ class ProfileTile extends Component {
                     {dayjs(data ? data.created_at : 0).format("DD MMM YYYY")}
                   </span>
                 </strong>
-              </p>
-              <p>
-                <i className="fa fa-calendar fa-fw w3-margin-right w3-text-theme" />{" "}
-                Daily average <strong>0</strong>
               </p>
             </div>
           </div>
@@ -680,51 +659,37 @@ class ProfileTile extends Component {
           </div>
           <br />
           {this.state.showFollowers && (
-            <div className="w3-card w3-round w3-white">
-              <div className="w3-container">
-                <p>
-                  <strong>Followers</strong>
-                    <ul>
-                      {dataToPopulateInFollowersList}
-                    </ul>
-                </p>
+            <div>
+              <div className="w3-card w3-round w3-white">
+                <div className="w3-container">
+                  <p>
+                    <strong>Followers</strong>
+                      <ul>
+                        {dataToPopulateInFollowersList}
+                      </ul>
+                  </p>
+                </div>
               </div>
+              <br />
             </div>
           )}
           {this.state.showFollowings && (
-            <div className="w3-card w3-round w3-white">
-              <div className="w3-container">
-                <p>
-                  <strong>Following</strong>
-                  {this.state.showFollowings && (
-                    <ul>
-                      {dataToPopulateInFollowingList}
-                    </ul>
-                  )}
-                </p>
+            <div>
+              <div className="w3-card w3-round w3-white">
+                <div className="w3-container">
+                  <p>
+                    <strong>Following</strong>
+                    {this.state.showFollowings && (
+                      <ul>
+                        {dataToPopulateInFollowingList}
+                      </ul>
+                    )}
+                  </p>
+                </div>
               </div>
+              <br />
             </div>
           )}
-          {/* <div className="w3-card w3-round w3-white">
-            <div className="w3-container">
-              <p>
-                <strong>Followers</strong>
-                {this.state.showFollowers && (
-                  <ul>
-                    {dataToPopulateInFollowersList}
-                  </ul>
-                )}
-              </p>
-              <p>
-                <strong>Following</strong>
-                {this.state.showFollowings && (
-                  <ul>
-                    {dataToPopulateInFollowingList}
-                  </ul>
-                )}
-              </p>
-            </div>
-          </div> */}
           <br />
           <div className="w3-card w3-round w3-white">
             <div className="w3-container">
@@ -743,10 +708,6 @@ class ProfileTile extends Component {
                     {dayjs(data ? data.created_at : 0).format("DD MMM YYYY")}
                   </span>
                 </strong>
-              </p>
-              <p>
-                <i className="fa fa-calendar fa-fw w3-margin-right w3-text-theme" />{" "}
-                Daily average <strong>0</strong>
               </p>
             </div>
           </div>

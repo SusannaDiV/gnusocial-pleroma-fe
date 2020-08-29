@@ -251,6 +251,7 @@ class Scream extends Component {
           <ChatIcon color="inherit" className="w3-left" />
           <span className="ml-5">{pleroma.favourites_count}</span>
         </NewButtonGold>
+        <span className="mr-8" />
         {visibility == 'direct' && (
             <NewButtonRed
                 tip="Post marked as Direct can not be ReBlogged or shared."

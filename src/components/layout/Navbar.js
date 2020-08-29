@@ -71,10 +71,10 @@ class Navbar extends Component {
             {isLoggedIn && (
               <>
                 <Link
-                  to="/account-settings"
+                  to="/favorites"
                   className="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
                 >
-                  <i className="fa fa-user" />
+                  <i className="fa fa-thumbs-up" />
                 </Link>
                 <Link
                   to="/messages"
