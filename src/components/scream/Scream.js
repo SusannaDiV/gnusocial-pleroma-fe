@@ -187,6 +187,7 @@ class Scream extends Component {
         favourites_count,
         favourited,
         pleroma,
+        visibility,
         // emoji
       },
       user: {
@@ -249,7 +250,15 @@ class Scream extends Component {
           <ChatIcon color="inherit" className="w3-left" />
           <span className="ml-5">{pleroma.favourites_count}</span>
         </NewButtonGold>
-        {!this.state.showRetweetButton && (
+        {visibility == 'direct' && (
+            <NewButtonRed
+                tip="Post marked as Direct can not be ReBlogged or shared."
+                className="w3-button w-right file-button w3-theme-d2 copy-button"
+                color="bray">
+              <i className="fa fa-recycle" />
+            </NewButtonRed>
+        )}
+        {!this.state.showRetweetButton && visibility == 'public' && (
           <NewButtonRed
             tip="Undo Retweet"
             className="w3-button w-right file-button w3-theme-d2 copy-button"
@@ -260,7 +269,7 @@ class Scream extends Component {
             <span className="ml-5">{this.state.retweetCounts}</span>
           </NewButtonRed>
         )}
-        {this.state.showRetweetButton && (
+        {this.state.showRetweetButton && visibility == 'public' && (
           // <Link to="/">
           <NewButtonRed
             tip="Retweet"
