@@ -89,9 +89,10 @@ class Navbar extends Component {
             <div className="w3-dropdown-hover w3-hide-small w3-right">
               {isLoggedIn ? (
                 <>
-                  <button
+                  <Link
                     className="w3-button w3-padding-large"
                     title="My Account"
+                    to={`/users/${this.props.profile.username}/scream/${this.props.profile.id}`}
                   >
                     <i />
                     <img
@@ -104,7 +105,7 @@ class Navbar extends Component {
                       style={{ height: "23px", width: "23px" }}
                       alt="Avatar"
                     />
-                  </button>
+                  </Link>
                   <div
                     className="w3-dropdown-content head_menu  w3-bar-block"
                     style={{ width: "100px" }}

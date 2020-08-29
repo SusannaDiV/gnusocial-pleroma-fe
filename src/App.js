@@ -83,7 +83,7 @@ class App extends Component {
                     <div className="w3-card w3-round">
                       <div className="w3-white">
                         <Link to="/" className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-circle-o-notch fa-fw w3-margin-right" /> Public</Link>
-                        <ProfileLink />
+                        <ProfileLink profile={this.state.profile} />
                         <Link to="/favorites" className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-thumbs-up fa-fw w3-margin-right" /> Favorites</Link>
                         <Link to="/messages" className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-envelope fa-fw w3-margin-right" /> Messages</Link>
                       </div>
@@ -135,5 +135,5 @@ const mapStateToProps = (state) => ({
   user: state.user
 });
 const ProfileLink = connect(mapStateToProps)((props) => {
-  return <Link to={props.user.authenticated ? '/users/' + props.user.credentials.handle : '/login'} className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-user fa-fw w3-margin-right" /> Profile</Link>
+  return <Link to={localStorage.getItem("userId") == props.profile.id ? '/users/' + + props.profile.username + '/scream/' + props.profile.id : '/login'} className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-user fa-fw w3-margin-right" /> Profile</Link>
 })

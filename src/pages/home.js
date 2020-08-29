@@ -6,6 +6,7 @@ import PostStatus from "../components/scream/PostStatus";
 import { connect } from "react-redux";
 import { getPosts } from "../redux/actions/dataActions";
 import ProfileTile from "../components/layout/ProfileTile";
+import Profile from "../components/profile/Profile";
 
 
 class home extends Component {
@@ -29,7 +30,9 @@ class home extends Component {
     const isLoggedIn = localStorage.getItem("tokenStr") != null;
     const profId = localStorage.getItem("userId");
 
-    let showProfile = ( <ProfileTile isLoggedIn={true} profileId={profId} /> )
+    let showProfile = '';
+    isLoggedIn ? 
+     showProfile = ( <ProfileTile isLoggedIn={true} profileId={profId} /> ) : showProfile = ( <Profile isLoggedIn={false} /> )
     let recentPostsMarkup = !loading ? (
       posts?.map((post) =>
         post.reblogged && post.reblog != null ? (
