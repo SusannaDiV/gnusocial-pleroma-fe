@@ -49,13 +49,30 @@ class Notifications extends Component {
           });
   };
 
-  setVerb = (value) =>  {
-      if(value == 'like') { return 'liked'; }
-      else if(value == 'mention') { return 'mentioned'; }
-      else if(value == 'follow') { return 'followed'; }
-      else if(value == 'favourite') { return 'favourited'; }
-      else if(value == 'reblog') { return 'reblogged'; }
-      else { return ''; }
+  setNotificationHeading = (not) => {
+      const userName= not.account.acct;
+      const time = dayjs(not.created_at).fromNow();
+
+      if(not.type == 'like') { return userName + ' liked ' + ' your status ' + time; }
+      else if(not.type == 'mention') { return userName + ' mentioned' + ' you on a status ' + time; }
+      else if(not.type == 'follow') { return userName + ' followed you ' + time; }
+      else if(not.type == 'favourite') { return userName + ' favourited your status ' + time; }
+      else if(not.type == 'reblog') { return userName + ' reblogged your status ' + time; }
+      else { return userName + ' notification ' + time; }
+  };
+
+  setNotificationContent = (not) => {
+
+      if(not.type == 'favourite' || not.type == 'mention' || not.type == 'reblog'){
+          var statusText = not.status.content.substring(0, 30);
+          if(statusText.length > 1){
+              return statusText;
+          } else {
+              return '';
+          }
+      } else {
+          return '';
+      }
   };
 
   render() {
@@ -84,9 +101,6 @@ class Notifications extends Component {
     let notificationsMarkup =
       notifications && notifications.length > 0 ? (
         notifications.map((not) => {
-          const verb = this.setVerb(not.type);
-          const userName= not.account.acct;
-          const time = dayjs(not.created_at).fromNow();
           const iconColor = not.pleroma.is_seen ? 'primary' : 'secondary';
           const icon =
             not.type === 'like' ? (
@@ -104,7 +118,11 @@ class Notifications extends Component {
                 variant="body1"
                 to={`/users/${not.recipient}/status/${not.statusId}`}
               >
-                {userName} {verb} your status {time}
+                  {this.setNotificationHeading(not)}
+                  {<br></br> }
+                  {this.setNotificationContent(not)}
+                  {<br></br> }
+
               </Typography>
             </MenuItem>
           );
