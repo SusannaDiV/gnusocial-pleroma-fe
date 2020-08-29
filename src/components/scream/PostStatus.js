@@ -32,6 +32,8 @@ class PostStatus extends Component {
     file: null,
     media_ids: [],
     chosenEmoji: '',
+    visibility: 'public',
+    visibilityMessage: 'Public Post: This post will be visible to all.',
     openEmojiPicker: false,
     errors: {}
   };
@@ -69,7 +71,13 @@ class PostStatus extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.postStatus({ status: this.state.status, emoji: this.state.chosenEmoji, media_ids: this.state.media_ids });
+    var status = {
+      status: this.state.status,
+      emoji: this.state.chosenEmoji,
+      media_ids: this.state.media_ids,
+      visibility: this.state.visibility
+    };
+    this.props.postStatus(status);
     this.setState({
       status: '',
       media_ids: [],
@@ -82,6 +90,17 @@ class PostStatus extends Component {
       chosenEmoji: emojiObject.emoji,
       openEmojiPicker: false
     })
+  };
+
+  onDirectMessageClick = () => {
+    if(this.state.visibility == 'public'){
+      this.setState({visibility: 'direct'});
+      this.setState({ visibilityMessage: 'Direct Message: This post will be visible to all the mentioned users.' });
+    } else {
+      this.setState({visibility: 'public'});
+      this.setState({visibilityMessage: 'Public Post: This post will be visible to all.'});
+    }
+    this.render();
   };
 
   // Upload Media for post
@@ -148,7 +167,8 @@ class PostStatus extends Component {
             <input type="file" name="file" onChange={this.upload} className="file-input" />
           </button>
           <button type="button" className="w3-button w-right file-button ml-5 w3-theme-d2"
-            title="Direct Message: This post will be visible to all the mentioned users.">
+            title={this.state.visibilityMessage}
+            onClick={this.onDirectMessageClick}>
             <i className="fa fa-comment" />
           </button>
         </form>
