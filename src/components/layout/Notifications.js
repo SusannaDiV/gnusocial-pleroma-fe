@@ -39,10 +39,11 @@ class Notifications extends Component {
 
   markAllStatusRead = () => {
       axios
-          .post('https://pleroma.site/api/v1/notifications/clear', {headers: {"Authorization": `Bearer ${localStorage.getItem('tokenStr')}`}})
+          .post('https://pleroma.site/api/v1/notifications/clear', null,{headers: {"Authorization": `Bearer ${localStorage.getItem('tokenStr')}`}})
           .then((res) => {
               console.log('all statuses marked seen ',res);
               this.props.getNotifications = [];
+              this.render();
           })
           .catch((err) => {
               console.log('error while marking all statuses seen');
