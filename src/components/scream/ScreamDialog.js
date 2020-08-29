@@ -19,9 +19,9 @@ import ChatIcon from "@material-ui/icons/Chat";
 import { connect } from "react-redux";
 import { clearErrors } from "../../redux/actions/dataActions";
 import NewButtonRed from "../../util/NewButtonRed";
-import Scream from './Scream';
-import ScreamSkeleton from '../../util/ScreamSkeleton';
-import axios from 'axios';
+import Scream from "./Scream";
+import ScreamSkeleton from "../../util/ScreamSkeleton";
+import axios from "axios";
 
 const styles = (theme) => ({
   ...theme,
@@ -55,17 +55,23 @@ class ScreamDialog extends Component {
     oldPath: "",
     newPath: "",
     ancestors: {},
-    inConversation: false
+    inConversation: false,
+    updateFavCounts: "",
+    favourited: false
   };
   componentDidMount() {
     if (this.props.openDialog) {
       this.handleOpen();
     }
   }
- getScream = async (userId) => {
+  getScream = async (userId) => {
     // dispatch({ type: LOADING_UI });
     await axios
-      .get(`https://pleroma.site/api/v1/statuses/${userId}/context`,  { headers: {"Authorization" : `Bearer ${localStorage.getItem('tokenStr')}`} })
+      .get(`https://pleroma.site/api/v1/statuses/${userId}/context`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("tokenStr")}`,
+        },
+      })
       .then((res) => {
         // const obj = {'item':newItemInput, 'columnType':newRadioValue};
         // res.data.ancestors.push
@@ -77,15 +83,17 @@ class ScreamDialog extends Component {
     let oldPath = window.location.pathname;
 
     const { userHandle, screamId } = this.props;
-    const newPath = `/users/${userHandle}/scream/${screamId}`;
+    const newPath = `/users/${userHandle.username}/scream/${screamId}`;
 
-    if (oldPath === newPath) oldPath = `/users/${userHandle}`;
+    if (oldPath === newPath) oldPath = `/users/${userHandle.username}`;
 
     window.history.pushState(null, null, newPath);
 
     this.setState({ open: true, oldPath, newPath });
     await this.getScream(this.props.screamId);
     this.setState({ inConversation: true });
+    // this.state.updateFavCounts= this.props.likeCount;
+    // this.state.favourited= this.props.favourited;
     this.render();
   };
   handleClose = () => {
@@ -93,6 +101,29 @@ class ScreamDialog extends Component {
     this.setState({ open: false });
     this.props.onDialogueAction();
     // this.props.clearErrors();
+  };
+
+  inConversationAction = async () => {
+    await axios
+      .get(
+        "https://pleroma.site/api/v1/timelines/home?count=20&with_muted=true",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("tokenStr")}`,
+          },
+        }
+      )
+      .then((res) => {
+        res.data.map((scream) => {
+          if (scream.id == this.props.screamId) {
+            this.props.likeCount = scream.favourites_count;
+            this.props.favourited = scream.favourited;
+            console.log("Updated fav counts: ", this.props.likeCount);
+            this.render();
+          }
+        });
+      })
+      .catch((err) => {});
   };
 
   render() {
@@ -112,10 +143,9 @@ class ScreamDialog extends Component {
       UI: { loading },
     } = this.props;
 
-
     let postsComments = this.state.inConversation ? (
       this.state.ancestors.map((commentsPost) =>
-      commentsPost.reblogged && commentsPost.reblog != null ? (
+        commentsPost.reblogged && commentsPost.reblog != null ? (
           <Scream
             key={commentsPost.reblog.id}
             userNameRepeated={commentsPost.account.display_name}
@@ -141,16 +171,20 @@ class ScreamDialog extends Component {
     ) : (
       <Grid container spacing={16}>
         <Grid item sm={5}>
-          <img src={userImage} alt="Profile" className={classes.profileImage} />
+          <img
+            src={this.props.userHandle.avatar}
+            alt="Profile"
+            className={classes.profileImage}
+          />
         </Grid>
         <Grid item sm={7}>
           <Typography
             component={Link}
             color="textSecondary"
             variant="h5"
-            to={`/users/${userHandle}`}
+            to={`/users/${this.props.userHandle.username}`}
           >
-            @{userHandle}
+            @{this.props.userHandle.username}
           </Typography>
           <hr className={classes.invisibleSeparator} />
           <Typography variant="body2" color="textSecondary">
@@ -160,14 +194,23 @@ class ScreamDialog extends Component {
           <Typography variant="body1" className="mb-30">
             {body}
           </Typography>
-          <LikeButton screamId={screamId} likeCount={likeCount} />
+          <LikeButton
+            inConversation={true}
+            favourited={this.props.favourited}
+            screamId={this.props.screamId}
+            likeCount={this.props.likeCount}
+            onAction={() => this.inConversationAction()}
+          />
           <NewButtonGold tip="comments">
             <ChatIcon color="inherit" className="w3-left" />
             <span className="ml-5">{commentCount} comments</span>
           </NewButtonGold>
         </Grid>
         <hr className={classes.visibleSeparator} />
-        <CommentForm screamId={screamId}  onSubmitAction={() => this.handleClose()} />
+        <CommentForm
+          screamId={screamId}
+          onSubmitAction={() => this.handleClose()}
+        />
         <Comments comments={comments} />
       </Grid>
     );
@@ -222,6 +265,6 @@ const mapStateToProps = (state) => ({
 // };
 
 export default connect(
-  mapStateToProps,
+  mapStateToProps
   // mapActionsToProps
 )(withStyles(styles)(ScreamDialog));

@@ -242,6 +242,7 @@ class Scream extends Component {
         </ul>
         <LikeButton
           screamId={id}
+          inConversation={false}
           likeCount={favourites_count}
           onAction={() => this.props.onUserAction()}
           favourited={favourited}
@@ -284,7 +285,9 @@ class Scream extends Component {
         <div className="w3-right">
           <ScreamDialog
             screamId={id}
-            userHandle={account.username}
+            userHandle={account}
+            likeCount={favourites_count}
+            favourited={favourited}
             openDialog={this.props.openDialog}
             onDialogueAction={() => this.props.onUserAction()}
           />
