@@ -4,7 +4,7 @@ import Scream from "../components/scream/Scream";
 import ScreamSkeleton from "../util/ScreamSkeleton";
 import PostStatus from "../components/scream/PostStatus";
 import { connect } from "react-redux";
-import { getPosts } from "../redux/actions/dataActions";
+import { getDirectMessagesPosts } from "../redux/actions/dataActions";
 import ProfileTile from "../components/layout/ProfileTile";
 
 
@@ -14,11 +14,11 @@ class messages extends Component {
   }
 
   componentDidMount() {
-    this.props.getPosts();
+    this.props.getDirectMessagesPosts();
   }
 
   loadMessages = async () => {
-    await this.props.getPosts();
+    await this.props.getDirectMessagesPosts();
     this.render();
   };
 
@@ -81,7 +81,7 @@ class messages extends Component {
 }
 
 messages.propTypes = {
-  getPosts: PropTypes.func.isRequired,
+  getDirectMessagesPosts: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
 };
 
@@ -90,4 +90,4 @@ const mapStateToProps = (state) => ({
   user: state.user,
 });
 
-export default connect(mapStateToProps, { getPosts })(messages);
+export default connect(mapStateToProps, { getDirectMessagesPosts })(messages);

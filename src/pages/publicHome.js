@@ -4,28 +4,28 @@ import Scream from "../components/scream/Scream";
 import ScreamSkeleton from "../util/ScreamSkeleton";
 import PostStatus from "../components/scream/PostStatus";
 import { connect } from "react-redux";
-import { getPosts } from "../redux/actions/dataActions";
+import { getPublicPosts } from "../redux/actions/dataActions";
 import ProfileTile from "../components/layout/ProfileTile";
 import Profile from "../components/profile/Profile";
 
 
-class home extends Component {
+class publicHome extends Component {
   constructor() {
     super();
   }
 
   componentDidMount() {
-    this.props.getPosts();
+    this.props.getPublicPosts();
     // this.getUserProfile(localStorage.getItem("userId"));
   }
 
   loadHome = async () => {
-    await this.props.getPosts();
+    await this.props.getPublicPosts();
     this.render();
   };
 
   render() {
-    console.log("Home component being rendered", this.props.data);
+    console.log("Public component being rendered", this.props.data);
     const { posts, loading } = this.props.data;
     const isLoggedIn = localStorage.getItem("tokenStr") != null;
     const profId = localStorage.getItem("userId");
@@ -68,9 +68,7 @@ class home extends Component {
             )}
             <div className="w3-container w3-padding w3-card w3-white w3-round w3-margin-top w3-margin-bottom">
               <h5 className="w3-opacity">
-                {isLoggedIn
-                  ? "Personal Timeline of " + localStorage.getItem("username")
-                  : "Public Timeline"}
+                Public Timeline
               </h5>
             </div>
             {recentPostsMarkup}
@@ -84,8 +82,8 @@ class home extends Component {
   }
 }
 
-home.propTypes = {
-  getPosts: PropTypes.func.isRequired,
+publicHome.propTypes = {
+    getPublicPosts: PropTypes.func.isRequired,
   data: PropTypes.object.isRequired,
 };
 
@@ -94,4 +92,4 @@ const mapStateToProps = (state) => ({
   user: state.user,
 });
 
-export default connect(mapStateToProps, { getPosts })(home);
+export default connect(mapStateToProps, { getPublicPosts })(publicHome);

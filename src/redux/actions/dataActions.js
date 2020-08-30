@@ -13,7 +13,8 @@ import {
   SET_SCREAM,
   STOP_LOADING_UI,
   SUBMIT_COMMENT,
-  SET_FAVOURITES
+  SET_FAVOURITES,
+  SET_MESSAGES
 } from '../types';
 import axios from 'axios';
 
@@ -55,6 +56,25 @@ export const getPosts = () => (dispatch) => {
     }
 };
 
+export const getPublicPosts = () => (dispatch) => {
+
+  dispatch({ type: LOADING_DATA });
+      axios
+          .get('https://pleroma.site/api/v1/timelines/public?local=true&only_media=false&count=20&with_muted=true', )
+          .then((res) => {
+              dispatch({
+                  type: SET_POSTS,
+                  payload: res.data
+              });
+          })
+          .catch((err) => {
+              dispatch({
+                  type: SET_POSTS,
+                  payload: []
+              });
+          });
+};
+
 export const getFavouritesPosts = () => (dispatch) => {
 
   dispatch({ type: LOADING_DATA });
@@ -69,6 +89,25 @@ export const getFavouritesPosts = () => (dispatch) => {
           .catch((err) => {
               dispatch({
                   type: SET_FAVOURITES,
+                  payload: []
+              });
+          });
+};
+
+export const getDirectMessagesPosts = () => (dispatch) => {
+
+  dispatch({ type: LOADING_DATA });
+      axios
+          .get('https://pleroma.site/api/v1/timelines/public?local=true&only_media=false&count=20&with_muted=true&visibility=direct', { headers: {"Authorization" : `Bearer ${localStorage.getItem('tokenStr')}`} } )
+          .then((res) => {
+              dispatch({
+                  type: SET_MESSAGES,
+                  payload: res.data
+              });
+          })
+          .catch((err) => {
+              dispatch({
+                  type: SET_MESSAGES,
                   payload: []
               });
           });

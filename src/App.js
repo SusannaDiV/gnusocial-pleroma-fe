@@ -15,6 +15,7 @@ import themeObject from './util/theme';
 import AuthRoute from './util/AuthRoute';
 // Pages
 import home from './pages/home';
+import publicHome from './pages/publicHome';
 import login from './pages/login';
 import signup from './pages/signup';
 import user from './pages/user';
@@ -82,7 +83,7 @@ class App extends Component {
                   <div className="w3-col m2">
                     <div className="w3-card w3-round">
                       <div className="w3-white">
-                        <Link to="/" className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-circle-o-notch fa-fw w3-margin-right" /> Public</Link>
+                        <Link to={`/public`} className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-circle-o-notch fa-fw w3-margin-right" /> Public</Link>
                         <ProfileLink profile={this.state.profile} />
                         <Link to="/favorites" className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-thumbs-up fa-fw w3-margin-right" /> Favorites</Link>
                         <Link to="/messages" className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-envelope fa-fw w3-margin-right" /> Messages</Link>
@@ -100,6 +101,7 @@ class App extends Component {
                     <div className="w3-container">
                       <Switch>
                         <Route exact path="/" component={home} />
+                        <Route exact path="/public" component={publicHome} />
                         <Route exact path="/favorites" component={favorites} />
                         <Route exact path="/messages" component={messages} />
                         <AuthRoute exact path="/login" component={login} />

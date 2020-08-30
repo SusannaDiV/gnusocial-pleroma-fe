@@ -9,7 +9,8 @@ import {
   SET_SCREAM,
   SUBMIT_COMMENT,
   SET_CURRENT_USER,
-  SET_FAVOURITES
+  SET_FAVOURITES,
+  SET_MESSAGES
 } from '../types';
 
 const initialState = {
@@ -39,6 +40,13 @@ export default function(state = initialState, action) {
         currentUser: null
       };
     case SET_FAVOURITES:
+      return {
+        ...state,
+        posts: action.payload,
+        loading: false,
+        currentUser: null
+      };
+    case SET_MESSAGES:
       return {
         ...state,
         posts: action.payload,
