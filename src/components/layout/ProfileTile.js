@@ -4,15 +4,12 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import EditDetails from "./EditDetails";
-import MyButton from "../../util/MyButton";
 // MUI stuff
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import MuiLink from "@material-ui/core/Link";
 // Icons
 import LocationOn from "@material-ui/icons/LocationOn";
 import LinkIcon from "@material-ui/icons/Link";
-import EditIcon from "@material-ui/icons/Edit";
 import axios from "axios";
 
 //Redux
@@ -314,7 +311,6 @@ class ProfileTile extends Component {
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
         />
-        {/* <link rel="stylesheet" href="listnav.css" /> */}
         <style
           dangerouslySetInnerHTML={{
             __html:
@@ -327,18 +323,7 @@ class ProfileTile extends Component {
             <div className="w3-container">
               <div className="w3-center w3-padding">
                 <div className="profile-image">
-                  { data && (
-                    <>
-                      <MyButton
-                        tip="Edit profile picture"
-                        onClick={this.handleEditPicture}
-                        btnClassName="button"
-                      >
-                        <EditIcon style={{ fill: "white" }} />
-                      </MyButton>
-                      <div className="overlay"></div>
-                    </>
-                  )}
+                  { data && ( <></> )}
                   <img
                     src={data ? data.avatar : imageUrl}
                     className="w3-circle"
@@ -354,18 +339,15 @@ class ProfileTile extends Component {
                 <div>
                   <h4>{data.display_name}</h4>
                 </div>
-              </div>
-              <div className="w3-center">
-                <strong>
-                  <MuiLink
+                <MuiLink
                     component={Link}
-                    to={`/users/${profile ? profile.handle : handle}`}
-                    variant="h5"
+                    to={`/users/${data.username}/scream/${data.id}`}
                     className="w3-text-grey"
                   >
-                    @{profile ? profile.handle : handle}
+                    @{data.username}
                   </MuiLink>
-                </strong>
+              </div>
+              <div className="w3-center">
                 {data && (
                   <Typography variant="body2">
                     {data ? data.note : bio}
@@ -397,12 +379,22 @@ class ProfileTile extends Component {
                 </span>
               </p>
               <a onClick={this.showUserFollowers}>
-                <i className="fa fa-thumbs-up fa-fw w3-margin-right w3-text-theme" />{" "}
+                <i className="fa fa-users fa-fw w3-margin-right w3-text-theme" />{" "}
                 Followers{" "}
                 <span className="w3-right ">
                   <strong>{data.followers_count}</strong>
                 </span>
               </a>
+              <p
+                onClick={this.showFollow.bind(this, "followers")}
+                className="pointer"
+              >
+                <i className="fa fa-archive fa-fw w3-margin-right w3-text-theme" />{" "}
+                Statuses{" "}
+                <span className="w3-right ">
+                  <strong>{data.statuses_count}</strong>
+                </span>
+              </p>
             </div>
             <div className="w3-container">
               <div className={!profile ? "w3-half" : ""}>
@@ -496,18 +488,7 @@ class ProfileTile extends Component {
             <div className="w3-container">
               <div className="w3-center w3-padding">
                 <div className="profile-image">
-                  {!data && (
-                    <>
-                      <MyButton
-                        tip="Edit profile picture"
-                        onClick={this.handleEditPicture}
-                        btnClassName="button"
-                      >
-                        <EditIcon style={{ fill: "white" }} />
-                      </MyButton>
-                      <div className="overlay"></div>
-                    </>
-                  )}
+                  {!data && ( <></> )}
                   <img
                     src={data ? data.avatar : imageUrl}
                     className="w3-circle"
@@ -523,18 +504,15 @@ class ProfileTile extends Component {
                 <div>
                   <h4>{data.display_name}</h4>
                 </div>
-              </div>
-              <div className="w3-center">
-                <strong>
-                  <MuiLink
+                <MuiLink
                     component={Link}
-                    to={`/users/${profile ? profile.handle : handle}`}
-                    variant="h5"
+                    to={`/users/${data.username}/scream/${data.id}`}
                     className="w3-text-grey"
                   >
-                    @{profile ? profile.handle : handle}
+                    @{data.username}
                   </MuiLink>
-                </strong>
+              </div>
+              <div className="w3-center">
                 {data && (
                   <Typography variant="body2">
                     {data ? data.note : bio}
@@ -569,7 +547,7 @@ class ProfileTile extends Component {
                 </span>
               </p>
               <a onClick={this.showUserFollowers}>
-                <i className="fa fa-thumbs-up fa-fw w3-margin-right w3-text-theme" />{" "}
+                <i className="fa fa-users fa-fw w3-margin-right w3-text-theme" />{" "}
                 Followers{" "}
                 <span className="w3-right ">
                   <strong>{data.followers_count}</strong>
@@ -579,7 +557,7 @@ class ProfileTile extends Component {
                 onClick={this.showFollow.bind(this, "followers")}
                 className="pointer"
               >
-                <i className="fa fa-thumbs-up fa-fw w3-margin-right w3-text-theme" />{" "}
+                <i className="fa fa-archive fa-fw w3-margin-right w3-text-theme" />{" "}
                 Statuses{" "}
                 <span className="w3-right ">
                   <strong>{data.statuses_count}</strong>
@@ -690,7 +668,6 @@ class ProfileTile extends Component {
               <br />
             </div>
           )}
-          <br />
           <div className="w3-card w3-round w3-white">
             <div className="w3-container">
               <p>

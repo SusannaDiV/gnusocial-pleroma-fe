@@ -2,8 +2,6 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 import MyButton from "../../util/MyButton";
-import LikeButton from "./LikeButton";
-import NewButtonGold from "../../util/NewButtonGold";
 import Comments from "./Comments";
 import CommentForm from "./CommentForm";
 import dayjs from "dayjs";
@@ -15,9 +13,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import CloseIcon from "@material-ui/icons/Close";
 import Code from "@material-ui/icons/Code";
-import ChatIcon from "@material-ui/icons/Chat";
 import { connect } from "react-redux";
-import { clearErrors } from "../../redux/actions/dataActions";
 import NewButtonRed from "../../util/NewButtonRed";
 import Scream from "./Scream";
 import ScreamSkeleton from "../../util/ScreamSkeleton";
@@ -194,17 +190,6 @@ class ScreamDialog extends Component {
           <Typography variant="body1" className="mb-30">
             {body}
           </Typography>
-          <LikeButton
-            inConversation={true}
-            favourited={this.props.favourited}
-            screamId={this.props.screamId}
-            likeCount={this.props.likeCount}
-            onAction={() => this.inConversationAction()}
-          />
-          <NewButtonGold tip="comments">
-            <ChatIcon color="inherit" className="w3-left" />
-            <span className="ml-5">{commentCount} comments</span>
-          </NewButtonGold>
         </Grid>
         <hr className={classes.visibleSeparator} />
         <CommentForm

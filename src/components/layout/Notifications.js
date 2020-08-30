@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import { Link } from 'react-router-dom';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import PropTypes from 'prop-types';
@@ -114,7 +113,6 @@ class Notifications extends Component {
             <MenuItem key={not.created_at} onClick={this.handleClose}>
               {icon}
               <Typography
-                component={Link}
                 color="default"
                 variant="body1"
                 to={`/users/${not.recipient}/status/${not.statusId}`}
@@ -156,7 +154,7 @@ class Notifications extends Component {
         color="primary"
         onChange={() => this.markAllStatusRead()}
         inputProps={{ 'aria-label': 'secondary checkbox' }}
-      /> <span>Mark all notifications as read</span>
+      /> <span className='mr-8'> Mark all notifications as read</span>
           {notificationsMarkup}
         </Menu>
       </Fragment>

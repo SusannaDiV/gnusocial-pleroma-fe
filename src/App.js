@@ -23,7 +23,6 @@ import favorites from './pages/favorites';
 import messages from './pages/messages';
 
 import axios from 'axios';
-import ProfileTile from './components/layout/ProfileTile';
 import { Link } from 'react-router-dom';
 
 import Store from "../src/redux/store";
@@ -137,5 +136,5 @@ const mapStateToProps = (state) => ({
   user: state.user
 });
 const ProfileLink = connect(mapStateToProps)((props) => {
-  return <Link to={localStorage.getItem("userId") == props.profile.id ? '/users/' + + props.profile.username + '/scream/' + props.profile.id : '/login'} className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-user fa-fw w3-margin-right" /> Profile</Link>
+  return <Link to={localStorage.getItem("userId") == props.profile.id ? '/users/' + props.profile.username + '/scream/' + props.profile.id : '/login'} className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-user fa-fw w3-margin-right" /> Profile</Link>
 })

@@ -9,9 +9,6 @@ import ProfileTile from "../components/layout/ProfileTile";
 
 
 class messages extends Component {
-  constructor() {
-    super();
-  }
 
   componentDidMount() {
     this.props.getDirectMessagesPosts();
@@ -64,9 +61,7 @@ class messages extends Component {
             )}
             <div className="w3-container w3-padding w3-card w3-white w3-round w3-margin-top w3-margin-bottom">
               <h5 className="w3-opacity">
-                {this.props.user.authenticated
-                  ? "Direct Messages of " + this.props.user.credentials.handle
-                  : "Public Timeline"}
+                Direct Messages
               </h5>
             </div>
             {recentPostsMarkup}

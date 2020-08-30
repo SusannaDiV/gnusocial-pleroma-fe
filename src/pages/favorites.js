@@ -9,9 +9,6 @@ import ProfileTile from "../components/layout/ProfileTile";
 
 
 class favorites extends Component {
-  constructor() {
-    super();
-  }
 
   componentDidMount() {
     this.props.getFavouritesPosts();
@@ -64,9 +61,7 @@ class favorites extends Component {
             )}
             <div className="w3-container w3-padding w3-card w3-white w3-round w3-margin-top w3-margin-bottom">
               <h5 className="w3-opacity">
-                {this.props.user.authenticated
-                  ? "Favorites Timeline of " + this.props.user.credentials.handle
-                  : "Public Timeline"}
+                Favorites Timeline
               </h5>
             </div>
             {recentPostsMarkup}

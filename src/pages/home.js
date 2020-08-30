@@ -10,9 +10,6 @@ import Profile from "../components/profile/Profile";
 
 
 class home extends Component {
-  constructor() {
-    super();
-  }
 
   componentDidMount() {
     this.props.getPosts();
