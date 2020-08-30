@@ -6,7 +6,6 @@ import dayjs from "dayjs";
 import EditDetails from "./EditDetails";
 import MyButton from "../../util/MyButton";
 // MUI stuff
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import MuiLink from "@material-ui/core/Link";
 // Icons
@@ -394,7 +393,7 @@ class ProfileTile extends Component {
                 </span>
               </p>
               <a onClick={this.showUserFollowers}>
-                <i className="fa fa-thumbs-up fa-fw w3-margin-right w3-text-theme" />{" "}
+                <i className="fa fa-users fa-fw w3-margin-right w3-text-theme" />{" "}
                 Followers{" "}
                 <span className="w3-right ">
                   <strong>{data.followers_count}</strong>
@@ -404,7 +403,7 @@ class ProfileTile extends Component {
                 onClick={this.showFollow.bind(this, "followers")}
                 className="pointer"
               >
-                <i className="fa fa-thumbs-up fa-fw w3-margin-right w3-text-theme" />{" "}
+                <i className="fa fa-archive fa-fw w3-margin-right w3-text-theme" />{" "}
                 Statuses{" "}
                 <span className="w3-right ">
                   <strong>{data.statuses_count}</strong>
@@ -573,7 +572,7 @@ class ProfileTile extends Component {
                 </span>
               </p>
               <a onClick={this.showUserFollowers}>
-                <i className="fa fa-thumbs-up fa-fw w3-margin-right w3-text-theme" />{" "}
+                <i className="fa fa-users fa-fw w3-margin-right w3-text-theme" />{" "}
                 Followers{" "}
                 <span className="w3-right ">
                   <strong>{data.followers_count}</strong>
@@ -583,7 +582,7 @@ class ProfileTile extends Component {
                 onClick={this.showFollow.bind(this, "followers")}
                 className="pointer"
               >
-                <i className="fa fa-thumbs-up fa-fw w3-margin-right w3-text-theme" />{" "}
+                <i className="fa fa-archive fa-fw w3-margin-right w3-text-theme" />{" "}
                 Statuses{" "}
                 <span className="w3-right ">
                   <strong>{data.statuses_count}</strong>

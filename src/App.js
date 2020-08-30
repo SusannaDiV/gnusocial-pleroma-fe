@@ -22,7 +22,6 @@ import favorites from './pages/favorites';
 import messages from './pages/messages';
 
 import axios from 'axios';
-import ProfileTile from './components/layout/ProfileTile';
 import { Link } from 'react-router-dom';
 
 import Store from "../src/redux/store";

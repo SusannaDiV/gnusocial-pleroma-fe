@@ -6,9 +6,7 @@ import logo from "../../images/gnu-social-logo.png";
 import Notifications from "./Notifications";
 import SearchInput from "./SearchInput";
 import { logoutUser } from "../../redux/actions/userActions";
-import store from "../../redux/store";
 import { Link } from "react-router-dom";
-import axios from "axios";
 
 class Navbar extends Component {
   constructor(props) {
