@@ -194,17 +194,6 @@ class ScreamDialog extends Component {
           <Typography variant="body1" className="mb-30">
             {body}
           </Typography>
-          <LikeButton
-            inConversation={true}
-            favourited={this.props.favourited}
-            screamId={this.props.screamId}
-            likeCount={this.props.likeCount}
-            onAction={() => this.inConversationAction()}
-          />
-          <NewButtonGold tip="comments">
-            <ChatIcon color="inherit" className="w3-left" />
-            <span className="ml-5">{commentCount} comments</span>
-          </NewButtonGold>
         </Grid>
         <hr className={classes.visibleSeparator} />
         <CommentForm

@@ -112,7 +112,7 @@ class Navbar extends Component {
                   >
                     <h4> </h4>
                     <Link
-                      to={`/users/${username}`}
+                      to={`/users/${this.props.profile.username}/scream/${this.props.profile.id}`}
                       className="w3-button w3-block w3-theme-l2 w3-section"
                     >
                       <i className="fa fa-user" /> Profile

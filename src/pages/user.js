@@ -83,14 +83,16 @@ class user extends Component {
         <div className="w3-row">
           <div className="w3-col m8">
             {isLoggedIn ? (
-              <div className="w3-card w3-round w3-white">
-                <div className="w3-container w3-padding">
-                  <PostStatus />
-                  <div className="w3-container w3-padding w3-card w3-white w3-round w3-margin-top w3-margin-bottom">
-                    <h5 className="w3-opacity">
-                      Personal Timeline of {this.state.profileName}
-                    </h5>
+              <div>
+                <div className="w3-card w3-round w3-white">
+                  <div className="w3-container w3-padding">
+                    <PostStatus />
                   </div>
+                </div>
+                <div className="w3-container w3-padding w3-card w3-white w3-round w3-margin-top w3-margin-bottom">
+                  <h5 className="w3-opacity">
+                    Personal Timeline of {this.state.profileName}
+                  </h5>
                 </div>
               </div>
             ) : (
