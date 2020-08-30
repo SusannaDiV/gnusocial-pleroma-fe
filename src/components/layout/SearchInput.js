@@ -39,6 +39,7 @@ class SearchInput extends Component {
         {this.state.results.length > 0 &&
           <Redirect to={{
             pathname: '/search',
+            search: "?utm=your+face",
             state: { results: this.state.results }
           }}/>
         }

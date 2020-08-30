@@ -56,7 +56,7 @@ class login extends Component {
       })
       .catch((err) => {
         console.log('Errors: ', err);
-        if(err.response.data.error == 'Invalid credentials'){
+        if(err.response.data.error === 'Invalid credentials'){
           this.state.error = 'Your email/password is incorrect.';
           this.render();
         }

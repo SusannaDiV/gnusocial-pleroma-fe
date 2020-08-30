@@ -95,7 +95,7 @@ class PostStatus extends Component {
 
   onDirectMessageClick = () => {
     this.setState({button:!this.state.button})
-    if(this.state.visibility == 'public'){
+    if(this.state.visibility === 'public'){
       this.setState({visibility: 'direct'});
       this.setState({ visibilityMessage: 'Direct Message: This post will be visible to all the mentioned users.' });
     } else {

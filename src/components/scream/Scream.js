@@ -56,7 +56,7 @@ class Scream extends Component {
     if (this.props.scream.in_reply_to_id != null) {
       this.setState({ isStatusReplied: true });
       if (
-        this.props.scream.in_reply_to_id != this.props.scream.mentions[0].id
+        this.props.scream.in_reply_to_id !== this.props.scream.mentions[0].id
       ) {
         this.state.inReplyToUserName = this.props.scream.mentions[0].acct;
       }
@@ -190,9 +190,6 @@ class Scream extends Component {
         visibility,
         // emoji
       },
-      user: {
-        credentials: { handle },
-      },
     } = this.props;
 
     const deleteButton =
@@ -252,7 +249,7 @@ class Scream extends Component {
           <span className="ml-5">{pleroma.favourites_count}</span>
         </NewButtonGold>
         <span className="mr-8" />
-        {visibility == 'direct' && (
+        {visibility === 'direct' && (
             <NewButtonRed
                 tip="Post marked as Direct can not be ReBlogged or shared."
                 className="w3-button w-right file-button w3-theme-d2 copy-button"
@@ -260,7 +257,7 @@ class Scream extends Component {
               <i className="fa fa-recycle" />
             </NewButtonRed>
         )}
-        {!this.state.showRetweetButton && visibility == 'public' && (
+        {!this.state.showRetweetButton && visibility === 'public' && (
           <NewButtonRed
             tip="Undo Retweet"
             className="w3-button w-right file-button w3-theme-d2 copy-button"
@@ -271,7 +268,7 @@ class Scream extends Component {
             <span className="ml-5">{this.state.retweetCounts}</span>
           </NewButtonRed>
         )}
-        {this.state.showRetweetButton && visibility == 'public' && (
+        {this.state.showRetweetButton && visibility === 'public' && (
           // <Link to="/">
           <NewButtonRed
             tip="Retweet"

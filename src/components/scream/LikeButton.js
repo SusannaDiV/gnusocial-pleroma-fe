@@ -44,7 +44,7 @@ export class LikeButton extends Component {
         }
       )
       .then((res) => {
-        return res.status == 200;
+        return res.status === 200;
       })
       .catch((err) => console.log(err));
   };
@@ -60,7 +60,7 @@ export class LikeButton extends Component {
         }
       )
       .then((res) => {
-        return res.status == 200;
+        return res.status === 200;
       })
       .catch((err) => console.log(err));
   };

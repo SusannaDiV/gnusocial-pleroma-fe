@@ -178,8 +178,8 @@ class ScreamDialog extends Component {
             component={Link}
             color="textSecondary"
             variant="h5"
-            to={`/users/${this.props.userHandle.username}`}
-          >
+            to={`/users/${this.props.userHandle.username}/scream/${this.props.userHandle.id}`}
+          > 
             @{this.props.userHandle.username}
           </Typography>
           <hr className={classes.invisibleSeparator} />
