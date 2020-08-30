@@ -4,14 +4,12 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 import EditDetails from "./EditDetails";
-import MyButton from "../../util/MyButton";
 // MUI stuff
 import Typography from "@material-ui/core/Typography";
 import MuiLink from "@material-ui/core/Link";
 // Icons
 import LocationOn from "@material-ui/icons/LocationOn";
 import LinkIcon from "@material-ui/icons/Link";
-import EditIcon from "@material-ui/icons/Edit";
 import axios from "axios";
 
 //Redux
@@ -313,7 +311,6 @@ class ProfileTile extends Component {
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
         />
-        {/* <link rel="stylesheet" href="listnav.css" /> */}
         <style
           dangerouslySetInnerHTML={{
             __html:
@@ -326,18 +323,7 @@ class ProfileTile extends Component {
             <div className="w3-container">
               <div className="w3-center w3-padding">
                 <div className="profile-image">
-                  { data && (
-                    <>
-                      <MyButton
-                        tip="Edit profile picture"
-                        onClick={this.handleEditPicture}
-                        btnClassName="button"
-                      >
-                        <EditIcon style={{ fill: "white" }} />
-                      </MyButton>
-                      <div className="overlay"></div>
-                    </>
-                  )}
+                  { data && ( <></> )}
                   <img
                     src={data ? data.avatar : imageUrl}
                     className="w3-circle"
@@ -502,18 +488,7 @@ class ProfileTile extends Component {
             <div className="w3-container">
               <div className="w3-center w3-padding">
                 <div className="profile-image">
-                  {!data && (
-                    <>
-                      <MyButton
-                        tip="Edit profile picture"
-                        onClick={this.handleEditPicture}
-                        btnClassName="button"
-                      >
-                        <EditIcon style={{ fill: "white" }} />
-                      </MyButton>
-                      <div className="overlay"></div>
-                    </>
-                  )}
+                  {!data && ( <></> )}
                   <img
                     src={data ? data.avatar : imageUrl}
                     className="w3-circle"
