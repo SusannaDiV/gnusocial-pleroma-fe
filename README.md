@@ -1,21 +1,15 @@
-Pleroma FE-like frontend in React for GNU social.
+Pleroma FE-like client webapp in React for GNU social.
 
-GSoC 2020 Susanna Di Vita's second evaluation project. 
+GSoC 2020 Susanna Di Vita's final evaluation project. 
 
-## Current placeholder API
+## 1: Install packages
 
-https://europe-west1-socialape-d081e.cloudfunctions.net/api
+Run `npm install`
 
-(At the moment, the follower and followers counter, as well as the daily average of posts one, had to be hardcoded due to complete lack of upport in the placeholder's API)
+## 2: Run project
 
-## 2: Install packages
+Run `npm start`
 
-run `npm install`
+## 3: Open it
 
-## 3: Run project
-
-run `npm start`
-
-## 4: Open it
-
-go to [http://localhost:3000](http://localhost:3000)
+Go to [http://localhost:3000](http://localhost:3000)
