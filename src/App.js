@@ -82,8 +82,8 @@ class App extends Component {
                       <div className="w3-white">
                         <Link to={`/public`} className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-circle-o-notch fa-fw w3-margin-right" /> Public</Link>
                         <ProfileLink profile={this.state.profile} />
-                        <Link to="/favorites" className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-thumbs-up fa-fw w3-margin-right" /> Favorites</Link>
-                        <Link to="/messages" className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-envelope fa-fw w3-margin-right" /> Messages</Link>
+                        <FavoritesLink profile={this.state.profile} />
+                        <MessagesLink profile={this.state.profile} />
                       </div>
                     </div>
                     <br />
@@ -135,4 +135,10 @@ const mapStateToProps = (state) => ({
 });
 const ProfileLink = connect(mapStateToProps)((props) => {
   return <Link to={localStorage.getItem("userId") === props.profile.id ? '/users/' + props.profile.username + '/scream/' + props.profile.id : '/login'} className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-user fa-fw w3-margin-right" /> Profile</Link>
+})
+const FavoritesLink = connect(mapStateToProps)((props) => {
+  return <Link to={localStorage.getItem("userId") === props.profile.id ? '/favorites' : '/login'} className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-user fa-fw w3-margin-right" /> Favorites</Link>
+})
+const MessagesLink = connect(mapStateToProps)((props) => {
+  return <Link to={localStorage.getItem("userId") === props.profile.id ? '/messages' : '/login'} className="w3-button w3-block w3-theme-l1 w3-left-align"><i className="fa fa-user fa-fw w3-margin-right" /> Messages</Link>
 })
