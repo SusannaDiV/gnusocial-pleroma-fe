@@ -111,11 +111,15 @@ class ScreamDialog extends Component {
       )
       .then((res) => {
         res.data.map((scream) => {
-          if (scream.id == this.props.screamId) {
+          if (scream.id === this.props.screamId) {
             this.props.likeCount = scream.favourites_count;
             this.props.favourited = scream.favourited;
             console.log("Updated fav counts: ", this.props.likeCount);
             this.render();
+            return 0;
+          }
+          else { 
+            return -1; 
           }
         });
       })
@@ -127,13 +131,8 @@ class ScreamDialog extends Component {
       classes,
       screamId,
       scream: {
-        id,
         body,
         createdAt,
-        likeCount,
-        commentCount,
-        userImage,
-        userHandle,
         comments,
       },
       UI: { loading },

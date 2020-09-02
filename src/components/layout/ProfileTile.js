@@ -240,7 +240,7 @@ class ProfileTile extends Component {
     const followerList = this.state.followers;
     if (followerList != null) {
       followerList.map((follower) =>
-        follower.id == id ? this.showFollow(true) : this.showFollow(false)
+        follower.id === id ? this.showFollow(true) : this.showFollow(false)
       );
     }
     console.log("Follow state: ", this.state.isfollowed);
@@ -278,11 +278,8 @@ class ProfileTile extends Component {
 
   render() {
     const {
-      classes,
       user: {
-        credentials: { handle, createdAt, imageUrl, bio, website, location },
-        loading,
-        authenticated,
+        credentials: { imageUrl, bio, website, location }
       },
       profile,
     } = this.props;
@@ -378,7 +375,7 @@ class ProfileTile extends Component {
                   <strong>{data.following_count}</strong>
                 </span>
               </p>
-              <a onClick={this.showUserFollowers}>
+              <a onClick={this.showUserFollowers} href="!#">
                 <i className="fa fa-users fa-fw w3-margin-right w3-text-theme" />{" "}
                 Followers{" "}
                 <span className="w3-right ">
@@ -475,7 +472,6 @@ class ProfileTile extends Component {
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
         />
-        {/* <link rel="stylesheet" href="listnav.css" /> */}
         <style
           dangerouslySetInnerHTML={{
             __html:
@@ -546,7 +542,7 @@ class ProfileTile extends Component {
                   <strong>{data.following_count}</strong>
                 </span>
               </p>
-              <a onClick={this.showUserFollowers}>
+              <a onClick={this.showUserFollowers} href="!#">
                 <i className="fa fa-users fa-fw w3-margin-right w3-text-theme" />{" "}
                 Followers{" "}
                 <span className="w3-right ">

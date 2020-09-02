@@ -58,7 +58,7 @@ class Scream extends Component {
       if (
         this.props.scream.in_reply_to_id !== this.props.scream.mentions[0].id
       ) {
-        this.state.inReplyToUserName = this.props.scream.mentions[0].acct;
+        this.setState({ inReplyToUserName: this.props.scream.mentions[0].acct });
       }
     }
   }
@@ -228,7 +228,7 @@ class Scream extends Component {
         <hr className="w3-clear" />
         <p variant="body1 mb-30">{spoiler_text}</p>
         <p variant="body1 mb-30">{ReactHtmlParser(content)}</p>
-          <a href={contentImage}><img src={contentImage}/></a>
+          <a href={contentImage}><img src={contentImage} alt=''/></a>
         <ul className="emoji-list">
           {this.state.chosenEmoji.length > 0 &&
             this.state.chosenEmoji.map((emoji) => (

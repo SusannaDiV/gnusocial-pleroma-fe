@@ -25,8 +25,6 @@ import messages from './pages/messages';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-import Store from "../src/redux/store";
-
 const theme = createMuiTheme(themeObject);
 
 axios.defaults.baseURL = '/';
@@ -69,7 +67,7 @@ class App extends Component {
   };
 
   render() {
-    let state = Store.getState();
+    // let state = Store.getState();
     console.log('User from state: ', this.state.profile)
     return (
       <MuiThemeProvider theme={theme}>

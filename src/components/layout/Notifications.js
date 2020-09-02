@@ -13,7 +13,6 @@ import ChatIcon from '@material-ui/icons/Chat';
 import { connect } from 'react-redux';
 import { getNotifications } from '../../redux/actions/userActions';
 import axios from "axios";
-import {SET_NOTIFICATIONS} from "../../redux/types";
 import Checkbox from '@material-ui/core/Checkbox';
 
 class Notifications extends Component {
@@ -28,12 +27,6 @@ class Notifications extends Component {
   };
   handleClose = () => {
     this.setState({ anchorEl: null });
-  };
-  onMenuOpened = () => {
-    let unreadNotificationsIds = this.props.notifications
-      .filter((not) => !not.read)
-      .map((not) => not.notificationId);
-    //this.props.markNotificationsRead(unreadNotificationsIds);
   };
 
   markAllStatusRead = () => {
@@ -53,17 +46,17 @@ class Notifications extends Component {
       const userName= not.account.acct;
       const time = dayjs(not.created_at).fromNow();
 
-      if(not.type == 'like') { return userName + ' liked ' + ' your status ' + time; }
-      else if(not.type == 'mention') { return userName + ' mentioned' + ' you on a status ' + time; }
-      else if(not.type == 'follow') { return userName + ' followed you ' + time; }
-      else if(not.type == 'favourite') { return userName + ' favourited your status ' + time; }
-      else if(not.type == 'reblog') { return userName + ' reblogged your status ' + time; }
+      if(not.type === 'like') { return userName + ' liked your status ' + time; }
+      else if(not.type === 'mention') { return userName + ' mentioned you on a status ' + time; }
+      else if(not.type === 'follow') { return userName + ' followed you ' + time; }
+      else if(not.type === 'favourite') { return userName + ' favourited your status ' + time; }
+      else if(not.type === 'reblog') { return userName + ' reblogged your status ' + time; }
       else { return userName + ' notification ' + time; }
   };
 
   setNotificationContent = (not) => {
 
-      if(not.type == 'favourite' || not.type == 'mention' || not.type == 'reblog'){
+      if(not.type === 'favourite' || not.type === 'mention' || not.type === 'reblog'){
           var statusText = not.status.content.substring(0, 30);
           if(statusText.length > 1){
               return statusText;
@@ -147,7 +140,6 @@ class Notifications extends Component {
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
-          onEntered={this.onMenuOpened}
         >
           <Checkbox
         name="checkboxes"

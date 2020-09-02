@@ -40,9 +40,9 @@ class signup extends Component {
     axios.get("https://pleroma.site/api/pleroma/captcha").then((res) => {
       // setAuthorizationHeader(res.data.token);
       console.log("Captcha Data: ", res);
-      this.state.captcha = res.data.url;
-      this.state.captcha_answer_data = res.data.answer_data;
-      this.state.captcha_token = res.data.token;
+      this.setState({ captcha: res.data.url });
+      this.setState({ captcha_answer_data: res.data.answer_data });
+      this.setState({ captcha_token: res.data.token });
       this.setState({
         captcha: res.data.url,
       });
@@ -51,7 +51,7 @@ class signup extends Component {
         .catch((err) => {
           console.log('Errors: ', err);
           if(err.response.data.error === 'Invalid credentials'){
-            this.state.error = 'Invalid Captcha. Please reload captcha image';
+            this.setState({ error: 'Invalid Captcha. Please reload captcha image' });
             this.render();
           }
           if (err === 'mfa_required') {

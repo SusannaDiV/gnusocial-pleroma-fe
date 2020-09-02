@@ -17,9 +17,6 @@ class Profile extends Component {
   render() {
     const {
       classes,
-      user: {
-        authenticated
-      }
     } = this.props;
 
     let profileMarkup = 

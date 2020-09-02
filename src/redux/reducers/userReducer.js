@@ -6,7 +6,7 @@ import {
   LIKE_SCREAM,
   UNLIKE_SCREAM,
   SET_NOTIFICATIONS,
-  MARK_NOTIFICATIONS_READ, SET_POSTS
+  MARK_NOTIFICATIONS_READ
 } from '../types';
 
 const initialState = {

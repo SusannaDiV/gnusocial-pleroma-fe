@@ -66,7 +66,7 @@ class PostStatus extends Component {
   };
 
   upload = (event) => {
-    this.state.file = event.target.files[0];
+    this.setState({ file: event.target.files[0] });
     this.uploadMedia(event.target.files[0]);
   };
 

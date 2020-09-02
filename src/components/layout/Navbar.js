@@ -22,9 +22,7 @@ class Navbar extends Component {
     this.render();
   };
   render() {
-    const { authenticated } = this.props;
     const isLoggedIn = localStorage.getItem("tokenStr") != null;
-    const username = localStorage.getItem("username");
     if (this.state.isLoggedIn) {
       return <Redirect to={{ pathname: "/" }} />;
     }

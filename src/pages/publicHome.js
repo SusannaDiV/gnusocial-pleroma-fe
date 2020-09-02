@@ -10,9 +10,6 @@ import Profile from "../components/profile/Profile";
 
 
 class publicHome extends Component {
-  constructor() {
-    super();
-  }
 
   componentDidMount() {
     this.props.getPublicPosts();

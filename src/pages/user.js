@@ -20,25 +20,25 @@ class user extends Component {
     };
   }
   componentDidMount() {
-    this.state.profileName = this.props.match.params.handle;
+    this.setState({ profileName: this.props.match.params.handle });
     const screamId = this.props.match.params.screamId;
 
     if (screamId) this.setState({ screamIdParam: screamId });
 
-    if (localStorage.getItem("userId") == screamId) {
-      this.state.isLoggedInUser = true;
+    if (localStorage.getItem("userId") === screamId) {
+      this.setState({ isLoggedInUser: true });
     }
 
     this.props.getUserData(screamId);
   }
   componentDidUpdate(prevProps) {
     if (this.props.match.params.screamId !== prevProps.match.params.screamId) {
-      this.state.profileName = this.props.match.params.handle;
+      this.setState({ profileName: this.props.match.params.handle });
       const screamId = this.props.match.params.screamId;
 
       if (screamId) this.setState({ screamIdParam: screamId });
 
-      if (localStorage.getItem("userId") == screamId) {
+      if (localStorage.getItem("userId") === screamId) {
         this.setState ({isLoggedInUser: true});
       }else{
         this.setState ({isLoggedInUser: false})
