@@ -375,13 +375,13 @@ class ProfileTile extends Component {
                   <strong>{data.following_count}</strong>
                 </span>
               </p>
-              <a onClick={this.showUserFollowers} href="!#">
+              <p onClick={this.showUserFollowers}>
                 <i className="fa fa-users fa-fw w3-margin-right w3-text-theme" />{" "}
                 Followers{" "}
                 <span className="w3-right ">
                   <strong>{data.followers_count}</strong>
                 </span>
-              </a>
+              </p>
               <p
                 onClick={this.showFollow.bind(this, "followers")}
                 className="pointer"
@@ -542,13 +542,13 @@ class ProfileTile extends Component {
                   <strong>{data.following_count}</strong>
                 </span>
               </p>
-              <a onClick={this.showUserFollowers} href="!#">
+              <p onClick={this.showUserFollowers} >
                 <i className="fa fa-users fa-fw w3-margin-right w3-text-theme" />{" "}
                 Followers{" "}
                 <span className="w3-right ">
                   <strong>{data.followers_count}</strong>
                 </span>
-              </a>
+              </p>
               <p
                 onClick={this.showFollow.bind(this, "followers")}
                 className="pointer"
