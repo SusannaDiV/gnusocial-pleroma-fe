@@ -55,10 +55,8 @@ class login extends Component {
       localStorage.setItem('tokenStr', res.data.access_token);
       })
       .catch((err) => {
-        console.log('Errors: ', err);
         if(err.response.data.error === 'Invalid credentials'){
-          this.state.error = 'Your email/password is incorrect.';
-          this.render();
+          this.setState({error: 'Your email/password is incorrect.'})
         }
           if (err === 'mfa_required') {
          // TODO: the sutff about multi factor authentication!
@@ -74,7 +72,9 @@ class login extends Component {
         localStorage.setItem('username', res.data.username);
         localStorage.setItem('userId', res.data.id);
         axios.defaults.headers.common['Authorization'] =`Bearer ${res.data.token}`;
-        this.setState({ isLoggedIn: true });
+        this.state.isLoggedIn = true;
+        window.location.reload();
+        this.render();
       })
       .catch((err) => {
         console.log('Errors: ', err);
@@ -109,7 +109,8 @@ class login extends Component {
     });
   };
   render() {
-    if (this.state.isLoggedIn) {
+    const isLoggedIn = localStorage.getItem("tokenStr") != null;
+    if (isLoggedIn) {
       return <Redirect to = {{ pathname: "/" }} />;
     }
     const {
@@ -117,6 +118,7 @@ class login extends Component {
       UI: { loading }
     } = this.props;
     const { errors } = this.state;
+    // const haveErrors = this.state.error != null ? true : false;
 
     return (
       <div className="w3-card w3-round w3-white w3-padding">
@@ -151,7 +153,7 @@ class login extends Component {
                 onChange={this.handleChange}
                 fullWidth
               />
-              {this.state.error.length > 0 && (
+              {this.state.error != '' && (
                 <Typography variant="body2" className={classes.customError}>
                   {this.state.error}
                 </Typography>

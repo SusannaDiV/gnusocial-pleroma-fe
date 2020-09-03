@@ -19,7 +19,7 @@ class Navbar extends Component {
   }
   handleLogout = () => {
     this.props.logoutUser();
-    this.render();
+    window.location.reload();
   };
   render() {
     const isLoggedIn = localStorage.getItem("tokenStr") != null;
